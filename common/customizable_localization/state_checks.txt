@@ -1,0 +1,141 @@
+foreign_investments_mod_enabled = { #mission ID
+	type = country
+	random_valid = no
+	log_loc_errors = no
+	
+	text = {
+		trigger = {
+			OR = {
+				has_global_variable = foreign_investments_mod_enabled_flag
+			}
+		}
+		localization_key = "yes"
+	}
+	
+	text = {
+		localization_key = "no"
+	}
+}
+
+is_existing_state = { #mission ID
+	type = state
+	random_valid = no
+	log_loc_errors = no
+	
+	text = {
+		trigger = {
+			OR = {
+				exists = this
+			}
+		}
+		localization_key = "yes"
+	}
+	
+	text = {
+		localization_key = "no"
+	}
+}
+
+is_marked_state = { #mission ID
+	type = state
+	random_valid = no
+	log_loc_errors = no
+	
+	text = {
+		trigger = {
+			OR = {
+				has_variable = is_marked_state
+			}
+		}
+		localization_key = "yes"
+	}
+	
+	text = {
+		localization_key = "no"
+	}
+}
+
+has_marked_states = { #mission ID
+	type = country
+	random_valid = no
+	log_loc_errors = no
+	
+	text = {
+		trigger = {
+			OR = {
+				any_scope_state = {
+					has_variable = is_marked_state
+				}
+			}
+		}
+		localization_key = "yes"
+	}
+	
+	text = {
+		localization_key = "no"
+	}
+}
+
+any_country_has_marked_states = { #mission ID
+	type = country
+	random_valid = no
+	log_loc_errors = no
+	
+	text = {
+		trigger = {
+			OR = {
+				any_state = {
+					has_variable = is_marked_state
+				}
+			}
+		}
+		localization_key = "yes"
+	}
+	
+	text = {
+		localization_key = "no"
+	}
+}
+
+country_has_unmarked_states = { #mission ID
+	type = country
+	random_valid = no
+	log_loc_errors = no
+	
+	text = {
+		trigger = {
+			OR = {
+				any_scope_state = {
+					NOT = { has_variable = is_marked_state }
+				}
+			}
+		}
+		localization_key = "yes"
+	}
+	
+	text = {
+		localization_key = "no"
+	}
+}
+
+country_has_unmarked_unincorporated_states = { #mission ID
+	type = country
+	random_valid = no
+	log_loc_errors = no
+	
+	text = {
+		trigger = {
+			OR = {
+				any_scope_state = {
+					is_incorporated = no
+					NOT = { has_variable = is_marked_state }
+				}
+			}
+		}
+		localization_key = "yes"
+	}
+	
+	text = {
+		localization_key = "no"
+	}
+}

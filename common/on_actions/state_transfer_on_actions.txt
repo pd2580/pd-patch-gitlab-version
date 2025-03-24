@@ -1,0 +1,5 @@
+on_monthly_pulse_state = {
+	effect = {
+		clear_variable_list = previous_state_owners
+	}
+}

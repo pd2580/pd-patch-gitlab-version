@@ -1,0 +1,47 @@
+﻿kates_custom_law_imposition_trigger_economy = {
+	is_in_same_power_bloc = scope:target_country
+	OR = {
+		scope:law = law_type:law_command_economy
+		scope:law = law_type:law_extraction_economy
+		scope:law = law_type:law_agrarianism
+		scope:law = law_type:law_traditionalism
+		scope:law = law_type:law_interventionism
+		scope:law = law_type:law_laissez_faire
+		scope:law = law_type:law_industry_banned
+		scope:law = law_type:law_cooperative_ownership
+	}
+	modifier:country_can_impose_same_lawgroup_economy_in_power_bloc_bool = yes
+	has_law = scope:law
+}
+
+kates_custom_law_imposition_trigger_home_affairs = {
+	is_in_same_power_bloc = scope:target_country
+	OR = {
+		scope:law = law_type:law_no_home_affairs
+		scope:law = law_type:law_national_guard
+		scope:law = law_type:law_secret_police
+		scope:law = law_type:law_guaranteed_liberties
+	}
+	modifier:country_can_impose_same_lawgroup_home_affairs_in_power_bloc_bool = yes
+	has_law = scope:law
+}
+
+kates_custom_law_imposition_trigger_welfare = {
+	is_in_same_power_bloc = scope:target_country
+	OR = {
+		scope:law = law_type:law_no_social_security
+		scope:law = law_type:law_poor_laws
+		scope:law = law_type:law_wage_subsidies
+		scope:law = law_type:law_old_age_pension
+	}
+	modifier:country_can_impose_same_lawgroup_welfare_in_power_bloc_bool = yes
+	has_law = scope:law
+}
+
+kates_custom_law_imposition_trigger = {
+	OR = {
+		kates_custom_law_imposition_trigger_economy = yes
+		kates_custom_law_imposition_trigger_home_affairs = yes
+		kates_custom_law_imposition_trigger_welfare = yes
+	}
+}

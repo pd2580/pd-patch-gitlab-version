@@ -1,0 +1,537 @@
+types state_transfer_tool_types
+{
+	type state_transfer_tool_panel = window {
+		name = "state_transfer_tool_panel"
+		layer = popups
+		allow_outside = yes
+		movable = no
+		block "visibility" {
+			visible = "[GetVariableSystem.Exists('show_state_transfer_tool')]"
+		}
+		icon = {
+			texture = "gfx/interface/backgrounds/entry_bg_simple_solid.dds"
+			size = { 300 120 }
+		}
+		background = {
+			using = entry_bg_simple
+		}
+		size = { 300 120 }
+		block "position" {
+			position = { 1150 -20 }
+		}
+		textbox = {
+			text = "#BOLD [State.GetCountry.GetNameNoFormatting] ([State.GetNameNoFormatting])#!"
+			default_format = "#header"
+			background = {
+				using = entry_bg_simple
+			}
+			position = { 10 10 }
+		}
+		button = {
+			icon = {
+				texture = "gfx/interface/icons/alert_icons/secession_growing.dds"
+				size = { 40 40 }
+			}
+			using = default_button
+			size = { 40 40 }
+			position = { 35 25 }
+			enabled = "[ScriptedGui.IsValid( GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			tooltip = "MARK_ALL_STATES_OF_STATE_COUNTRY_TOOLTIP"
+			datacontext = "[GetScriptedGui('mark_all_states')]"
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			shortcut = "state_transfer_markall"
+		}
+		button = {
+			icon = {
+				texture = "gfx/interface/icons/alert_icons/unused/advance_overwhelming_odds.dds"
+				size = { 40 40 }
+			}
+			using = default_button
+			size = { 40 40 }
+			position = { 85 25 }
+			enabled = "[ScriptedGui.IsValid( GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			tooltip = "UNMARK_ALL_STATES_TOOLTIP"
+			datacontext = "[GetScriptedGui('unmark_all_states')]"
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			shortcut = "state_transfer_unmarkall"
+		}
+		button = {
+			icon = {
+				texture = "gfx/interface/icons/alert_icons/unused/diplomatic_play.dds"
+				size = { 40 40 }
+			}
+			using = default_button
+			size = { 40 40 }
+			position = { 135 25 }
+			enabled = "[ScriptedGui.IsValid( GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			tooltip = "MARK_ALL_UNINCORPORATED_STATES_OF_STATE_COUNTRY_TOOLTIP"
+			datacontext = "[GetScriptedGui('mark_all_colonies')]"
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			shortcut = "state_transfer_markcolony"
+		}
+		button = {
+			text = "MARK_SELECTED_STATE"
+			using = default_button
+			size = { 120 40 }
+			position = { 10 70 }
+			tooltip = "MARK_SELECTED_STATE_TOOLTIP"
+			enabled = "[ScriptedGui.IsValid( GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			visible = "[ScriptedGui.IsValid( GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			datacontext = "[GetScriptedGui('mark_state')]"
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			shortcut = "state_transfer_mark"	
+		}
+		button = {
+			text = "UNMARK_SELECTED_STATE"
+			using = default_button
+			size = { 120 40 }
+			position = { 10 70 }
+			tooltip = "UNMARK_SELECTED_STATE_TOOLTIP"
+			enabled = "[ScriptedGui.IsValid( GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			visible = "[ScriptedGui.IsValid( GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			datacontext = "[GetScriptedGui('unmark_state')]"
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			shortcut = "state_transfer_mark"		
+		}
+		####
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			visible = "[GetScriptedGui('unmark_state').IsValid( GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			position = { 10 70 }
+			size = { 120 3 }
+		}
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			visible = "[GetScriptedGui('unmark_state').IsValid( GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			position = { 10 107 }
+			size = { 120 3 }
+		}
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			visible = "[GetScriptedGui('unmark_state').IsValid( GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			position = { 128 70 }
+			size = { 3 40 }
+		}
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			visible = "[GetScriptedGui('unmark_state').IsValid( GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			position = { 10 70 }
+			size = { 3 40 }
+		}
+		####
+		button = {
+			text = "LIST_MARKED_STATES"
+			using = default_button
+			tooltip = "LIST_MARKED_STATES_TOOLTIP"
+			size = { 60 40 }
+			position = { 140 70 }
+			onclick = "[GetVariableSystem.Toggle('list_marked_states')]"
+		}
+		####
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			visible = "[GetVariableSystem.Exists('list_marked_states')]"
+			position = { 140 70 }
+			size = { 60 3 }
+		}
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			visible = "[GetVariableSystem.Exists('list_marked_states')]"
+			position = { 140 107 }
+			size = { 60 3 }
+		}
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			visible = "[GetVariableSystem.Exists('list_marked_states')]"
+			position = { 197 70 }
+			size = { 3 40 }
+		}
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			visible = "[GetVariableSystem.Exists('list_marked_states')]"
+			position = { 140 70 }
+			size = { 3 40 }
+		}
+		####
+		checkbutton = {
+			onclick = "[GetVariableSystem.Toggle('transfer_with_homeland_toggle')]"
+			checked = "[GetVariableSystem.Exists('transfer_with_homeland_toggle')]"
+			tooltip = "TOGGLE_INCORPORATION_ON_TRANSFER_TOOLTIP"
+			using = check_button
+			size = { 20 20 }
+			position = { 190 25 }
+		}
+		button = {
+			text = "INCORPORATE_MARKED_STATES"
+			using = default_button
+			enabled = "[ScriptedGui.IsValid( GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			tooltip = "INCORPORATE_MARKED_STATES_TOOLTIP"
+			size = { 80 30 }
+			position = { 210 20 }
+			datacontext = "[GetScriptedGui('core_states')]"
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			shortcut = "state_transfer_core"
+		}
+		button = {
+			text = "TRANSFER_MARKED_STATES"
+			enabled = "[And(ScriptedGui.IsValid( GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End ), GetVariableSystem.Exists('transfer_with_homeland_toggle'))]"
+			visible = "[GetVariableSystem.Exists('transfer_with_homeland_toggle')]"
+			tooltip = "TRANSFER_MARKED_STATES_AND_INCORPORATE_TOOLTIP"
+			using = default_button
+			size = { 80 30 }
+			position = { 210 50 }
+			datacontext = "[GetScriptedGui('core_and_transfer_states')]"
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			shortcut = "state_transfer_transfer"
+		}
+		button = {
+			text = "TRANSFER_MARKED_STATES"
+			enabled = "[And(ScriptedGui.IsValid( GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End ), Not(GetVariableSystem.Exists('transfer_with_homeland_toggle')))]"
+			visible = "[Not(GetVariableSystem.Exists('transfer_with_homeland_toggle'))]"
+			tooltip = "TRANSFER_MARKED_STATES_TOOLTIP"
+			using = default_button
+			size = { 80 30 }
+			position = { 210 50 }
+			datacontext = "[GetScriptedGui('transfer_states')]"
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			shortcut = "state_transfer_transfer"
+		}
+		button = {
+			text = "Claim" #TODO
+			enabled = "[ScriptedGui.IsValid( GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+			tooltip = "Claim marked States" #TODO
+			using = default_button
+			size = { 80 30 }
+			position = { 210 80 }
+			datacontext = "[GetScriptedGui('claim_states')]"
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('owner', State.GetCountry.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', State.MakeScope).End )]"
+		}
+		flowcontainer = {
+			position = { -80 30 }
+			visible = no#"[EqualTo_string('Posen', State.GetStateRegion.GetNameNoFormatting)]"
+			button = {
+				text = "x085962"
+				using = default_button
+				size = { 80 30 }
+				datacontext = "[GetScriptedGui('mark_province')]"
+			}
+		}
+		
+		icon = {
+			position = { 0 120 }
+			#size = { 300 350 }
+			visible = "[GetVariableSystem.Exists('list_marked_states')]"
+			#icon = {
+				#texture = "gfx/interface/backgrounds/entry_bg_simple_solid.dds"
+				#visible = "[GetVariableSystem.Exists('list_marked_states')]"
+				#position = { 0 -5 }
+			#}
+			
+			scrollarea = {
+				name = "state_transfer_scrollarea"
+				position = { 0 -2 }
+				resizeparent = yes
+				maximumsize = { 300 350 }
+				minimumsize = { 300 20 }
+				autoresizescrollarea = yes
+				background = {
+					texture = "gfx/interface/backgrounds/entry_bg_simple_solid.dds"
+					margin_bottom = 5
+				}
+				#visible = "[GetVariableSystem.Exists('list_marked_states')]"
+				scrollwidget = {
+					flowcontainer = {
+						direction = vertical
+						parentanchor = left
+						ignoreinvisible = yes
+						datamodel = "[AccessPlayer.MakeScope.GetList('marked_states')]"
+						item = {
+							textbox = {
+								size = { 0 17 }
+								margin_left = 15
+								#visible = "[EqualTo_string('yes', State.GetCustom('is_marked_state'))]"
+								text = "#bold [Scope.GetState.GetNameNoFormatting]#!"
+							}
+						}
+					}
+				}
+				textbox = {
+					size = { 0 17 }
+					margin_left = 15
+					visible = "[IsDataModelEmpty(AccessPlayer.MakeScope.GetList('marked_states'))]"
+					text = "NO_MARKED_STATES_EXIST"
+				}
+				scrollbar_vertical = {
+					using = vertical_scrollbar		
+				}
+				
+			}
+		}
+	}
+	
+	type state_transfer_tool_toggle = button {
+		tooltip = "TOGGLE_STATE_TRANSFER_TOOL"
+		icon = {
+			texture = "gfx/interface/icons/generic_icons/red_cross.dds"
+			visible = "[Not(GetVariableSystem.Exists('show_state_transfer_tool'))]"
+			block "iconsize" {
+				size = { 25 25 }
+			}
+			block "iconposition" {
+				position = { 0 0 }
+			}
+			parentanchor = right
+		}
+		icon = {
+			texture = "gfx/interface/icons/generic_icons/green_checkmark.dds"
+			visible = "[GetVariableSystem.Exists('show_state_transfer_tool')]"
+			block "iconsize" {
+				size = { 25 25 }
+			}
+			block "iconposition" {
+				position = { 0 0 }
+			}
+			parentanchor = right
+		}
+		using = default_button
+		block "size" {
+			size = { 25 25 }
+		}
+		block "position" {
+			position = { 10 10 }
+		}
+		onclick = "[GetVariableSystem.Toggle('show_state_transfer_tool')]"
+		shortcut = "state_transfer_toggle"
+	}
+	
+	type state_transfer_tool_country_panel = window {
+		name = "state_transfer_tool_panel"
+		layer = popups
+		allow_outside = yes
+		movable = no
+		block "visibility" {
+			visible = "[GetVariableSystem.Exists('show_state_transfer_tool')]"
+		}
+		icon = {
+			texture = "gfx/interface/backgrounds/entry_bg_simple_solid.dds"
+			size = { 300 120 }
+		}
+		background = {
+			using = entry_bg_simple
+		}
+		size = { 300 120 }
+		block "position" {
+			position = { 1150 -20 }
+		}
+		textbox = {
+			text = "#BOLD [Country.GetNameNoFormatting]#!"
+			default_format = "#header"
+			background = {
+				using = entry_bg_simple
+			}
+			position = { 10 10 }
+		}
+		button = {
+			icon = {
+				texture = "gfx/interface/icons/alert_icons/secession_growing.dds"
+				size = { 40 40 }
+			}
+			using = default_button
+			size = { 40 40 }
+			position = { 35 25 }
+			enabled = "[ScriptedGui.IsValid( GuiScope.AddScope('owner', Country.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', Country.AccessCapital.MakeScope).End )]"
+			tooltip = "MARK_ALL_STATES_OF_STATE_COUNTRY_COUNTRY_TOOLTIP"
+			datacontext = "[GetScriptedGui('mark_all_states')]"
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('owner', Country.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', Country.AccessCapital.MakeScope).End )]"
+			shortcut = "state_transfer_markall"
+		}
+		button = {
+			icon = {
+				texture = "gfx/interface/icons/alert_icons/unused/advance_overwhelming_odds.dds"
+				size = { 40 40 }
+			}
+			using = default_button
+			size = { 40 40 }
+			position = { 85 25 }
+			enabled = "[ScriptedGui.IsValid( GuiScope.AddScope('owner', Country.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', Country.AccessCapital.MakeScope).End )]"
+			tooltip = "UNMARK_ALL_STATES_TOOLTIP"
+			datacontext = "[GetScriptedGui('unmark_all_states')]"
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('owner', Country.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', Country.AccessCapital.MakeScope).End )]"
+			shortcut = "state_transfer_unmarkall"
+		}
+		button = {
+			icon = {
+				texture = "gfx/interface/icons/alert_icons/unused/diplomatic_play.dds"
+				size = { 40 40 }
+			}
+			using = default_button
+			size = { 40 40 }
+			position = { 135 25 }
+			enabled = "[ScriptedGui.IsValid( GuiScope.AddScope('owner', Country.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', Country.AccessCapital.MakeScope).End )]"
+			tooltip = "MARK_ALL_UNINCORPORATED_STATES_OF_STATE_COUNTRY_COUNTRY_TOOLTIP"
+			datacontext = "[GetScriptedGui('mark_all_colonies')]"
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('owner', Country.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', Country.AccessCapital.MakeScope).End )]"
+			shortcut = "state_transfer_markcolony"
+		}
+		button = {
+			text = "MARK_SELECTED_STATE"
+			using = default_button
+			size = { 120 40 }
+			position = { 10 70 }
+			tooltip = "MARK_SELECTED_STATE_TOOLTIP"
+			enabled = no
+		}
+		button = {
+			text = "LIST_MARKED_STATES"
+			using = default_button
+			tooltip = "LIST_MARKED_STATES_TOOLTIP"
+			size = { 60 40 }
+			position = { 140 70 }
+			onclick = "[GetVariableSystem.Toggle('list_marked_states')]"
+		}
+		####
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			visible = "[GetVariableSystem.Exists('list_marked_states')]"
+			position = { 140 70 }
+			size = { 60 3 }
+		}
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			visible = "[GetVariableSystem.Exists('list_marked_states')]"
+			position = { 140 107 }
+			size = { 60 3 }
+		}
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			visible = "[GetVariableSystem.Exists('list_marked_states')]"
+			position = { 197 70 }
+			size = { 3 40 }
+		}
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			visible = "[GetVariableSystem.Exists('list_marked_states')]"
+			position = { 140 70 }
+			size = { 3 40 }
+		}
+		####
+		checkbutton = {
+			onclick = "[GetVariableSystem.Toggle('transfer_with_homeland_toggle')]"
+			checked = "[GetVariableSystem.Exists('transfer_with_homeland_toggle')]"
+			tooltip = "TOGGLE_INCORPORATION_ON_TRANSFER_TOOLTIP"
+			using = check_button
+			size = { 20 20 }
+			position = { 190 25 }
+		}
+		button = {
+			text = "INCORPORATE_MARKED_STATES"
+			using = default_button
+			enabled = "[ScriptedGui.IsValid( GuiScope.AddScope('owner', Country.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', Country.AccessCapital.MakeScope).End )]"
+			tooltip = "INCORPORATE_MARKED_STATES_TOOLTIP"
+			size = { 80 30 }
+			position = { 210 20 }
+			datacontext = "[GetScriptedGui('core_states')]"
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('owner', Country.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', Country.AccessCapital.MakeScope).End )]"
+			shortcut = "state_transfer_core"
+		}
+		button = {
+			text = "TRANSFER_MARKED_STATES"
+			enabled = "[And(ScriptedGui.IsValid( GuiScope.AddScope('owner', Country.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', Country.AccessCapital.MakeScope).End ), GetVariableSystem.Exists('transfer_with_homeland_toggle'))]"
+			visible = "[GetVariableSystem.Exists('transfer_with_homeland_toggle')]"
+			tooltip = "TRANSFER_MARKED_STATES_AND_INCORPORATE_COUNTRY_TOOLTIP"
+			using = default_button
+			size = { 80 30 }
+			position = { 210 50 }
+			datacontext = "[GetScriptedGui('core_and_transfer_states')]"
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('owner', Country.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', Country.AccessCapital.MakeScope).End )]"
+			shortcut = "state_transfer_transfer"
+		}
+		button = {
+			text = "TRANSFER_MARKED_STATES"
+			enabled = "[And(ScriptedGui.IsValid( GuiScope.AddScope('owner', Country.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', Country.AccessCapital.MakeScope).End ), Not(GetVariableSystem.Exists('transfer_with_homeland_toggle')))]"
+			visible = "[Not(GetVariableSystem.Exists('transfer_with_homeland_toggle'))]"
+			tooltip = "TRANSFER_MARKED_STATES_COUNTRY_TOOLTIP"
+			using = default_button
+			size = { 80 30 }
+			position = { 210 50 }
+			datacontext = "[GetScriptedGui('transfer_states')]"
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('owner', Country.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', Country.AccessCapital.MakeScope).End )]"
+			shortcut = "state_transfer_transfer"
+		}
+		button = {
+			text = "Claim" #TODO
+			enabled = "[ScriptedGui.IsValid( GuiScope.AddScope('owner', Country.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', Country.AccessCapital.MakeScope).End )]"
+			tooltip = "Claim marked States" #TODO
+			using = default_button
+			size = { 80 30 }
+			position = { 210 80 }
+			datacontext = "[GetScriptedGui('claim_states')]"
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('owner', Country.MakeScope).AddScope('player', GetPlayer.MakeScope).AddScope('state', Country.AccessCapital.MakeScope).End )]"
+		}
+		flowcontainer = {
+			position = { -80 30 }
+			visible = no#"[EqualTo_string('Posen', State.GetStateRegion.GetNameNoFormatting)]"
+			button = {
+				text = "x085962"
+				using = default_button
+				size = { 80 30 }
+				datacontext = "[GetScriptedGui('mark_province')]"
+			}
+		}
+		
+		icon = {
+			position = { 0 120 }
+			#size = { 300 350 }
+			visible = "[GetVariableSystem.Exists('list_marked_states')]"
+			#icon = {
+				#texture = "gfx/interface/backgrounds/entry_bg_simple_solid.dds"
+				#visible = "[GetVariableSystem.Exists('list_marked_states')]"
+				#position = { 0 -5 }
+			#}
+			
+			scrollarea = {
+				name = "state_transfer_scrollarea"
+				position = { 0 -2 }
+				resizeparent = yes
+				maximumsize = { 300 350 }
+				minimumsize = { 300 20 }
+				autoresizescrollarea = yes
+				background = {
+					texture = "gfx/interface/backgrounds/entry_bg_simple_solid.dds"
+					margin_bottom = 5
+				}
+				#visible = "[GetVariableSystem.Exists('list_marked_states')]"
+				scrollwidget = {
+					flowcontainer = {
+						direction = vertical
+						parentanchor = left
+						ignoreinvisible = yes
+						datamodel = "[AccessPlayer.MakeScope.GetList('marked_states')]"
+						item = {
+							textbox = {
+								size = { 0 17 }
+								margin_left = 15
+								#visible = "[EqualTo_string('yes', State.GetCustom('is_marked_state'))]"
+								text = "#bold [Scope.GetState.GetNameNoFormatting]#!"
+							}
+						}
+					}
+				}
+				textbox = {
+					size = { 0 17 }
+					margin_left = 15
+					visible = "[IsDataModelEmpty(AccessPlayer.MakeScope.GetList('marked_states'))]"
+					text = "NO_MARKED_STATES_EXIST"
+				}
+				scrollbar_vertical = {
+					using = vertical_scrollbar		
+				}
+				
+			}
+		}
+	}
+}
+
+template vplus_state_transfer_tool_panel {
+	state_transfer_tool_panel = {}
+}

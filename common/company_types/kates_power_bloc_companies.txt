@@ -1,0 +1,29 @@
+company_taxes_power_bloc = {
+	icon = "gfx/interface/icons/company_icons/black_cat.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+	
+	building_types = {  
+		building_paper_mills
+	}
+
+	potential = {
+		is_in_power_bloc = yes
+	}
+
+	unlocking_principles = {
+		principle_private_tax_collectors_3
+	}
+
+	possible = { 
+		any_scope_state = {
+			any_scope_building = {
+				is_building_type = building_paper_mills
+				level >= 5
+			}
+		}
+	}
+	
+	prosperity_modifier = { 
+		state_tax_capacity_mult = 0.25
+	}	
+}

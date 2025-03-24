@@ -1,0 +1,11 @@
+﻿canals_add_company_capacity = {
+	default = canal_buildings_add_company_capacity
+
+	canal_buildings_add_company_capacity = {
+		flag = disable_pm_canal
+	}
+
+	canal_companies_prosperity_add_company_capacity = {
+		flag = disable_pm_canal_add_company_capacity
+	}
+}

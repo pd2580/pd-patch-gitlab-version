@@ -1,0 +1,93 @@
+types custom_ui_tools_toggle_types
+{
+	type custom_ui_tools_toggle_frontelement = container {
+		name = "custom_ui_tools_toggle"
+		allow_outside = yes
+		alwaystransparent = no
+		using = clickthrough_blocker
+		parentanchor = top|right
+		visible = "[And( And(And(And( Not( IsPauseMenuShown ), Not( IsGameOverScreenShown )), Not(GetVariableSystem.Exists('more_spreadsheets'))), Not(Or(Or(InformationPanelBar.IsPanelOpen('politics'), InformationPanelBar.IsPanelOpen('politics_panel_change_law')), InformationPanelBar.IsPanelOpen('tech_tree')))), Not(GetVariableSystem.Exists('international_diplomacy')) )]"
+		#position = { 35 0 }
+		#position = { -500 0 }
+		state = {
+			trigger_when = "[GetVariableSystem.Exists('show_topbar_custom_ui_tools')]"
+			name = show_
+			position_x = -560
+			duration = 0.2
+			alpha = 1
+		}
+		state = {
+			trigger_when = "[Not(GetVariableSystem.Exists('show_topbar_custom_ui_tools'))]"
+			name = hide_
+			position_x = 10
+			duration = 0.2
+			alpha = 1
+		}
+	}
+	
+	type custom_ui_tools_toggle_frontelement_contentarea = button {
+		name = "custom_ui_tools_toggle_buttony"
+		allow_outside = yes
+		alwaystransparent = no
+		using = clickthrough_blocker
+		effectname = "NoHighlight"
+		shortcut = "custom_panel_toggle"
+		position = { 0 -3 }
+		icon = {
+			visible = "[Not(GetVariableSystem.Exists('show_topbar_custom_ui_tools'))]"
+			texture = "gfx/interface/icons/generic_icons/arrow_left.dds"
+			position = { 3 0 }
+			size = { 18 40 }
+		}
+		icon = {
+			visible = "[GetVariableSystem.Exists('show_topbar_custom_ui_tools')]"
+			texture = "gfx/interface/icons/generic_icons/arrow_right.dds"
+			size = { 18 40 }
+			position = { 6 0 }
+		}
+		texture = "gfx/interface/main_hud/topbar_bg.dds"
+		mirror = horizontal
+		size = { 30 44 }
+		parentanchor = right|vcenter
+		onclick = "[GetVariableSystem.Toggle('show_topbar_custom_ui_tools')]"
+		dynamicgridbox = {
+			alwaystransparent = no
+			using = clickthrough_blocker
+			size = { 590 80 }
+			position = { 23 3 }
+			background = {
+				texture = "gfx/interface/main_hud/topbar_bg.dds"
+				shaderfile = "gfx/FX/pdxgui_default.shader"
+				spriteType = Corneredstretched
+				spriteborder_bottom = 94
+				spriteborder_right = 100
+				texture_density = 2
+				using = hud_elements_alpha
+				mirror = horizontal
+				
+				modify_texture = {
+					using = texture_velvet
+				}
+				modify_texture = {
+					using = fancy_pattern
+				}
+			}
+			icon = {
+				texture = "gfx/interface/main_hud/topbar_side_dec.dds"
+				size = { 100% 100% }
+				spriteType = Corneredstretched
+				mirror = horizontal
+				spriteborder = { 0 0 }
+				spriteborder_bottom = 94
+				spriteborder_right = 110
+				texture_density = 2
+				
+				using = hud_shiny_effect
+			}
+		}
+	}
+}
+
+template vplus_custom_ui_tools_toggle_frontelement {
+	custom_ui_tools_toggle_frontelement = {}
+}

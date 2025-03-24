@@ -1,0 +1,320 @@
+﻿namespace = holy_wars
+
+holy_wars.1 = {
+	type = country_event
+	placement = root
+
+	title = holy_wars.1.t
+	desc = holy_wars.1.d
+	flavor = holy_wars.1.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/europenorthamerica_before_the_battle.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/principles_icons/holy_wars.dds"
+
+	immediate = {
+		random_diplomatic_play = {
+			limit = {
+				is_diplomatic_play_type = dp_holy_war
+				escalation < 3
+			}
+			save_scope_as = holy_war_play
+			initiator = { save_scope_as = initiator_country }
+			target = { save_scope_as = target_country }
+		}
+	}
+
+	option = {
+		name = holy_wars.1a
+	}
+}
+
+holy_wars.2 = {
+	type = country_event
+	placement = root
+
+	title = holy_wars.2.t
+	desc = holy_wars.2.d
+	flavor = holy_wars.1.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/europenorthamerica_before_the_battle.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/principles_icons/holy_wars.dds"
+
+	immediate = {
+		random_diplomatic_play = {
+			limit = {
+				is_diplomatic_play_type = dp_holy_war
+				escalation < 3
+			}
+			save_scope_as = holy_war_play
+			initiator = { save_scope_as = initiator_country }
+			target = { save_scope_as = target_country }
+		}
+	}
+
+	option = {
+		name = holy_wars.2a
+		random_diplomatic_play = {
+			limit = {
+				is_diplomatic_play_type = dp_holy_war
+				initiator = scope:initiator_country
+				target = scope:target_country
+			}
+			add_target_backers = {
+				root
+			}
+		}
+
+		ai_chance = {
+			base = 25
+			modifier = {
+				trigger = {
+					has_law = law_type:law_state_religion
+				}
+				add = 25
+			}
+			modifier = {
+				trigger = {
+					has_law = law_type:law_total_separation
+				}
+				add = -25
+			}
+			modifier = {
+				trigger = {
+					scope:target_country.relations:root >= relations_threshold:cordial
+				}
+				add = 13
+			}
+			modifier = {
+				trigger = {
+					scope:target_country.relations:root >= relations_threshold:amicable
+				}
+				add = 13
+			}
+			modifier = {
+				trigger = {
+					scope:target_country.relations:root >= relations_threshold:friendly
+				}
+				add = 13
+			}
+			modifier = {
+				trigger = {
+					scope:target_country.relations:root <= relations_threshold:poor
+				}
+				add = -13
+			}
+			modifier = {
+				trigger = {
+					scope:target_country.relations:root <= relations_threshold:cold
+				}
+				add = -13
+			}
+			modifier = {
+				trigger = {
+					scope:target_country.relations:root <= relations_threshold:hostile
+				}
+				add = -13
+			}
+
+			modifier = {
+				trigger = {
+					scope:initiator_country.relations:root >= relations_threshold:cordial
+				}
+				add = -13
+			}
+			modifier = {
+				trigger = {
+					scope:initiator_country.relations:root >= relations_threshold:amicable
+				}
+				add = -13
+			}
+			modifier = {
+				trigger = {
+					scope:initiator_country.relations:root >= relations_threshold:friendly
+				}
+				add = -13
+			}
+			modifier = {
+				trigger = {
+					scope:initiator_country.relations:root <= relations_threshold:poor
+				}
+				add = 13
+			}
+			modifier = {
+				trigger = {
+					scope:initiator_country.relations:root <= relations_threshold:cold
+				}
+				add = 13
+			}
+			modifier = {
+				trigger = {
+					scope:initiator_country.relations:root <= relations_threshold:hostile
+				}
+				add = 13
+			}
+		}
+	}
+
+	option = {
+		name = holy_wars.2b
+		default_option = yes
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+holy_wars.3 = {
+	type = country_event
+	placement = root
+
+	title = holy_wars.2.t
+	desc = holy_wars.2.d
+	flavor = holy_wars.1.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/europenorthamerica_before_the_battle.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/principles_icons/holy_wars.dds"
+
+	immediate = {
+		random_diplomatic_play = {
+			limit = {
+				is_diplomatic_play_type = dp_holy_war
+				escalation < 3
+			}
+			save_scope_as = holy_war_play
+			initiator = { save_scope_as = initiator_country }
+			target = { save_scope_as = target_country }
+		}
+	}
+
+	option = {
+		name = holy_wars.3a
+		random_diplomatic_play = {
+			limit = {
+				is_diplomatic_play_type = dp_holy_war
+				initiator = scope:initiator_country
+				target = scope:target_country
+			}
+			add_initiator_backers = {
+				root
+			}
+		}
+
+		ai_chance = {
+			base = 25
+			modifier = {
+				trigger = {
+					has_law = law_type:law_state_religion
+				}
+				add = 25
+			}
+			modifier = {
+				trigger = {
+					has_law = law_type:law_total_separation
+				}
+				add = -25
+			}
+			modifier = {
+				trigger = {
+					scope:initiator_country.relations:root >= relations_threshold:cordial
+				}
+				add = 13
+			}
+			modifier = {
+				trigger = {
+					scope:initiator_country.relations:root >= relations_threshold:amicable
+				}
+				add = 13
+			}
+			modifier = {
+				trigger = {
+					scope:initiator_country.relations:root >= relations_threshold:friendly
+				}
+				add = 13
+			}
+			modifier = {
+				trigger = {
+					scope:initiator_country.relations:root <= relations_threshold:poor
+				}
+				add = -13
+			}
+			modifier = {
+				trigger = {
+					scope:initiator_country.relations:root <= relations_threshold:cold
+				}
+				add = -13
+			}
+			modifier = {
+				trigger = {
+					scope:initiator_country.relations:root <= relations_threshold:hostile
+				}
+				add = -13
+			}
+
+			modifier = {
+				trigger = {
+					scope:target_country.relations:root >= relations_threshold:cordial
+				}
+				add = -13
+			}
+			modifier = {
+				trigger = {
+					scope:target_country.relations:root >= relations_threshold:amicable
+				}
+				add = -13
+			}
+			modifier = {
+				trigger = {
+					scope:target_country.relations:root >= relations_threshold:friendly
+				}
+				add = -13
+			}
+			modifier = {
+				trigger = {
+					scope:target_country.relations:root <= relations_threshold:poor
+				}
+				add = 13
+			}
+			modifier = {
+				trigger = {
+					scope:target_country.relations:root <= relations_threshold:cold
+				}
+				add = 13
+			}
+			modifier = {
+				trigger = {
+					scope:target_country.relations:root <= relations_threshold:hostile
+				}
+				add = 13
+			}
+		}
+	}
+
+	option = {
+		name = holy_wars.2b
+		default_option = yes
+		ai_chance = {
+			base = 100
+		}
+	}
+}

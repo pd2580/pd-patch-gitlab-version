@@ -1,0 +1,145 @@
+﻿POWER_BLOCS = {
+	c:GBR = {
+		if = {
+			limit = {
+				has_dlc_feature = power_bloc_features
+				has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+			}
+			power_bloc = {
+				remove_principle = principle_colonial_offices_2
+				if = {
+					limit = {
+						power_bloc_free_founding_mandates = 0
+					}
+					add_principle = principle_pax_imperia_2
+				}
+				else_if = {
+					limit = {
+						power_bloc_free_founding_mandates = 1
+					}
+					add_principle = principle_pax_imperia_3
+				}
+				else_if = {
+					limit = {
+						power_bloc_free_founding_mandates = 2
+					}
+					remove_principle = principle_vassalization_1
+					add_principle = principle_vassalization_2
+					add_principle = principle_pax_imperia_3
+				}
+			}
+		}
+	}
+
+	c:AUS = {
+		if = {
+			limit = {
+				has_dlc_feature = power_bloc_features
+				has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+			}
+			power_bloc = {
+				remove_principle = principle_creative_legislature_1
+				remove_principle = principle_defensive_cooperation_1
+				if = {
+					limit = {
+						power_bloc_free_founding_mandates = 0
+					}
+					add_principle = principle_status_quo_2
+				}
+				else_if = {
+					limit = {
+						power_bloc_free_founding_mandates = 1
+					}
+					add_principle = principle_status_quo_3
+				}
+				else_if = {
+					limit = {
+						power_bloc_free_founding_mandates = 2
+					}
+					add_principle = principle_status_quo_3
+					add_principle = principle_creative_legislature_1
+				}
+			}
+		}
+	}
+
+	# Zollverein (German customs union)
+	# Note: Countries were taken from old customs union pacts
+	c:PRU = {
+		if = {
+			limit = {
+				has_dlc_feature = power_bloc_features
+				has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+			}
+			power_bloc = {
+				if = {
+					limit = {
+						power_bloc_free_founding_mandates = 1
+					}
+					remove_principle = principle_internal_trade_1
+					add_principle = principle_internal_trade_2
+				}
+				else_if = {
+					limit = {
+						power_bloc_free_founding_mandates = 2
+					}
+					remove_principle = principle_internal_trade_1
+					add_principle = principle_internal_trade_3
+				}
+			}
+		}
+	}
+
+	c:RUS = {
+		if = {
+			limit = {
+				has_dlc_feature = power_bloc_features
+				has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+			}
+			power_bloc = {
+				if = {
+					limit = {
+						power_bloc_free_founding_mandates = 1
+					}
+					remove_principle = principle_vassalization_1
+					add_principle = principle_vassalization_2
+				}
+				else_if = {
+					limit = {
+						power_bloc_free_founding_mandates = 2
+					}
+					remove_principle = principle_vassalization_1
+					add_principle = principle_vassalization_3
+				}
+			}
+		}
+	}
+
+	# America gets no power bloc because it's 1836
+
+	# Ottomans: "Exhalted State", Devlet-i 'Aliye. Using an irregular character for ', ʿ, in loc.
+	c:TUR = {
+		if = {
+			limit = {
+				has_dlc_feature = power_bloc_features
+				has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+			}
+			power_bloc = {
+				if = {
+					limit = {
+						power_bloc_free_founding_mandates = 1
+					}
+					remove_principle = principle_vassalization_1
+					add_principle = principle_vassalization_2
+				}
+				else_if = {
+					limit = {
+						power_bloc_free_founding_mandates = 2
+					}
+					remove_principle = principle_vassalization_1
+					add_principle = principle_vassalization_3
+				}
+			}
+		}
+	}	
+}

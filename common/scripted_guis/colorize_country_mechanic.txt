@@ -1,0 +1,97 @@
+color_prussian = {
+	scope = country
+	saved_scopes = {
+        market_access_var
+		infra_usage
+		tax_cap
+		tax_cap_usage
+		literacy_rate_var
+		turmoil_var
+		infra_var
+		player_credit
+		investor
+    }
+
+	is_shown = {
+		always = yes
+		#any_country = {
+		#	limit = {
+		#		has_variable = marked_nation
+		#	}
+		#	NOT = { is_subject = no }
+		#}
+	}
+	
+	is_valid = {
+		always = yes
+	}
+
+	effect = {
+		#scope_into_state_clicked = {
+		#	MARKETACCESSVAL = market_access_var
+		#	INFRAUSAGEVAL = infra_usage
+		#	TAXCAPVAL = tax_cap
+		#	TAXCAPUSAGEVAL = tax_cap_usage
+		#	LITERACYVAL = literacy_rate_var
+		#	TURMOILVAL = turmoil_var
+		#	INFRAVAL = infra_var
+		#	PLAYERCREDITVAL = player_credit
+		#}
+		#scope:state_clicked_scope = {
+		#}
+		scope_into_player_who_clicked = { PLAYERCREDIT = player_credit }
+		scope:player_who_clicked_scope = {
+			if = {
+				limit = {
+					NOT = { has_variable = color_picker_prussian_blue }
+				}
+				set_variable = color_picker_prussian_blue
+				if = {
+					limit = {
+						has_law = law_type:law_state_religion
+					}
+					activate_law = law_type:law_total_separation
+					activate_law = law_type:law_state_religion
+				}
+				if = {
+					limit = {
+						has_law = law_type:law_freedom_of_conscience
+					}
+					activate_law = law_type:law_total_separation
+					activate_law = law_type:law_freedom_of_conscience
+				}
+				if = {
+					limit = {
+						has_law = law_type:law_total_separation
+					}
+					activate_law = law_type:law_total_separation
+					activate_law = law_type:law_total_separation
+				}
+			}
+			else = {
+				remove_variable = color_picker_prussian_blue
+				if = {
+					limit = {
+						has_law = law_type:law_state_religion
+					}
+					activate_law = law_type:law_total_separation
+					activate_law = law_type:law_state_religion
+				}
+				if = {
+					limit = {
+						has_law = law_type:law_freedom_of_conscience
+					}
+					activate_law = law_type:law_total_separation
+					activate_law = law_type:law_freedom_of_conscience
+				}
+				if = {
+					limit = {
+						has_law = law_type:law_total_separation
+					}
+					activate_law = law_type:law_total_separation
+					activate_law = law_type:law_total_separation
+				}
+			}
+		}
+	}
+}

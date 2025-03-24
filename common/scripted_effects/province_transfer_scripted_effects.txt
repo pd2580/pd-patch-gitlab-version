@@ -1,0 +1,36 @@
+﻿transfer_clicked_province = {
+	if = {
+		limit = {
+			state_region = s:STATE_POSEN
+		}
+		if = {
+			limit = {
+				always = yes#$CLICKEDPROVINCE$ = 1
+			}
+			scope_into_player_who_clicked = { PLAYERCREDIT = $PLAYERCREDITINVESTOR$ }
+			scope:player_who_clicked_scope = {
+			}
+			this.state_region = {
+				save_scope_as = temp_state_region_var
+				#set_owner_of_provinces = {
+				#	country = scope:player_who_clicked_scope
+				#	provinces = { x085962 }
+				#}
+				every_in_list = {
+					variable = provinces_of_state 
+					if = {
+						limit = {
+							has_variable = $CLICKEDPROVINCE$
+						}
+						scope:temp_state_region_var = {
+							set_owner_of_provinces = {
+								country = scope:player_who_clicked_scope
+								provinces = { prev }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

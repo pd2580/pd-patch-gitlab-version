@@ -1,0 +1,12 @@
+	confirm = "C"
+	custom_panel_toggle = "ctrl+shift+E"
+	state_transfer_mark = "ctrl+Y"
+	state_transfer_core = "ctrl+V"
+	state_transfer_markall = "ctrl+A"
+	state_transfer_unmarkall = "ctrl+X"
+	state_transfer_markcolony = "ctrl+C"
+	state_transfer_transfer = "ctrl+T"
+	state_transfer_toggle = "ctrl+shift+T"
+	color_toggle = "ctrl+shift+C"
+	puppet_toggle = "ctrl+shift+X"
+}

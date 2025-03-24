@@ -1,0 +1,27 @@
+﻿dp_holy_war = {
+	war_goal = humiliation
+	
+	texture = "gfx/interface/icons/war_goals/regime_change.dds"
+
+	selectable_in_lens = {
+		always = no
+	}	
+
+	possible = {
+		always = no
+	}
+	
+	allow_negotiated_peace = yes
+
+	add_infamy_for_starting_initiator_wargoals = no
+
+	ai_acceptance_max = 100
+
+	on_weekly_pulse = {}
+
+	on_war_begins = {}
+
+	on_war_end = {
+		remove_variable = holy_war_target
+	}
+}

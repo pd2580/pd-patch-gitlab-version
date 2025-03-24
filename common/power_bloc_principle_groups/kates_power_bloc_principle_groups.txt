@@ -1,0 +1,393 @@
+﻿### See power_bloc_principles for the individual effects
+
+### TRADE LEAGUE UNIQUE
+
+
+principle_group_deregulation = {
+	primary_for_identity = identity_trade_league
+	unlocking_identity = identity_trade_league
+
+	levels = {
+		principle_deregulation_1
+		principle_deregulation_2
+		principle_deregulation_3
+	}
+}
+
+principle_group_unified_bond_market = {
+	primary_for_identity = identity_trade_league
+	unlocking_identity = identity_trade_league
+
+	levels = {
+		principle_unified_bond_market_1
+		principle_unified_bond_market_2
+		principle_unified_bond_market_3
+	}
+}
+
+principle_group_collective_bargaining_power = {
+	primary_for_identity = identity_trade_league
+	unlocking_identity = identity_trade_league
+
+	levels = {
+		principle_collective_bargaining_power_1
+		principle_collective_bargaining_power_2
+		principle_collective_bargaining_power_3
+	}
+}
+
+principle_group_currency_union = {
+	primary_for_identity = identity_trade_league
+	unlocking_identity = identity_trade_league
+
+	levels = {
+		principle_currency_union_1
+		principle_currency_union_2
+		principle_currency_union_3
+	}
+}
+
+principle_group_member_council = {
+	primary_for_identity = identity_trade_league
+	unlocking_identity = identity_trade_league
+
+	levels = {
+		principle_member_council_1
+		principle_member_council_2
+		principle_member_council_3
+	}
+}
+
+principle_group_private_tax_collectors = {
+	primary_for_identity = identity_trade_league
+	unlocking_identity = identity_trade_league
+
+	levels = {
+		principle_private_tax_collectors_1
+		principle_private_tax_collectors_2
+		principle_private_tax_collectors_3
+	}
+}
+
+### SOVEREIGN EMPIRE UNIQUE
+
+
+principle_group_economic_imperialism = {
+	primary_for_identity = identity_sovereign_empire
+	unlocking_identity = identity_sovereign_empire
+	levels = {
+		principle_economic_imperialism_1
+		principle_economic_imperialism_2
+		principle_economic_imperialism_3
+	}
+}
+
+principle_group_leviathan = {
+	primary_for_identity = identity_sovereign_empire
+	unlocking_identity = identity_sovereign_empire
+	levels = {
+		principle_leviathan_1
+		principle_leviathan_2
+		principle_leviathan_3
+	}
+}
+
+principle_group_imperial_prerogative = {
+	primary_for_identity = identity_sovereign_empire
+	unlocking_identity = identity_sovereign_empire
+	levels = {
+		principle_imperial_prerogative_1
+		principle_imperial_prerogative_2
+		principle_imperial_prerogative_3
+	}
+}
+
+principle_group_colonial_manpower = {
+	primary_for_identity = identity_sovereign_empire
+	unlocking_identity = identity_sovereign_empire
+	levels = {
+		principle_colonial_manpower_1
+		principle_colonial_manpower_2
+		principle_colonial_manpower_3
+	}
+}
+
+principle_group_pax_imperia = {
+	primary_for_identity = identity_sovereign_empire
+	unlocking_identity = identity_sovereign_empire
+	levels = {
+		principle_pax_imperia_1
+		principle_pax_imperia_2
+		principle_pax_imperia_3
+	}
+}
+
+principle_group_preferential_colonial_trade = {
+	primary_for_identity = identity_sovereign_empire
+	unlocking_identity = identity_sovereign_empire
+
+	levels = {
+		principle_preferential_colonial_trade_1
+		principle_preferential_colonial_trade_2
+		principle_preferential_colonial_trade_3
+	}
+}
+
+### IDEOLOGICAL UNION UNQIUE
+
+principle_group_entrenched_elite = {
+	primary_for_identity = identity_ideological_union
+	unlocking_identity = identity_ideological_union
+	levels = {
+		principle_entrenched_elite_1
+		principle_entrenched_elite_2
+		principle_entrenched_elite_3
+	}
+}
+
+principle_group_status_quo = {
+	primary_for_identity = identity_ideological_union
+	unlocking_identity = identity_ideological_union
+	levels = {
+		principle_status_quo_1
+		principle_status_quo_2
+		principle_status_quo_3
+	}
+}
+
+principle_group_economic_consensus = {
+	primary_for_identity = identity_ideological_union
+	unlocking_identity = identity_ideological_union
+	levels = {
+		principle_economic_consensus_1
+		principle_economic_consensus_2
+		principle_economic_consensus_3
+	}
+}
+
+principle_group_direct_oversight = {
+	primary_for_identity = identity_ideological_union
+	unlocking_identity = identity_ideological_union
+	levels = {
+		principle_direct_oversight_1
+		principle_direct_oversight_2
+		principle_direct_oversight_3
+	}
+}
+
+principle_group_international_criminal_court = {
+	primary_for_identity = identity_ideological_union
+	unlocking_identity = identity_ideological_union
+	levels = {
+		principle_international_criminal_court_1
+		principle_international_criminal_court_2
+		principle_international_criminal_court_3
+	}
+}
+
+principle_group_righteous_cause = {
+	primary_for_identity = identity_ideological_union
+	unlocking_identity = identity_ideological_union
+	levels = {
+		principle_righteous_cause_1
+		principle_righteous_cause_2
+		principle_righteous_cause_3
+	}
+}
+
+### MILITARY TREATY ORGANIZATION UNQIUE
+
+principle_group_conventions_of_war = {
+	primary_for_identity = identity_military_treaty_organization
+	unlocking_identity = identity_military_treaty_organization
+	levels = {
+		principle_conventions_of_war_1
+		principle_conventions_of_war_2
+		principle_conventions_of_war_3
+	}
+}
+
+principle_group_logistics_network = {
+	primary_for_identity = identity_military_treaty_organization
+	unlocking_identity = identity_military_treaty_organization
+	levels = {
+		principle_logistics_network_1
+		principle_logistics_network_2
+		principle_logistics_network_3
+	}
+}
+
+principle_group_your_country_needs_you = {
+	primary_for_identity = identity_military_treaty_organization
+	unlocking_identity = identity_military_treaty_organization
+	levels = {
+		principle_your_country_needs_you_1
+		principle_your_country_needs_you_2
+		principle_your_country_needs_you_3
+	}
+}
+
+principle_group_chivalrous_pursuit = {
+	primary_for_identity = identity_military_treaty_organization
+	unlocking_identity = identity_military_treaty_organization
+	levels = {
+		principle_chivalrous_pursuit_1
+		principle_chivalrous_pursuit_2
+		principle_chivalrous_pursuit_3
+	}
+}
+
+principle_group_wonder_weapons = {
+	primary_for_identity = identity_military_treaty_organization
+	unlocking_identity = identity_military_treaty_organization
+	levels = {
+		principle_wonder_weapons_1
+		principle_wonder_weapons_2
+		principle_wonder_weapons_3
+	}
+}
+
+principle_group_joint_training_exercises = {
+	primary_for_identity = identity_military_treaty_organization
+	unlocking_identity = identity_military_treaty_organization
+	levels = {
+		principle_joint_training_exercises_1
+		principle_joint_training_exercises_2
+		principle_joint_training_exercises_3
+	}
+}
+
+### RELIGIOUS UNIQUE
+
+principle_group_holy_wars = {
+	primary_for_identity = identity_religious
+	unlocking_identity = identity_religious
+	levels = {
+		principle_holy_wars_1
+		principle_holy_wars_2
+		principle_holy_wars_3
+	}
+}
+
+principle_group_champion_the_true_faith = {
+	primary_for_identity = identity_religious
+	unlocking_identity = identity_religious
+	levels = {
+		principle_champion_the_true_faith_1
+		principle_champion_the_true_faith_2
+		principle_champion_the_true_faith_3
+	}
+}
+
+principle_group_henotheism = {
+	primary_for_identity = identity_religious
+	unlocking_identity = identity_religious
+	levels = {
+		principle_henotheism_1
+		principle_henotheism_2
+		principle_henotheism_3
+	}
+}
+
+principle_group_organised_religion = {
+	primary_for_identity = identity_religious
+	unlocking_identity = identity_religious
+	levels = {
+		principle_organised_religion_1
+		principle_organised_religion_2
+		principle_organised_religion_3
+	}
+}
+
+principle_group_alms_for_the_poor = {
+	primary_for_identity = identity_religious
+	unlocking_identity = identity_religious
+	levels = {
+		principle_alms_for_the_poor_1
+		principle_alms_for_the_poor_2
+		principle_alms_for_the_poor_3
+	}
+}
+
+principle_group_ummah = {
+	primary_for_identity = identity_religious
+	unlocking_identity = identity_religious
+	levels = {
+		principle_ummah_1
+		principle_ummah_2
+		principle_ummah_3
+	}
+}
+
+
+
+### NEW GENERIC
+
+principle_group_propaganda = {
+
+	levels = {
+		principle_propaganda_1
+		principle_propaganda_2
+		principle_propaganda_3
+	}
+}
+
+principle_group_unity = {
+
+	levels = {
+		principle_unity_1
+		principle_unity_2
+		principle_unity_3
+	}
+}
+
+principle_group_development_fund = {
+
+	levels = {
+		principle_development_fund_1
+		principle_development_fund_2
+		principle_development_fund_3
+	}
+}
+
+principle_group_sovereign_wealth_fund = {
+
+	levels = {
+		principle_sovereign_wealth_fund_1
+		principle_sovereign_wealth_fund_2
+		principle_sovereign_wealth_fund_3
+	}
+}
+
+principle_group_settlement_drive = {
+
+	levels = {
+		principle_settlement_drive_1
+		principle_settlement_drive_2
+		principle_settlement_drive_3
+	}
+}
+
+principle_group_antitrust_commission = {
+
+	levels = {
+		principle_antitrust_commission_1
+		principle_antitrust_commission_2
+		principle_antitrust_commission_3
+	}
+}
+
+
+
+### VANILLA MODIFIED
+
+principle_group_creative_legislature = {
+	primary_for_identity = identity_ideological_union
+	unlocking_identity = identity_ideological_union
+	
+	levels = {
+		principle_creative_legislature_1
+		principle_creative_legislature_2
+		principle_creative_legislature_3
+	}
+}

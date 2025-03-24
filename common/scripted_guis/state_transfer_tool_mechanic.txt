@@ -1,0 +1,440 @@
+mark_state = {
+	scope = country
+	saved_scopes = {
+        owner 
+		player 
+		state
+    }
+
+	is_shown = {
+		always = yes
+		#any_country = {
+		#	limit = {
+		#		has_variable = marked_nation
+		#	}
+		#	NOT = { is_subject = no }
+		#}
+	}
+	
+	is_valid = {
+		NOT = {
+			scope:state = {
+				scope:player = {
+					is_target_in_variable_list = { name = marked_states target = prev }
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_game_rule = state_transfer_multiplayer
+			}
+			scope:state = {
+				owner = scope:player
+			}
+		}
+	}
+
+	effect = {
+		scope:state = {
+			scope:player = {
+				add_to_variable_list = { name = marked_states target = scope:state }
+			}
+		}
+	}
+}
+
+unmark_state = {
+	scope = country
+	saved_scopes = {
+        owner 
+		player 
+		state
+    }
+
+	is_shown = {
+		always = yes
+		#any_country = {
+		#	limit = {
+		#		has_variable = marked_nation
+		#	}
+		#	NOT = { is_subject = no }
+		#}
+	}
+	
+	is_valid = {
+		scope:state = {
+			scope:player = {
+				is_target_in_variable_list = { name = marked_states target = prev }
+			}
+		}
+	}
+
+	effect = {
+		scope:state = {
+			scope:player = {
+				remove_list_variable = { name = marked_states target = scope:state }
+			}
+		}
+	}
+}
+
+core_states = {
+	scope = country
+	saved_scopes = {
+        owner 
+		player 
+		state
+    }
+
+	is_shown = {
+		always = yes
+		#any_country = {
+		#	limit = {
+		#		has_variable = marked_nation
+		#	}
+		#	NOT = { is_subject = no }
+		#}
+	}
+	
+	is_valid = {
+		any_state = {
+			scope:player = {
+				is_target_in_variable_list = { name = marked_states target = prev }
+			}
+		}
+	}
+
+	effect = {
+		scope:player = {
+			every_in_list = {
+				variable = marked_states
+				if = {
+					limit = {
+						#is_homeland_of_country_cultures = scope:player_who_clicked_scope
+						is_incorporated = yes
+					}
+					set_state_type = unincorporated
+				}
+				else = {
+					#add_homeland = scope:player_who_clicked_scope.random_primary_culture
+					set_state_type = incorporated
+				}
+				remove_from_list = marked_states
+			}
+			clear_variable_list = marked_states
+		}
+	}
+}
+
+transfer_states = {
+	scope = country
+	saved_scopes = {
+        owner 
+		player 
+		state
+    }
+
+	is_shown = {
+		always = yes
+		#any_country = {
+		#	limit = {
+		#		has_variable = marked_nation
+		#	}
+		#	NOT = { is_subject = no }
+		#}
+	}
+	
+	is_valid = {
+		any_state = {
+			scope:player = {
+				is_target_in_variable_list = { name = marked_states target = prev }
+			}
+		}
+	}
+
+	effect = {
+		scope:player = {
+			every_in_list = {
+				variable = marked_states
+				owner = { save_scope_as = previous_state_owner }
+				set_state_owner = scope:owner
+				if = {
+					limit = {
+						scope:previous_state_owner = {
+							NOT = { any_scope_state = { owner = scope:previous_state_owner } }
+						}
+					}
+					scope:player = {
+						annex = scope:previous_state_owner
+					}
+				}
+				remove_from_list = marked_states
+			}
+			clear_variable_list = marked_states
+		}
+	}
+}
+
+core_and_transfer_states = {
+	scope = country
+	saved_scopes = {
+        owner 
+		player 
+		state
+    }
+
+	is_shown = {
+		always = yes
+		#any_country = {
+		#	limit = {
+		#		has_variable = marked_nation
+		#	}
+		#	NOT = { is_subject = no }
+		#}
+	}
+	
+	is_valid = {
+		any_state = {
+			scope:player = {
+				is_target_in_variable_list = { name = marked_states target = prev }
+			}
+		}
+	}
+
+	effect = {
+		scope:player = {
+			every_in_list = {
+				variable = marked_states
+				owner = { save_scope_as = previous_state_owner }
+				set_state_owner = scope:owner
+				if = {
+					limit = {
+						scope:previous_state_owner = {
+							NOT = { any_scope_state = { owner = scope:previous_state_owner } }
+						}
+					}
+					scope:owner = {
+						annex = scope:previous_state_owner
+					}
+				}
+				set_state_type = incorporated
+				remove_from_list = marked_states
+			}
+			clear_variable_list = marked_states
+		}
+	}
+}
+
+mark_all_states = {
+	scope = country
+	saved_scopes = {
+        owner 
+		player 
+		state
+    }
+
+	is_shown = {
+		always = yes
+		#any_country = {
+		#	limit = {
+		#		has_variable = marked_nation
+		#	}
+		#	NOT = { is_subject = no }
+		#}
+	}
+	
+	is_valid = {
+		scope:owner = {
+			any_scope_state = {
+				NOT = {
+					scope:player = {
+						is_target_in_variable_list = { name = marked_states target = prev }
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_game_rule = state_transfer_multiplayer
+			}
+			scope:owner = scope:player
+		}
+	}
+
+	effect = {
+		scope:owner = {
+			every_scope_state = {
+				scope:player = {
+					add_to_variable_list = { name = marked_states target = prev }
+				}
+			}
+		}
+	}
+}
+
+mark_all_colonies = {
+	scope = country
+	saved_scopes = {
+        owner 
+		player 
+		state
+    }
+
+	is_shown = {
+		always = yes
+		#any_country = {
+		#	limit = {
+		#		has_variable = marked_nation
+		#	}
+		#	NOT = { is_subject = no }
+		#}
+	}
+	
+	is_valid = {
+		scope:owner = {
+			any_scope_state = {
+				is_incorporated = no
+				NOT = {
+					scope:player = {
+						is_target_in_variable_list = { name = marked_states target = prev }
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_game_rule = state_transfer_multiplayer
+			}
+			scope:owner = scope:player
+		}
+	}
+
+	effect = {
+		scope:owner = {
+			every_scope_state = {
+				limit = {
+					is_incorporated = no
+					#NOT = { is_homeland_of_country_cultures = scope:player_who_clicked_scope }
+				}
+				scope:player = {
+					add_to_variable_list = { name = marked_states target = prev }
+				}
+			}
+		}
+	}
+}
+
+unmark_all_states = {
+	scope = country
+	saved_scopes = {
+        owner 
+		player 
+		state
+    }
+
+	is_shown = {
+		always = yes
+		#any_country = {
+		#	limit = {
+		#		has_variable = marked_nation
+		#	}
+		#	NOT = { is_subject = no }
+		#}
+	}
+	
+	is_valid = {
+		any_state = {
+			scope:player = {
+				is_target_in_variable_list = { name = marked_states target = prev }
+			}
+		}
+	}
+
+	effect = {
+		scope:player = {
+			clear_variable_list = marked_states
+		}
+	}
+}
+
+claim_states = {
+	scope = country
+	saved_scopes = {
+        owner 
+		player 
+		state
+    }
+
+	is_shown = {
+		always = yes
+		#any_country = {
+		#	limit = {
+		#		has_variable = marked_nation
+		#	}
+		#	NOT = { is_subject = no }
+		#}
+	}
+	
+	is_valid = {
+		any_state = {
+			scope:player = {
+				is_target_in_variable_list = { name = marked_states target = prev }
+			}
+		}
+	}
+
+	effect = {
+		scope:player = {
+			every_in_list = {
+				variable = marked_states
+				if = {
+					limit = {
+						has_claim_by = scope:owner
+						state_region = {
+							scope:owner = { NOT = { is_target_in_variable_list = { name = claimed_this_round target = prev } } }
+						}
+					}
+					state_region = {
+						remove_claim = scope:owner
+					}
+				}
+				else = {
+					state_region = {
+						add_claim = scope:owner
+						scope:owner = { add_to_variable_list = { name = claimed_this_round target = prev } }
+					}
+				}
+				remove_from_list = marked_states
+			}
+			clear_variable_list = marked_states
+		}
+	}
+}
+
+mark_province = {
+	scope = country
+	saved_scopes = {
+        owner 
+		player 
+		state
+    }
+
+	is_shown = {
+		always = yes
+		#any_country = {
+		#	limit = {
+		#		has_variable = marked_nation
+		#	}
+		#	NOT = { is_subject = no }
+		#}
+	}
+	
+	is_valid = {
+		always = yes
+	}
+
+	effect = {
+		
+	}
+}
+

@@ -1,0 +1,205 @@
+types country_color_tool_types
+{
+	type puppeting_tool_panel = window {
+		name = "puppeting_tool_panel"
+		block "datacontext" {
+			datacontext = "[State.GetCountry]"
+		}
+		layer = popups
+		allow_outside = yes
+		movable = no
+		block "visibility" {
+			visible = "[GetVariableSystem.Exists('show_puppeting_tool')]"
+		}
+		icon = {
+			texture = "gfx/interface/backgrounds/entry_bg_simple_solid.dds"
+			size = { 320 180 }
+		}
+		background = {
+			using = entry_bg_simple
+		}
+		size = { 320 180 }
+		block "position" {
+			position = { 1150 -20 }
+		}
+		textbox = {
+			text = "#BOLD [Country.GetNameNoFormatting]#!"
+			default_format = "#header"
+			background = {
+				using = entry_bg_simple
+			}
+			position = { 10 10 }
+		}
+		dynamicgridbox = {
+			#Tool
+			visible = "[Not(GetVariableSystem.Exists('show_puppet_gallery_tab'))]"
+			direction = vertical
+			position = { 5 22 }
+			margin = { 5 5 }
+			ignoreinvisible = yes
+			variable_progressbar = { 
+				position = { 35 110 }
+				size = { 240 15 }
+				blockoverride "datacontext" { datacontext = "[Country]" } 
+			}
+			default_progressbar_horizontal = {
+				visible = "[EqualTo_string('0', Country.GetCustom('autonomy_percentage_simplified_for_bar'))]"
+				position = { 35 95 }
+				size = { 240 15 }
+				blockoverride "values" {
+					value = 100
+					min = 0
+					max = 100
+				}
+			}
+			###
+		}
+		dynamicgridbox = {
+			#Gallery
+			visible = "[GetVariableSystem.Exists('show_puppet_gallery_tab')]"
+			direction = vertical
+			position = { 5 22 }
+			margin = { 5 5 }
+			ignoreinvisible = yes
+			
+			###
+		}
+		hbox = {
+			margin = { 3 0 }
+			position = { 0 68 }
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			
+			### TAB 1
+			tab_button = {
+				block "first_button_name" {}
+				layoutstretchfactor_horizontal = 1
+				layoutpolicy_horizontal = preferred			
+				block "height" {}
+				
+				block "first_button_visibility_checked" {
+					visible = "[GetVariableSystem.Exists('show_puppet_gallery_tab')]"
+				}
+				
+				block "first_button_click" {
+					onclick = "[GetVariableSystem.Toggle('show_puppet_gallery_tab')]"
+				}
+				block "first_button_icon" {}
+				
+				textbox = {
+					block "first_button" {
+						text = "Tool"
+					}
+					default_format = "#title"
+					using = tab_text_properties
+				}
+			}
+			icon = {
+				block "first_button_name" {}
+				using = selected_tabs
+				layoutstretchfactor_horizontal = 1
+				layoutpolicy_horizontal = preferred
+				block "height" {}
+				
+				block "first_button_visibility" {
+					visible = "[Not(GetVariableSystem.Exists('show_puppet_gallery_tab'))]"
+				}
+				block "first_button_icon" {}
+
+				textbox = {
+					block "first_button_selected" {
+						text = "#BOLD Tool#!"
+					}
+					default_format = "#variable"
+					using = tab_text_properties
+				}
+			}
+			
+			### TAB 2
+			tab_button = {
+				block "second_button_name" {}
+				layoutstretchfactor_horizontal = 1
+				layoutpolicy_horizontal = preferred
+				block "height" {}
+				
+				block "second_button_visibility_checked" {
+					visible = "[Not(GetVariableSystem.Exists('show_puppet_gallery_tab'))]"
+				}
+
+				block "second_button_click" {
+					onclick = "[GetVariableSystem.Toggle('show_puppet_gallery_tab')]"
+				}
+				block "second_button_icon" {}
+				
+				textbox = {
+					block "second_button" {
+						text = "Gallery"
+					}
+					default_format = "#title"
+					using = tab_text_properties
+				}
+			}
+			icon = {
+				block "second_button_name" {}
+				using = selected_tabs
+				layoutstretchfactor_horizontal = 1
+				layoutpolicy_horizontal = preferred
+				block "height" {}
+				
+				block "second_button_visibility" {
+					visible = "[GetVariableSystem.Exists('show_puppet_gallery_tab')]"
+				}
+				block "second_button_icon" {}
+
+				textbox = {
+					block "second_button_selected" {
+						text = "#BOLD Gallery#!"
+					}
+					default_format = "#variable"
+					using = tab_text_properties
+				}
+			}
+		}
+		####
+		
+	}
+	
+	type puppeting_tool_toggle = button {
+		tooltip = "Toggle the Puppeting Tool." #Placeholder_Text
+		icon = {
+			texture = "gfx/interface/icons/generic_icons/red_cross.dds"
+			visible = "[Not(GetVariableSystem.Exists('show_puppeting_tool'))]"
+			block "iconsize" {
+				size = { 25 25 }
+			}
+			block "iconposition" {
+				position = { 0 0 }
+			}
+			parentanchor = right
+		}
+		icon = {
+			texture = "gfx/interface/icons/generic_icons/green_checkmark.dds"
+			visible = "[GetVariableSystem.Exists('show_puppeting_tool')]"
+			block "iconsize" {
+				size = { 25 25 }
+			}
+			block "iconposition" {
+				position = { 0 0 }
+			}
+			parentanchor = right
+		}
+		using = default_button
+		block "size" {
+			size = { 25 25 }
+		}
+		block "position" {
+			position = { 10 10 }
+		}
+		onclick = "[GetVariableSystem.Toggle('show_puppeting_tool')]"
+		shortcut = "puppet_toggle"
+	}
+}
+
+template vplus_country_color_tool_panel {
+	country_color_tool_panel = {}
+}

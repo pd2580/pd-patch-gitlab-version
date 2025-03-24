@@ -1,0 +1,3366 @@
+﻿######### TRADE LEAGUE UNIQUE
+
+### DEREGULATION
+
+principle_deregulation_1 = {
+	icon = "gfx/interface/icons/principles_icons/deregulation.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		interest_group_ig_industrialists_pol_str_mult = 0.15
+	}
+	
+	ai_weight = {
+		value = 100
+		
+		if = {
+			limit = {
+				ig:ig_industrialists ?= { is_in_government = yes }
+			}
+			add = 100
+		}			
+		
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number < 40
+				}
+			}
+			subtract = 100
+		}
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number < 20
+				}
+			}
+			subtract = 200
+		}
+
+		if = {
+			limit = { has_strategy = ai_strategy_industrial_expansion }
+			multiply = 1.5
+		}	
+		else_if = {
+			limit = { has_strategy = ai_strategy_resource_expansion }
+			multiply = 1.25
+		}	
+	}
+}
+
+principle_deregulation_2 = {
+	icon = "gfx/interface/icons/principles_icons/deregulation.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = -5
+		power_bloc_allow_foreign_investment_all_rank_bool = yes
+	}
+
+	member_modifier = {
+		interest_group_ig_industrialists_pol_str_mult = 0.15
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_deregulation_3 = {
+	icon = "gfx/interface/icons/principles_icons/deregulation.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = -10
+		power_bloc_allow_foreign_investment_all_rank_bool = yes
+	}
+
+	member_modifier = {
+		interest_group_ig_industrialists_pol_str_mult = 0.15
+		country_company_throughput_bonus_add = 0.1
+		country_force_privatization_bool = yes
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### UNIFIED BOND MARKET
+
+principle_unified_bond_market_1 = {
+	icon = "gfx/interface/icons/principles_icons/unified_bond_market.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_loan_interest_rate_mult = -0.025
+		country_interest_rate_from_bloc_members_mult = -0.001875
+		country_interest_rate_from_bloc_members_mult_max = -0.0375
+	}
+	
+	ai_weight = {
+		value = 100
+		
+		if = {
+			limit = {
+				ig:ig_industrialists ?= { is_in_government = yes }
+			}
+			add = 100
+		}			
+
+		if = {
+			limit = { has_strategy = ai_strategy_industrial_expansion }
+			multiply = 1.5
+		}	
+		else_if = {
+			limit = { has_strategy = ai_strategy_resource_expansion }
+			multiply = 1.25
+		}	
+	}
+}
+
+principle_unified_bond_market_2 = {
+	icon = "gfx/interface/icons/principles_icons/unified_bond_market.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_loan_interest_rate_mult = -0.05
+		country_interest_rate_from_bloc_members_mult = -0.00375
+		country_interest_rate_from_bloc_members_mult_max = -0.075
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_unified_bond_market_3 = {
+	icon = "gfx/interface/icons/principles_icons/unified_bond_market.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_loan_interest_rate_mult = -0.05
+		country_interest_rate_from_bloc_members_mult = -0.0075
+		country_interest_rate_from_bloc_members_mult_max = -0.15
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### COLLECTIVE BARGAINING POWER
+
+principle_collective_bargaining_power_1 = {
+	icon = "gfx/interface/icons/principles_icons/collective_bargaining_power.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_free_trade_routes_add = 10
+	}
+	
+	ai_weight = {
+		value = 200	
+	}
+}
+
+principle_collective_bargaining_power_2 = {
+	icon = "gfx/interface/icons/principles_icons/collective_bargaining_power.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	member_modifier = {
+		country_free_trade_routes_add = 10
+		country_trade_route_competitiveness_mult = 0.5
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_collective_bargaining_power_3 = {
+	icon = "gfx/interface/icons/principles_icons/collective_bargaining_power.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	member_modifier = {
+		country_free_trade_routes_add = 10
+		country_trade_route_competitiveness_mult = 0.5
+		country_trade_route_quantity_mult = 0.25
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### CURRENCY UNION
+
+principle_currency_union_1 = {
+	icon = "gfx/interface/icons/principles_icons/currency_union.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = -5
+	}
+
+	leader_modifier = {
+		country_minting_from_bloc_members_mult = 0.005
+		country_minting_from_bloc_members_mult_max = 0.1
+	}
+	
+	ai_weight = {
+		value = 200		
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number > 80
+				}
+			}
+			add = 100
+		}
+		
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number < 40
+				}
+			}
+			subtract = 100
+		}
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number < 20
+				}
+			}
+			subtract = 200
+		}	
+	}
+}
+
+principle_currency_union_2 = {
+	icon = "gfx/interface/icons/principles_icons/currency_union.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = -10
+	}
+
+	non_leader_modifier = {
+		country_minting_mult = -0.1
+	}
+
+	leader_modifier = {
+		country_minting_from_bloc_members_mult = 0.015
+		country_minting_from_bloc_members_mult_max = 0.3
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_currency_union_3 = {
+	icon = "gfx/interface/icons/principles_icons/currency_union.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = -15
+	}
+
+	non_leader_modifier = {
+		country_minting_mult = -0.2
+	}
+
+	leader_modifier = {
+		country_minting_from_bloc_members_mult = 0.03
+		country_minting_from_bloc_members_mult_max = 0.6
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### MEMBER COUNCIL
+
+principle_member_council_1 = {
+	icon = "gfx/interface/icons/principles_icons/member_council.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_influence_mult = 0.1
+	}
+	
+	ai_weight = {
+		value = 100
+		
+		if = {
+			limit = {
+				ig:ig_industrialists ?= { is_in_government = yes }
+			}
+			add = 100
+		}			
+
+		if = {
+			limit = { has_strategy = ai_strategy_industrial_expansion }
+			multiply = 1.5
+		}	
+		else_if = {
+			limit = { has_strategy = ai_strategy_resource_expansion }
+			multiply = 1.25
+		}	
+	}
+}
+
+principle_member_council_2 = {
+	icon = "gfx/interface/icons/principles_icons/member_council.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_influence_mult = 0.1
+		country_bureaucracy_from_bloc_members_mult = 0.005
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_member_council_3 = {
+	icon = "gfx/interface/icons/principles_icons/member_council.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_influence_mult = 0.1
+		country_bureaucracy_from_bloc_members_mult = 0.015
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+
+### PRIVATE TAX COLLECTORS
+
+principle_private_tax_collectors_1 = {
+	icon = "gfx/interface/icons/principles_icons/private_tax_collectors.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_bureaucrats_pol_str_mult = 0.1
+	}
+	
+	ai_weight = {
+		value = 100
+		
+		if = {
+			limit = {
+				ig:ig_industrialists ?= { is_in_government = yes }
+			}
+			add = 100
+		}			
+
+		if = {
+			limit = { has_strategy = ai_strategy_industrial_expansion }
+			multiply = 1.5
+		}	
+		else_if = {
+			limit = { has_strategy = ai_strategy_resource_expansion }
+			multiply = 1.25
+		}	
+	}
+}
+
+principle_private_tax_collectors_2 = {
+	icon = "gfx/interface/icons/principles_icons/private_tax_collectors.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_bureaucrats_pol_str_mult = 0.1
+		country_bureaucracy_investment_cost_factor_mult = -0.05
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_private_tax_collectors_3 = {
+	icon = "gfx/interface/icons/principles_icons/private_tax_collectors.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_bureaucrats_pol_str_mult = 0.1
+		country_bureaucracy_investment_cost_factor_mult = -0.05
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+######### SOVEREIGN EMPIRE UNIQUE
+
+### ECONOMIC IMPERIALISM
+
+principle_economic_imperialism_1 = {
+	icon = "gfx/interface/icons/principles_icons/economic_imperialism.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	non_leader_modifier = {
+		state_construction_mult = 0.05
+	}
+	
+	ai_weight = {
+		value = 200		
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number > 80
+				}
+			}
+			add = 100
+		}
+		
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number < 40
+				}
+			}
+			subtract = 100
+		}
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number < 20
+				}
+			}
+			subtract = 200
+		}	
+	}
+}
+
+principle_economic_imperialism_2 = {
+	icon = "gfx/interface/icons/principles_icons/economic_imperialism.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	non_leader_modifier = {
+		state_construction_mult = 0.05
+	}
+
+	leader_modifier = {
+		country_max_companies_add = 1
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_economic_imperialism_3 = {
+	icon = "gfx/interface/icons/principles_icons/economic_imperialism.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	non_leader_modifier = {
+		state_construction_mult = 0.05
+	}
+
+	leader_modifier = {
+		forced_privatization_subject_action_bool = yes
+		country_max_companies_add = 2
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+
+### LEVIATHAN
+
+principle_leviathan_1 = {
+	icon = "gfx/interface/icons/principles_icons/leviathan.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	leader_modifier = {
+		country_prestige_mult = 0.05
+	}
+	
+	ai_weight = {
+		value = 200		
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number > 80
+				}
+			}
+			add = 100
+		}
+		
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number < 40
+				}
+			}
+			subtract = 100
+		}
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number < 20
+				}
+			}
+			subtract = 200
+		}	
+	}
+}
+
+principle_leviathan_2 = {
+	icon = "gfx/interface/icons/principles_icons/leviathan.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = -5
+	}
+
+	non_leader_modifier = {
+		country_prestige_mult = -0.1
+	}
+
+	leader_modifier = {
+		country_prestige_mult = 0.2
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_leviathan_3 = {
+	icon = "gfx/interface/icons/principles_icons/leviathan.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = -5
+		power_bloc_cohesion_per_member_add = -1
+		power_bloc_leader_can_make_subjects_bool = yes
+		power_bloc_invite_acceptance_great_power_add = -5
+		power_bloc_invite_acceptance_major_power_add = -10
+		power_bloc_invite_acceptance_unrecognized_major_power_add = -10
+		power_bloc_invite_acceptance_add = -30
+	}
+
+	non_leader_modifier = {
+		country_prestige_mult = -0.1
+	}
+
+	leader_modifier = {
+		country_prestige_mult = 0.2
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+
+### IMPERIAL PREROGATIVE
+
+principle_imperial_prerogative_1 = {
+	icon = "gfx/interface/icons/principles_icons/imperial_prerogative.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_leverage_generation_mult = 0.25
+	}
+	
+	ai_weight = {
+		value = 200		
+	}
+}
+
+principle_imperial_prerogative_2 = {
+	icon = "gfx/interface/icons/principles_icons/imperial_prerogative.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_leverage_generation_mult = 0.25
+	}
+
+	non_leader_modifier = {
+		country_liberty_desire_increase_mult = -0.33
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_imperial_prerogative_3 = {
+	icon = "gfx/interface/icons/principles_icons/imperial_prerogative.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_liberty_desire_of_subjects_add = -0.05
+	}
+
+	power_bloc_modifier = {
+		power_bloc_leverage_generation_mult = 0.25
+	}
+
+	non_leader_modifier = {
+		country_liberty_desire_increase_mult = -0.33
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+
+### COLONIAL MANPOWER
+
+principle_colonial_manpower_1 = {
+	icon = "gfx/interface/icons/principles_icons/colonial_manpower.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	leader_modifier = {
+		building_training_rate_per_subject_mult = 0.01
+	}
+	
+	ai_weight = {
+		value = 200		
+	}
+}
+
+principle_colonial_manpower_2 = {
+	icon = "gfx/interface/icons/principles_icons/colonial_manpower.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	leader_modifier = {
+		building_training_rate_per_subject_mult = 0.02
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_colonial_manpower_3 = {
+	icon = "gfx/interface/icons/principles_icons/colonial_manpower.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	leader_modifier = {
+		building_training_rate_per_subject_mult = 0.025
+		state_building_barracks_max_level_add = 10
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+
+### PAX IMPERIA
+
+principle_pax_imperia_1 = {
+	icon = "gfx/interface/icons/principles_icons/pax_imperia.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	leader_modifier = {
+		country_improve_relations_speed_mult = 0.25
+	}
+	
+	ai_weight = {
+		value = 200	
+	}
+}
+
+principle_pax_imperia_2 = {
+	icon = "gfx/interface/icons/principles_icons/pax_imperia.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	leader_modifier = {
+		country_improve_relations_speed_mult = 0.25
+	}
+
+	member_modifier = {
+		country_influence_mult = 0.1
+	}
+
+	non_leader_modifier = {
+		country_convoys_per_leader_subject_mult = 0.01
+		country_convoys_per_leader_subject_mult_max = 0.2
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_pax_imperia_3 = {
+	icon = "gfx/interface/icons/principles_icons/pax_imperia.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	leader_modifier = {
+		country_improve_relations_speed_mult = 0.25
+	}
+
+	member_modifier = {
+		country_influence_mult = 0.1
+	}
+
+	non_leader_modifier = {
+		country_convoys_per_leader_subject_mult = 0.03
+		country_convoys_per_leader_subject_mult_max = 0.6
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+
+### PREFERENTIAL COLONIAL TRADE
+
+principle_preferential_colonial_trade_1 = {
+	icon = "gfx/interface/icons/principles_icons/preferential_colonial_trade.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		tariff_import_outside_power_bloc_mult = 0.2
+		tariff_export_outside_power_bloc_mult = 0.2
+	}
+	
+	ai_weight = {
+		value = 200	
+	}
+}
+
+principle_preferential_colonial_trade_2 = {
+	icon = "gfx/interface/icons/principles_icons/preferential_colonial_trade.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_convoy_contribution_to_market_owner_add = 0.2
+		tariff_import_outside_power_bloc_mult = 0.2
+		tariff_export_outside_power_bloc_mult = 0.2
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_preferential_colonial_trade_3 = {
+	icon = "gfx/interface/icons/principles_icons/preferential_colonial_trade.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_mapi_per_leader_subject_mult = 0.002
+		country_mapi_per_leader_subject_mult_max = 0.05
+		country_convoy_contribution_to_market_owner_add = 0.2
+		tariff_import_outside_power_bloc_mult = 0.2
+		tariff_export_outside_power_bloc_mult = 0.2
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+
+########## NEW IDEOLOGICAL UNION
+
+### ENTRENCHED ELITE
+
+principle_entrenched_elite_1 = {
+	icon = "gfx/interface/icons/principles_icons/entrenched_elite.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		interest_group_ig_landowners_pol_str_mult = 0.25
+	}
+	
+	ai_weight = {
+		value = 0	
+
+		if = {
+			limit = {
+				has_law = law_type:law_monarchy
+			}
+			add = 100
+		}
+
+		if = {
+			limit = {
+				OR = {
+					has_law = law_type:law_agrarianism
+					has_law = law_type:law_traditionalism
+					has_law = law_type:law_industry_banned
+				}
+			}
+			add = 100
+		}
+
+		if = {
+			limit = {
+				has_law = law_type:law_serfdom
+			}
+			add = 100
+		}
+	}
+}
+
+principle_entrenched_elite_2 = {
+	icon = "gfx/interface/icons/principles_icons/entrenched_elite.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		interest_group_ig_landowners_pol_str_mult = 0.25
+		state_aristocrats_investment_pool_efficiency_mult = 0.25
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_entrenched_elite_3 = {
+	icon = "gfx/interface/icons/principles_icons/entrenched_elite.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		interest_group_ig_landowners_pol_str_mult = 0.25
+		state_aristocrats_investment_pool_efficiency_mult = 0.25
+		country_authority_per_manor_house_max = 500
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### STATUS QUO
+
+principle_status_quo_1 = {
+	icon = "gfx/interface/icons/principles_icons/status_quo.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		political_movement_radicalism_add = -0.15
+	}
+	
+	ai_weight = {
+		value = 200
+	}
+}
+
+principle_status_quo_2 = {
+	icon = "gfx/interface/icons/principles_icons/status_quo.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		political_movement_radicalism_add = -0.15
+		country_revolution_progress_mult = -0.1
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_status_quo_3 = {
+	icon = "gfx/interface/icons/principles_icons/status_quo.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_members_auto_help_against_revolutions_bool = yes
+	}
+
+	member_modifier = {
+		political_movement_radicalism_add = -0.15
+		country_revolution_progress_mult = -0.1
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### ECONOMIC CONSENSUS
+
+principle_economic_consensus_1 = {
+	icon = "gfx/interface/icons/principles_icons/economic_consensus.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_loan_interest_rate_mult = -0.1
+	}
+	
+	ai_weight = {
+		value = 200
+	}
+}
+
+principle_economic_consensus_2 = {
+	icon = "gfx/interface/icons/principles_icons/economic_consensus.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	leader_modifier = {
+		country_can_impose_same_lawgroup_economy_in_power_bloc_bool = yes 
+	}
+
+	member_modifier = {
+		country_loan_interest_rate_mult = -0.1
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_economic_consensus_3 = {
+	icon = "gfx/interface/icons/principles_icons/economic_consensus.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_customs_union_bool = yes
+	}
+
+	leader_modifier = {
+		country_can_impose_same_lawgroup_economy_in_power_bloc_bool = yes 
+	}
+
+	member_modifier = {
+		country_loan_interest_rate_mult = -0.1
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### DIRECT OVERSIGHT
+
+principle_direct_oversight_1 = {
+	icon = "gfx/interface/icons/principles_icons/direct_oversight.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_law_enactment_time_mult = -0.1
+	}
+	
+	ai_weight = {
+		value = 200		
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number > 80
+				}
+			}
+			add = 100
+		}
+		
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number < 40
+				}
+			}
+			subtract = 100
+		}
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number < 20
+				}
+			}
+			subtract = 200
+		}	
+	}
+}
+
+principle_direct_oversight_2 = {
+	icon = "gfx/interface/icons/principles_icons/direct_oversight.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	leader_modifier = {
+		country_legitimacy_per_power_bloc_member_add = 1
+	}
+
+	member_modifier = {
+		country_law_enactment_time_mult = -0.1
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_direct_oversight_3 = {
+	icon = "gfx/interface/icons/principles_icons/direct_oversight.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = -5
+	}
+
+	leader_modifier = {
+		country_legitimacy_per_power_bloc_member_add = 2
+	}
+
+	non_leader_modifier = {
+		country_law_enactment_imposition_success_add = 0.3
+	}
+
+	member_modifier = {
+		country_law_enactment_time_mult = -0.1
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### INTERNATIONAL CRIMINAL COURT
+
+principle_international_criminal_court_1 = {
+	icon = "gfx/interface/icons/principles_icons/international_criminal_court.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_institution_size_change_speed_institution_home_affairs_mult = 0.25
+		country_institution_cost_institution_home_affairs_mult = -0.1
+		interest_group_in_government_approval_add = 1
+	}
+
+	leader_modifier = {
+		country_can_impose_same_lawgroup_home_affairs_in_power_bloc_bool = yes
+	}
+	
+	ai_weight = {
+		value = 200
+	}
+}
+
+principle_international_criminal_court_2 = {
+	icon = "gfx/interface/icons/principles_icons/international_criminal_court.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_institution_size_change_speed_institution_home_affairs_mult = 0.4
+		country_institution_cost_institution_home_affairs_mult = -0.25
+		interest_group_in_government_approval_add = 2
+	}
+
+	leader_modifier = {
+		country_can_impose_same_lawgroup_home_affairs_in_power_bloc_bool = yes
+	}
+
+	institution = institution_home_affairs
+	institution_modifier = {
+		country_loyalists_from_legitimacy_mult = 0.05
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_international_criminal_court_3 = {
+	icon = "gfx/interface/icons/principles_icons/international_criminal_court.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_institution_size_change_speed_institution_home_affairs_mult = 0.5
+		country_institution_cost_institution_home_affairs_mult = -0.5
+		interest_group_in_government_approval_add = 3
+	}
+
+	leader_modifier = {
+		country_can_impose_same_lawgroup_home_affairs_in_power_bloc_bool = yes
+	}
+
+	institution = institution_home_affairs
+	institution_modifier = {
+		country_loyalists_from_legitimacy_mult = 0.05
+
+		country_legitimacy_base_add = 2
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### RIGHTEOUS CAUSE
+
+principle_righteous_cause_1 = {
+	icon = "gfx/interface/icons/principles_icons/righteous_cause.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		unit_morale_loss_mult = -0.1
+		unit_morale_recovery_mult = 0.1
+	}
+	
+	ai_weight = {
+		value = 200
+	}
+}
+
+principle_righteous_cause_2 = {
+	icon = "gfx/interface/icons/principles_icons/righteous_cause.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		unit_morale_loss_mult = -0.2
+		unit_morale_recovery_mult = 0.2
+		country_war_exhaustion_casualties_mult = -0.25
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_righteous_cause_3 = {
+	icon = "gfx/interface/icons/principles_icons/righteous_cause.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		unit_morale_loss_mult = -0.2
+		unit_morale_recovery_mult = 0.2
+		country_war_exhaustion_casualties_mult = -0.25
+		country_radicals_from_conquest_mult = -0.25
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+########## NEW MILITARY TREATY ORGANIZATION
+
+### CONVENTIONS OF WAR
+
+principle_conventions_of_war_1 = {
+	icon = "gfx/interface/icons/principles_icons/conventions_of_war.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		unit_morale_loss_mult = -0.1
+		unit_morale_damage_mult = -0.25
+	}
+	
+	ai_weight = {
+		value = 200
+	}
+}
+
+principle_conventions_of_war_2 = {
+	icon = "gfx/interface/icons/principles_icons/conventions_of_war.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		unit_morale_loss_mult = -0.1
+		unit_morale_damage_mult = -0.25
+		unit_morale_recovery_mult = 0.1
+		unit_devastation_mult = -0.25
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_conventions_of_war_3 = {
+	icon = "gfx/interface/icons/principles_icons/conventions_of_war.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		unit_morale_loss_mult = -0.1
+		unit_morale_damage_mult = -0.25
+		unit_morale_recovery_mult = 0.1
+		unit_devastation_mult = -0.25
+		unit_kill_rate_add = -0.15
+		country_infamy_generation_mult = -0.25
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### LOGISTICS NETWORK
+
+principle_logistics_network_1 = {
+	icon = "gfx/interface/icons/principles_icons/logistics_network.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		military_formation_mobilization_speed_mult = 0.25
+	}
+	
+	
+	ai_weight = {
+		value = 200
+	}
+}
+
+principle_logistics_network_2 = {
+	icon = "gfx/interface/icons/principles_icons/logistics_network.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		military_formation_mobilization_speed_mult = 0.25
+		military_formation_movement_speed_mult = 0.25
+	}
+	
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_logistics_network_3 = {
+	icon = "gfx/interface/icons/principles_icons/logistics_network.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		military_formation_mobilization_speed_mult = 0.25
+		military_formation_movement_speed_mult = 0.25
+		country_convoys_capacity_mult = 0.2
+		unit_supply_consumption_mult = -0.25
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### YOUR COUNTRY NEEDS YOU
+
+principle_your_country_needs_you_1 = {
+	icon = "gfx/interface/icons/principles_icons/your_country_needs_you.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		building_training_rate_mult = 0.1
+	}
+	
+	
+	ai_weight = {
+		value = 200
+	}
+}
+
+principle_your_country_needs_you_2 = {
+	icon = "gfx/interface/icons/principles_icons/your_country_needs_you.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		building_training_rate_mult = 0.25
+		state_conscription_rate_mult = 0.1
+	}
+	
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_your_country_needs_you_3 = {
+	icon = "gfx/interface/icons/principles_icons/your_country_needs_you.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		building_training_rate_mult = 0.25
+		state_conscription_rate_add = 0.025
+		state_building_conscription_center_max_level_add = 25
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### CHIVALROUS PURSUIT
+
+principle_chivalrous_pursuit_1 = {
+	icon = "gfx/interface/icons/principles_icons/chivalrous_pursuit.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_officers_pol_str_mult = 1
+	}
+	
+	
+	ai_weight = {
+		value = 200
+	}
+}
+
+principle_chivalrous_pursuit_2 = {
+	icon = "gfx/interface/icons/principles_icons/chivalrous_pursuit.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_officers_pol_str_mult = 1
+		interest_group_ig_armed_forces_approval_add = 1
+		interest_group_ig_armed_forces_pop_attraction_mult = 0.25
+	}
+	
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_chivalrous_pursuit_3 = {
+	icon = "gfx/interface/icons/principles_icons/chivalrous_pursuit.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_officers_pol_str_mult = 1
+		interest_group_ig_armed_forces_approval_add = 2
+		interest_group_ig_armed_forces_pop_attraction_mult = 0.25
+		country_diplomatic_play_maneuvers_add = 10
+		character_battle_condition_aggressive_maneuver_mult = 0.25
+		character_battle_condition_exhausted_mult = -0.25
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### WONDER WEAPONS
+
+principle_wonder_weapons_1 = {
+	icon = "gfx/interface/icons/principles_icons/wonder_weapons.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		building_arms_industry_throughput_add = 0.1
+	}
+	
+	
+	ai_weight = {
+		value = 200
+	}
+}
+
+principle_wonder_weapons_2 = {
+	icon = "gfx/interface/icons/principles_icons/wonder_weapons.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		building_arms_industry_throughput_add = 0.2
+		building_artillery_foundries_throughput_add = 0.1
+		building_munition_plants_throughput_add = 0.1
+	}
+	
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_wonder_weapons_3 = {
+	icon = "gfx/interface/icons/principles_icons/wonder_weapons.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		building_arms_industry_throughput_add = 0.2
+		building_artillery_foundries_throughput_add = 0.2
+		building_munition_plants_throughput_add = 0.2
+		country_military_tech_research_speed_mult = 0.1
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### JOINT TRAINING EXERCISES
+
+principle_joint_training_exercises_1 = {
+	icon = "gfx/interface/icons/principles_icons/joint_training_exercises.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		battle_defense_owned_province_mult = 0.1
+	}
+	
+	
+	ai_weight = {
+		value = 200
+	}
+}
+
+principle_joint_training_exercises_2 = {
+	icon = "gfx/interface/icons/principles_icons/joint_training_exercises.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = 5
+	}
+
+	member_modifier = {
+		battle_defense_owned_province_mult = 0.2
+		battle_offense_owned_province_mult = 0.1
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_joint_training_exercises_3 = {
+	icon = "gfx/interface/icons/principles_icons/joint_training_exercises.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = 10
+	}
+
+	member_modifier = {
+		battle_defense_owned_province_mult = 0.2
+		battle_offense_owned_province_mult = 0.2
+		unit_experience_gain_mult = 0.25
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+########## NEW RELIGIOUS
+
+### HOLY WARS
+
+principle_holy_wars_1 = {
+	icon = "gfx/interface/icons/principles_icons/holy_wars.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		building_training_rate_mult = 0.25
+	}
+	
+	ai_weight = {
+		value = 200
+	}
+}
+
+principle_holy_wars_2 = {
+	icon = "gfx/interface/icons/principles_icons/holy_wars.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		building_training_rate_mult = 0.25
+		unit_morale_loss_mult = -0.25
+		unit_morale_damage_mult = 0.2
+		unit_morale_recovery_mult = 0.1
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_holy_wars_3 = {
+	icon = "gfx/interface/icons/principles_icons/holy_wars.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	leader_modifier = {
+		country_can_declare_holy_wars_bool = yes
+	}
+
+	member_modifier = {
+		building_training_rate_mult = 0.25
+		unit_morale_loss_mult = -0.25
+		unit_morale_damage_mult = 0.2
+		unit_morale_recovery_mult = 0.1
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### HENOTHEISM
+
+principle_henotheism_1 = {
+	icon = "gfx/interface/icons/principles_icons/henotheism.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_influence_mult = 0.15
+	}
+	
+	ai_weight = {
+		value = 200
+	}
+}
+
+principle_henotheism_2 = {
+	icon = "gfx/interface/icons/principles_icons/henotheism.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_influence_mult = 0.15
+		country_acceptance_shared_religious_trait_add = 15
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_henotheism_3 = {
+	icon = "gfx/interface/icons/principles_icons/henotheism.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_influence_mult = 0.2
+		country_acceptance_religion_base_add = 15
+		country_acceptance_shared_religious_trait_add = 15
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### CHAMPION THE TRUE FAITH
+
+principle_champion_the_true_faith_1 = {
+	icon = "gfx/interface/icons/principles_icons/champion_the_true_faith.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		interest_group_ig_devout_pol_str_mult = 0.5
+	}
+	
+	ai_weight = {
+		value = 200
+	}
+}
+
+principle_champion_the_true_faith_2 = {
+	icon = "gfx/interface/icons/principles_icons/champion_the_true_faith.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		interest_group_ig_devout_pol_str_mult = 0.5
+		country_acceptance_state_religion_add = 20
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_champion_the_true_faith_3 = {
+	icon = "gfx/interface/icons/principles_icons/champion_the_true_faith.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		interest_group_ig_devout_pol_str_mult = 0.5
+		country_acceptance_state_religion_add = 20
+		state_conversion_mult = 0.5
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### ORGANISED RELIGION
+
+principle_organised_religion_1 = {
+	icon = "gfx/interface/icons/principles_icons/organised_religion.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_bureaucracy_mult = 0.15
+	}
+	
+	ai_weight = {
+		value = 200
+	}
+}
+
+principle_organised_religion_2 = {
+	icon = "gfx/interface/icons/principles_icons/organised_religion.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_bureaucracy_mult = 0.15
+		state_tax_capacity_mult = 0.15
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_organised_religion_3 = {
+	icon = "gfx/interface/icons/principles_icons/organised_religion.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_bureaucracy_mult = 0.15
+		state_tax_capacity_mult = 0.15
+		state_bureaucracy_population_base_cost_factor_mult = -0.15
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### ALMS FOR THE POOR
+
+principle_alms_for_the_poor_1 = {
+	icon = "gfx/interface/icons/principles_icons/alms_for_the_poor.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_institution_size_change_speed_institution_social_security_mult = 0.25
+		country_institution_cost_institution_social_security_mult = -0.1
+	}
+
+	leader_modifier = {
+		country_can_impose_same_lawgroup_welfare_in_power_bloc_bool = yes
+	}
+
+	institution = institution_social_security
+	institution_modifier = {
+		interest_group_ig_devout_pop_attraction_mult = 0.05
+	}
+	
+	ai_weight = {
+		value = 200
+	}
+}
+
+principle_alms_for_the_poor_2 = {
+	icon = "gfx/interface/icons/principles_icons/alms_for_the_poor.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_institution_size_change_speed_institution_social_security_mult = 0.4
+		country_institution_cost_institution_social_security_mult = -0.25
+	}
+
+	leader_modifier = {
+		country_can_impose_same_lawgroup_welfare_in_power_bloc_bool = yes
+	}
+
+	institution = institution_social_security
+	institution_modifier = {
+		interest_group_ig_devout_pop_attraction_mult = 0.05
+
+		state_conversion_mult = 0.1
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_alms_for_the_poor_3 = {
+	icon = "gfx/interface/icons/principles_icons/alms_for_the_poor.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_institution_size_change_speed_institution_social_security_mult = 0.5
+		country_institution_cost_institution_social_security_mult = -0.5
+	}
+
+	leader_modifier = {
+		country_can_impose_same_lawgroup_welfare_in_power_bloc_bool = yes
+	}
+
+	institution = institution_social_security
+	institution_modifier = {
+		interest_group_ig_devout_pop_attraction_mult = 0.05
+
+		state_lower_strata_standard_of_living_add = 0.5
+
+		state_conversion_mult = 0.1
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### UMMAH
+
+principle_ummah_1 = {
+	icon = "gfx/interface/icons/principles_icons/ummah.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = 5
+	}
+	
+	ai_weight = {
+		value = 200
+	}
+}
+
+principle_ummah_2 = {
+	icon = "gfx/interface/icons/principles_icons/ummah.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = 10
+	}
+
+	member_modifier = {
+		country_influence_from_bloc_members_add = 50
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_ummah_3 = {
+	icon = "gfx/interface/icons/principles_icons/ummah.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = 15
+	}
+
+	member_modifier = {
+		country_legitimacy_per_power_bloc_member_add = 1
+		country_influence_from_bloc_members_add = 50
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+########## NEW GENERIC
+
+### PROPAGANDA
+
+principle_propaganda_1 = {
+	icon = "gfx/interface/icons/principles_icons/propaganda.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = 5
+	}
+	
+	ai_weight = {
+		value = 200
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number > 60
+				}
+			}
+			subtract = 100
+		}		
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number > 80
+				}
+			}
+			subtract = 100
+		}
+		
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number < 40
+				}
+			}
+			add = 100
+		}
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number < 20
+				}
+			}
+			add = 200
+		}	
+	}
+}
+
+principle_propaganda_2 = {
+	icon = "gfx/interface/icons/principles_icons/propaganda.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = 5
+		power_bloc_cohesion_mult = 0.1
+		power_bloc_invite_acceptance_add = 30
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_propaganda_3 = {
+	icon = "gfx/interface/icons/principles_icons/propaganda.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = 5
+		power_bloc_cohesion_mult = 0.1
+		power_bloc_invite_acceptance_add = 30
+		mandate_progress_from_cohesion_mult = 0.33
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### UNITY
+
+principle_unity_1 = {
+	icon = "gfx/interface/icons/principles_icons/unity.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = 5
+	}
+	
+	ai_weight = {
+		value = 200	
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number > 60
+				}
+			}
+			subtract = 100
+		}	
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number > 80
+				}
+			}
+			subtract = 100
+		}
+		
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number < 40
+				}
+			}
+			add = 100
+		}
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number < 20
+				}
+			}
+			add = 200
+		}	
+	}
+}
+
+principle_unity_2 = {
+	icon = "gfx/interface/icons/principles_icons/unity.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = 5
+		power_bloc_cohesion_per_member_add = 0.25
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_unity_3 = {
+	icon = "gfx/interface/icons/principles_icons/unity.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = 5
+		power_bloc_cohesion_per_member_add = 0.25
+		mandate_progress_from_members_mult = 0.5
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### SOVEREIGN WEALTH FUND
+
+principle_sovereign_wealth_fund_1 = {
+	icon = "gfx/interface/icons/principles_icons/sovereign_wealth_fund.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+		has_technology_researched = central_banking
+	}
+
+	member_modifier = {
+		country_gold_reserve_limit_mult = 1
+	}
+	
+	ai_weight = {
+		value = 200		
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number > 80
+				}
+			}
+			add = 100
+		}
+		
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number < 40
+				}
+			}
+			subtract = 100
+		}
+
+		if = {
+			limit = {
+				root.power_bloc = {
+					current_cohesion_number < 20
+				}
+			}
+			subtract = 200
+		}	
+	}
+}
+
+principle_sovereign_wealth_fund_2 = {
+	icon = "gfx/interface/icons/principles_icons/sovereign_wealth_fund.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+		has_technology_researched = central_banking
+	}
+
+	member_modifier = {
+		country_gold_reserve_limit_mult = 2
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_sovereign_wealth_fund_3 = {
+	icon = "gfx/interface/icons/principles_icons/sovereign_wealth_fund.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+		has_technology_researched = central_banking
+	}
+
+	member_modifier = {
+		country_gold_reserve_limit_mult = 2
+		country_interest_from_gold_reserves_bool = yes
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### DEVELOPMENT FUND
+
+principle_development_fund_1 = {
+	icon = "gfx/interface/icons/principles_icons/development_fund.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	leader_modifier = {
+		country_expenses_add = 15000
+	}
+
+	non_leader_modifier = {
+		country_construction_add = 5
+	}
+	
+	ai_weight = {
+		value = 0
+	}
+}
+
+principle_development_fund_2 = {
+	icon = "gfx/interface/icons/principles_icons/development_fund.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	leader_modifier = {
+		country_expenses_add = 30000
+	}
+
+	non_leader_modifier = {
+		country_construction_add = 15
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = 5
+		power_bloc_invite_acceptance_add = 15
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_development_fund_3 = {
+	icon = "gfx/interface/icons/principles_icons/development_fund.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	leader_modifier = {
+		country_expenses_add = 50000
+	}
+
+	non_leader_modifier = {
+		country_construction_add = 30
+	}
+
+	power_bloc_modifier = {
+		power_bloc_cohesion_add = 10
+		power_bloc_invite_acceptance_add = 30
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### SETTLEMENT DRIVE
+
+principle_settlement_drive_1 = {
+	icon = "gfx/interface/icons/principles_icons/settlement_drive.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_tension_decay_mult = -0.25
+	}
+	
+	ai_weight = {
+		value = 200		
+	}
+}
+
+principle_settlement_drive_2 = {
+	icon = "gfx/interface/icons/principles_icons/settlement_drive.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_tension_decay_mult = -0.25
+		country_institution_colonial_affairs_max_investment_add = 1
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_settlement_drive_3 = {
+	icon = "gfx/interface/icons/principles_icons/settlement_drive.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		country_tension_decay_mult = -0.25
+		country_institution_colonial_affairs_max_investment_add = 2
+		state_colony_growth_speed_mult = 0.25
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+### ANTITRUST COMMISSION
+
+principle_antitrust_commission_1 = {
+	icon = "gfx/interface/icons/principles_icons/antitrust_commission.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		interest_group_ig_industrialists_pol_str_mult = -0.15
+	}
+	
+	ai_weight = {
+		value = 100
+		
+		if = {
+			limit = {
+				ig:ig_industrialists ?= { is_in_government = yes }
+			}
+			subtract = 100
+		}	
+
+		if = {
+			limit = {
+				ig:ig_trade_unions ?= { is_in_government = yes }
+			}
+			add = 200
+		}		
+	}
+}
+
+principle_antitrust_commission_2 = {
+	icon = "gfx/interface/icons/principles_icons/antitrust_commission.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		interest_group_ig_industrialists_pol_str_mult = -0.15
+		state_shopkeepers_investment_pool_efficiency_mult = 0.15
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+principle_antitrust_commission_3 = {
+	icon = "gfx/interface/icons/principles_icons/antitrust_commission.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	possible = {
+		has_game_rule = kates_power_bloc_rule_enable_new_principles_enabled
+	}
+
+	member_modifier = {
+		interest_group_ig_industrialists_pol_str_mult = -0.15
+		state_shopkeepers_investment_pool_efficiency_mult = 0.15
+		country_company_throughput_bonus_add = -0.1
+		country_max_companies_add = 1
+	}
+	
+	ai_weight = {
+		value = 10000
+	}
+}
+
+###### GENERIC MODIFIED
+
+### RESEARCH CONGLOMERATE
+
+principle_advanced_research_1 = {
+	icon = "gfx/interface/icons/principles_icons/advanced_research.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+
+	visible = {
+		has_dlc_feature = power_bloc_features
+	}
+
+	member_modifier = {
+		country_institution_size_change_speed_institution_schools_mult = 0.25
+		country_institution_cost_institution_schools_mult = -0.1
+		country_disallow_law_no_schools_bool = yes
+	}
+
+	leader_modifier = {
+		country_can_impose_same_lawgroup_education_system_in_power_bloc_bool = yes
+	}
+
+	institution = institution_schools
+	institution_modifier = {
+		# School institution gives more tech spread
+		country_tech_spread_mult = 0.05 
+	}
+	
+	ai_weight = {
+		value = 100
+		
+		if = {
+			limit = {
+				ig:ig_intelligentsia ?= { is_in_government = yes }
+			}
+			add = 100
+		}			
+
+		if = {
+			limit = { has_strategy = ai_strategy_progressive_agenda }
+			multiply = 1.5
+		}
+	}
+}
+
+principle_advanced_research_2 = {
+	icon = "gfx/interface/icons/principles_icons/advanced_research.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+	
+	member_modifier = {
+		country_institution_size_change_speed_institution_schools_mult = 0.4
+		country_institution_cost_institution_schools_mult = -0.25
+		country_disallow_law_no_schools_bool = yes
+	}
+
+	leader_modifier = {
+		country_can_impose_same_lawgroup_education_system_in_power_bloc_bool = yes
+	}
+
+	institution = institution_schools
+	institution_modifier = {
+		# School institution gives more tech spread
+		country_tech_spread_mult = 0.05
+
+		# School isntitution reduces ahead of time research penalty
+		country_ahead_of_time_research_penalty_mult = -0.02
+	}
+
+	ai_weight = {
+		value = 1000 # AI prefers upgrading groups it has already picked to unlocking new ones
+	}
+}
+
+principle_advanced_research_3 = {
+	icon = "gfx/interface/icons/principles_icons/advanced_research.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	member_modifier = {
+		country_institution_size_change_speed_institution_schools_mult = 0.5
+		country_institution_cost_institution_schools_mult = -0.5
+		country_disallow_law_no_schools_bool = yes
+	}
+
+	leader_modifier = {
+		country_can_impose_same_lawgroup_education_system_in_power_bloc_bool = yes
+	}
+
+	institution = institution_schools
+	institution_modifier = {
+		# School institution gives more tech spread
+		country_tech_spread_mult = 0.05
+
+		# School isntitution reduces ahead of time research penalty
+		country_ahead_of_time_research_penalty_mult = -0.02
+
+		# Increase Country max innovation
+		country_weekly_innovation_add = 5
+	}
+	
+	ai_weight = {
+		value = 1000 # AI prefers upgrading groups it has already picked to unlocking new ones
+	}	
+}
+
+### Vassal Subjects
+
+principle_vassalization_1 = {
+	icon = "gfx/interface/icons/principles_icons/vassals_subjects.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+	
+	visible = {
+		has_dlc_feature = power_bloc_features
+	}
+
+	member_modifier = {
+		# Each subject increases authority
+		country_authority_per_subject_add = 25
+	}
+	
+	ai_weight = {
+		value = 100
+		
+		add = {
+			value = num_subjects
+			multiply = 50
+			max = 500
+		}
+
+		if = {
+			limit = {
+				power_bloc ?= { NOT = { has_identity = identity:identity_sovereign_empire } } 				
+			}
+			multiply = 0.5
+		}		
+	}
+}
+
+principle_vassalization_2 = {
+	icon = "gfx/interface/icons/principles_icons/vassals_subjects.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+	
+	member_modifier = {
+		# Modifiers from previous level(s)
+		country_authority_per_subject_add = 25
+		country_influence_per_subject_add = 25
+	}
+	
+	ai_weight = {
+		value = 1000 # AI prefers upgrading groups it has already picked to unlocking new ones
+	}
+}
+
+principle_vassalization_3 = {
+	icon = "gfx/interface/icons/principles_icons/vassals_subjects.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	member_modifier = {
+		# Modifiers from previous level(s)
+		country_authority_per_subject_add = 25
+		country_influence_per_subject_add = 25
+		country_subject_income_transfer_mult = 0.25
+	}
+	
+	ai_weight = {
+		value = 1000 # AI prefers upgrading groups it has already picked to unlocking new ones
+	}
+}
+
+### INTERNAL TRADE
+
+principle_internal_trade_1 = {
+	icon = "gfx/interface/icons/principles_icons/internal_trade.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_1.dds"
+	
+	member_modifier = {
+		# Members get a bonus to Company throughput
+		country_company_throughput_bonus_add = 0.1
+		# More convoy going to the market owner, effect scaling upwards with principle levels
+		country_convoy_contribution_to_market_owner_add = 0.2
+	}
+	
+	ai_weight = {
+		value = 200 # Good for trade leagues to have
+			
+		if = {
+			limit = { 
+				OR = {
+					has_law = law_type:law_mercantilism 
+					has_law = law_type:law_command_economy
+				}
+			}
+			add = 100
+		}	
+
+		if = {
+			limit = { 
+				power_bloc ?= { has_principle_group = principle_group:principle_group_external_trade }
+			}
+			multiply = 0.5
+		}
+	}	
+}
+
+principle_internal_trade_2 = {
+	icon = "gfx/interface/icons/principles_icons/internal_trade.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_2.dds"
+
+	member_modifier = {
+		# Modifiers from previous level(s)
+		country_company_throughput_bonus_add = 0.1
+		country_convoy_contribution_to_market_owner_add = 0.2
+	
+		# Members get increased tariffs from countries outside the Power Bloc and infrastructure
+		tariff_import_outside_power_bloc_mult = 0.2
+		tariff_export_outside_power_bloc_mult = 0.2
+		state_infrastructure_mult = 0.1
+	}
+	
+	ai_weight = {
+		value = 1000 # AI prefers upgrading groups it has already picked to unlocking new ones
+	}	
+}
+
+principle_internal_trade_3 = {
+	icon = "gfx/interface/icons/principles_icons/internal_trade.dds"
+	background = "gfx/interface/icons/principles_icons/principle_tier_3.dds"
+
+	member_modifier = {
+		# Modifiers from previous level(s)
+		country_company_throughput_bonus_add = 0.1
+		country_convoy_contribution_to_market_owner_add = 0.2
+		tariff_import_outside_power_bloc_mult = 0.2
+		tariff_export_outside_power_bloc_mult = 0.2
+		state_infrastructure_mult = 0.1
+		
+		# Cheaper port connections
+		country_port_connection_cost_mult = -0.25
+	}
+	
+	ai_weight = {
+		value = 1000 # AI prefers upgrading groups it has already picked to unlocking new ones
+	}
+}
+
+
+

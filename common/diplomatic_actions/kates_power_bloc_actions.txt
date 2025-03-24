@@ -1,0 +1,606 @@
+﻿force_become_subject = {
+	groups= {
+		power_bloc_leader
+	}
+	show_in_lens = no
+
+	texture = "gfx/interface/icons/diplomatic_action_icons/force_become_subject.dds"
+	
+	selectable = {
+		is_power_bloc_leader = yes
+		power_bloc ?= {
+			modifier:power_bloc_leader_can_make_subjects_bool = yes
+		}		
+	}
+	
+	potential = {
+		power_bloc ?= {
+			scope:target_country.power_bloc ?= this
+		}
+	}
+	
+	possible = {
+		scope:target_country = { 
+			is_subject = no
+			is_diplomatic_play_committed_participant = no
+			OR = {
+				has_game_rule = kates_power_bloc_rule_diplo_action_changes_enabled
+				country_rank < rank_value:unrecognized_major_power 
+			}
+		}
+		OR = {
+			has_game_rule = kates_power_bloc_rule_diplo_action_changes_enabled
+			power_bloc = {
+				current_cohesion_percentage >= 0.5
+			}
+		}
+		scope:target_country = {
+			tenure_in_current_power_bloc_years >= 5
+		}
+		OR = {
+			AND = {
+				has_game_rule = kates_power_bloc_rule_diplo_action_changes_enabled
+				custom_tooltip = {
+					text = "PRESTIGE_THREE_TIMES_POSSIBLE"
+					prestige >= {
+						value = scope:target_country.prestige
+						multiply = 3
+					}
+				}
+			}
+			prestige >= {
+				value = scope:target_country.prestige
+				multiply = 5
+			}
+		}	
+	}
+	
+	accept_effect = {
+		if = {
+			limit = { is_country_type = unrecognized }
+			create_diplomatic_pact = {
+				country = scope:target_country
+				type = tributary
+			}						
+		}
+		else = {
+			create_diplomatic_pact = {
+				country = scope:target_country
+				type = protectorate
+			}			
+		}
+		if = {
+			limit = {
+				has_game_rule = kates_power_bloc_rule_diplo_action_changes_enabled
+			}
+			create_incident = {
+				country = scope:target_country
+				value = kates_force_become_subject_infamy
+			}
+		}
+		create_unidirectional_truce = { country = scope:target_country months = 60 }
+		hidden_effect = { scope:target_country = { add_liberty_desire = 30 } } # Starts at a higher LD level
+		
+		power_bloc = {
+			add_cohesion_percent = {
+				value = scaled_cohesion_cost_subjugation
+			}
+		}
+	}
+	
+	ai = {
+		evaluation_chance = {
+			value = 0.025 # AI shouldn't use this very often
+		}
+		
+		will_propose = {
+			power_bloc ?= { current_cohesion_percentage >= 0.6 }		
+			OR = {
+				has_attitude = {
+					who = scope:target_country
+					attitude = domineering
+				}
+				power_bloc ?= { current_cohesion_percentage >= 0.8 }						
+			}
+			OR = {
+				AND = {
+					has_attitude = {
+						who = scope:target_country
+						attitude = domineering
+					}		
+					power_bloc ?= { current_cohesion_percentage >= 0.8 }
+				}
+				scope:target_country = {
+					is_country_type = unrecognized
+				}
+			}		
+		}
+
+		propose_score = {								
+			value = 10			
+		}
+	}
+}
+
+force_regime_change = {
+	groups= {
+		power_bloc_leader
+	}
+	show_in_lens = no
+
+	texture = "gfx/interface/icons/diplomatic_action_icons/force_regime_change.dds"
+	
+	selectable = {
+		is_power_bloc_leader = yes
+		power_bloc ?= {
+			modifier:power_bloc_leader_can_regime_change_bool = yes
+		}		
+	}	
+	
+	potential = {
+		power_bloc ?= {
+			scope:target_country.power_bloc ?= this
+		}
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = "FORCE_REGIME_CHANGE_GOV_PRINCIPLES_DIST_POWER_PROGRESSIVENESS_DIFFERENCE"
+			OR = {
+				50 <= {
+					add = {
+						add = active_law:lawgroup_governance_principles.type.progressiveness
+						subtract = scope:target_country.active_law:lawgroup_governance_principles.type.progressiveness
+						abs = yes
+					}
+				}
+				50 <= {
+					add = {
+						add = active_law:lawgroup_distribution_of_power.type.progressiveness
+						subtract = scope:target_country.active_law:lawgroup_distribution_of_power.type.progressiveness
+						abs = yes
+					}
+				}
+			}
+		}	
+		
+		OR = {
+			has_game_rule = kates_power_bloc_rule_diplo_action_changes_enabled
+			AND = {
+				power_bloc = {
+					current_cohesion_percentage >= 0.25
+				}
+				scope:target_country = {
+					tenure_in_current_power_bloc_years >= 5
+				}
+			}
+		}
+
+		custom_tooltip = {
+			text = "PRESTIGE_THREE_TIMES_POSSIBLE"
+			prestige >= {
+				value = scope:target_country.prestige
+				multiply = 3
+			}
+		}
+	}
+	
+	accept_effect = {
+		regime_change = scope:target_country
+		scope:target_country = {
+			add_modifier = {
+				name = installed_regime
+				months = normal_modifier_time
+				multiplier = 0.2
+			}
+		}
+		
+		if = {
+			limit = {
+				has_game_rule = kates_power_bloc_rule_diplo_action_changes_enabled
+			}
+			create_incident = {
+				country = scope:target_country
+				value = kates_force_regime_change_infamy
+			}
+		}
+	}
+	
+	ai = {
+		evaluation_chance = {
+			value = 0.025 # AI shouldn't use this very often
+		}
+		
+		will_propose = {
+			power_bloc = { current_cohesion_percentage >= 0.75 }
+			"ai_ideological_opinion(scope:target_country)" <= -50			
+			OR = {
+				"ai_ideological_opinion(scope:target_country)" <= -100
+				has_attitude = {
+					who = scope:target_country
+					attitude = domineering
+				}					
+				AND = {
+					has_radical_leftist_government = no			
+					scope:target_country = {
+						has_radical_leftist_government = yes
+					}
+				}
+				AND = {
+					has_radical_leftist_economy = no			
+					scope:target_country = {
+						has_radical_leftist_economy = yes
+					}
+				}		
+			}
+		}
+
+		propose_score = {								
+			value = 10
+
+			if = {
+				limit = {
+					OR = {					
+						AND = {
+							has_radical_leftist_government = no			
+							scope:target_country = {
+								has_radical_leftist_government = yes
+							}
+						}
+						AND = {
+							has_radical_leftist_economy = no			
+							scope:target_country = {
+								has_radical_leftist_economy = yes
+							}
+						}				
+					}
+				}
+				add = 100
+			}				
+		}
+	}
+}
+
+force_state_religion = {
+	groups= {
+		power_bloc_leader
+	}
+	show_in_lens = no
+
+	texture = "gfx/interface/icons/diplomatic_action_icons/force_state_religion.dds"
+	
+	selectable = {
+		is_power_bloc_leader = yes
+		power_bloc ?= {
+			modifier:power_bloc_leader_can_force_state_religion_bool = yes
+		}		
+	}
+	
+	potential = {
+		power_bloc ?= {
+			scope:target_country.power_bloc ?= this
+		}
+	}
+	
+	possible = {
+		scope:target_country = {
+			NOT = { religion = root.religion }
+		}
+
+		OR = {
+			has_game_rule = kates_power_bloc_rule_diplo_action_changes_enabled
+			AND = {
+				power_bloc = {
+					current_cohesion_percentage >= 0.5
+				}
+				scope:target_country = {
+					tenure_in_current_power_bloc_years >= 5
+				}
+			}
+		}
+
+		custom_tooltip = {
+			text = "PRESTIGE_THREE_TIMES_POSSIBLE"
+			prestige >= {
+				value = scope:target_country.prestige
+				multiply = 3
+			}
+		}
+	}
+	
+	accept_effect = {
+		scope:target_country = {
+			set_state_religion = root.religion
+			capital = {
+				convert_population = {
+					target = root.religion
+					value = 0.05
+				}
+			}
+			every_scope_state = {
+				limit = { is_capital = no }
+				convert_population = {
+					target = root.religion
+					value = 0.02
+				}				
+			}
+			state_religion_switch_effect = yes
+		}
+
+		if = {
+			limit = {
+				has_game_rule = kates_power_bloc_rule_diplo_action_changes_enabled
+			}
+			create_incident = {
+				country = scope:target_country
+				value = kates_force_regime_change_infamy
+			}
+		}
+		
+		power_bloc = {
+			add_cohesion_percent = scaled_cohesion_cost
+		}
+	}
+	
+	ai = {
+		evaluation_chance = {
+			value = 0.025 # AI shouldn't use this very often
+		}
+		
+		will_propose = {
+			power_bloc = { current_cohesion_percentage >= 0.75 }
+			OR = {
+				has_attitude = {
+					who = scope:target_country
+					attitude = domineering
+				}
+				AND = {
+					religion = { has_discrimination_trait = christian }
+					NOT = { scope:target_country = { religion = { has_discrimination_trait = christian } } }
+				}
+				AND = {
+					religion = { has_discrimination_trait = muslim }
+					NOT = { scope:target_country = { religion = { has_discrimination_trait = muslim } } }
+				}
+				AND = {
+					religion = { has_discrimination_trait = jewish }
+					NOT = { scope:target_country = { religion = { has_discrimination_trait = jewish } } }
+				}
+				AND = {
+					religion = { has_discrimination_trait = eastern }
+					NOT = { scope:target_country = { religion = { has_discrimination_trait = eastern } } }
+				}
+				AND = {
+					religion = { has_discrimination_trait = buddhist }
+					NOT = { scope:target_country = { religion = { has_discrimination_trait = buddhist } } }
+				}				
+				AND = {
+					religion = { has_discrimination_trait = animist }
+					NOT = { scope:target_country = { religion = { has_discrimination_trait = animist } } }
+				}										
+			}
+		}
+
+		propose_score = {								
+			value = 10			
+		}
+	}
+}
+
+
+holy_war_action = {
+	groups= {
+		general
+	}
+
+	show_confirmation_box = yes
+
+	is_hostile = yes
+
+	potential = {
+		modifier:country_can_declare_holy_wars_bool = yes
+		scope:target_country = {
+			NOT = { religion = root.religion }
+		}
+		OR = {
+			has_game_rule = kates_power_bloc_rule_holy_wars_gp_enabled
+			scope:target_country = {
+				country_rank < rank_value:great_power
+			}
+		}
+	}
+
+	possible = {
+		is_revolutionary = no
+		NOR = {
+			has_war_with = scope:target_country
+			has_truce_with = scope:target_country
+			is_diplomatic_play_enemy_of = scope:target_country
+		}
+		aggressive_diplomatic_plays_permitted = yes
+	}
+
+	accept_effect = {
+		hidden_effect = {
+			root = {
+				save_scope_as = initiator_country
+			}
+			holy_war_start_action = yes
+		}
+		create_diplomatic_play = {
+			target_country = scope:target_country
+			type = dp_holy_war
+			add_war_goal = {
+				holder = scope:target_country
+				type = war_reparations
+				target_country = scope:initiator_country
+			}
+		}
+	}
+
+	ai = {
+		evaluation_chance = {
+			value = 0.01 # AI shouldn't use this very often
+		}
+		
+		will_propose = {
+			OR = {
+				has_attitude = {
+					who = scope:target_country
+					attitude = domineering
+				}
+				AND = {
+					religion = { has_discrimination_trait = christian }
+					NOT = { scope:target_country = { religion = { has_discrimination_trait = christian } } }
+				}
+				AND = {
+					religion = { has_discrimination_trait = muslim }
+					NOT = { scope:target_country = { religion = { has_discrimination_trait = muslim } } }
+				}
+				AND = {
+					religion = { has_discrimination_trait = jewish }
+					NOT = { scope:target_country = { religion = { has_discrimination_trait = jewish } } }
+				}
+				AND = {
+					religion = { has_discrimination_trait = eastern }
+					NOT = { scope:target_country = { religion = { has_discrimination_trait = eastern } } }
+				}
+				AND = {
+					religion = { has_discrimination_trait = buddhist }
+					NOT = { scope:target_country = { religion = { has_discrimination_trait = buddhist } } }
+				}				
+				AND = {
+					religion = { has_discrimination_trait = animist }
+					NOT = { scope:target_country = { religion = { has_discrimination_trait = animist } } }
+				}										
+			}
+		}
+
+		propose_score = {								
+			value = 0.1			
+		}
+	}
+}
+
+kates_foreign_investment_agreement = {
+	groups= {
+		general
+	}
+	requires_approval = no
+	should_notify_third_parties = no
+	show_in_lens = no
+	can_select_to_break = no
+
+	selectable = {
+		always = no
+	}
+
+	pact = {
+		is_two_sided_pact = yes
+		is_foreign_investment_rights = yes
+
+		requirement_to_maintain = {
+			trigger = {
+				power_bloc = scope:target_country.power_bloc
+				power_bloc = {
+					modifier:power_bloc_allow_foreign_investment_all_rank_bool = yes
+				}
+			}
+		}
+	}
+}
+
+force_privatization = {
+	requires_approval = no
+	groups= { overlord } # this is a subject action only for the sake of breaking it if LD is high enough
+	
+	texture = "gfx/interface/icons/diplomatic_action_icons/raise_payments.dds"
+	confirmation_sound = "event:/SFX/UI/MapInteraction/SubjectInteractions/diplomatic_action_subjects_01_raise_payments_benign"
+	
+	selectable = {
+		has_dlc_feature = subject_and_bloc_actions
+	}
+
+	potential = {
+		scope:target_country = { 
+			is_subject_of = root 
+			NOT = { is_diplomatic_play_enemy_of = root }
+		}
+	}
+	
+	possible = {
+		modifier:forced_privatization_subject_action_bool = yes
+	}
+
+	actor_can_break = {
+		always = yes
+	}
+
+	target_can_break = {
+		always = no
+	}
+
+	pact = {	
+		cost = 25
+
+		recipient_pays_maintenance = no
+		second_modifier = {
+			country_disable_nationalization_bool = yes
+			country_force_privatization_bool = yes
+		}
+	    
+		requirement_to_maintain = {
+			trigger = {
+				custom_tooltip = {
+					text = "DIPLOMATIC_PACT_REQUIREMENT_AT_PEACE"
+					NOT = { has_war_with = scope:target_country }
+				}			
+			}
+		}
+	}
+	
+	ai = {
+		max_influence_spending_fraction = 0.1
+		
+		evaluation_chance = {
+			value = 0.25		
+		}		
+	
+		propose_score = {
+			value = 10
+		}
+	
+		will_propose = {
+			"relations(scope:target_country)" < relations_threshold:cordial
+			has_attitude = {
+				who = scope:target_country
+				attitude = domineering
+			}		
+			OR = {
+				has_strategy = ai_strategy_economic_imperialism
+				has_strategy = ai_strategy_territorial_expansion
+				has_strategy = ai_strategy_world_revolution
+			}
+			scope:target_country = { "potential_diplomatic_play_power_ratio(root)" <= 0.5 }
+		}
+		
+		will_break = {
+			OR = {
+				has_attitude = {
+					who = scope:target_country
+					attitude = protective
+				}	
+				AND = {
+					scope:target_country = { liberty_desire >= 50 }
+					"relations(scope:target_country)" >= relations_threshold:friendly	
+					NOR = {
+						has_strategy = ai_strategy_economic_imperialism
+						has_strategy = ai_strategy_territorial_expansion
+						has_strategy = ai_strategy_world_revolution
+					}					
+				}				
+			}	
+		}		
+	}
+}
+

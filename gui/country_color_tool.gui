@@ -1,0 +1,505 @@
+types country_color_tool_types
+{
+	type country_color_tool_panel = window {
+		name = "country_color_tool_panel"
+		layer = popups
+		allow_outside = yes
+		movable = no
+		block "visibility" {
+			visible = "[GetVariableSystem.Exists('show_country_color_tool')]"
+		}
+		icon = {
+			texture = "gfx/interface/backgrounds/entry_bg_simple_solid.dds"
+			size = { 320 120 }
+		}
+		background = {
+			using = entry_bg_simple
+		}
+		size = { 320 120 }
+		block "position" {
+			position = { 1150 -20 }
+		}
+		textbox = {
+			text = "#BOLD [State.GetCountry.GetNameNoFormatting]#!"
+			default_format = "#header"
+			background = {
+				using = entry_bg_simple
+			}
+			position = { 10 10 }
+		}
+		flowcontainer = {
+			direction = vertical
+			position = { 5 22 }
+			margin = { 5 5 }
+			flowcontainer = {
+				direction = horizontal
+				country_color_tool_entry = {
+					#blockoverride "text" {
+					#	text = "Placeholder"#Placeholder_Text
+					#}
+					#blockoverride "datacontext" {
+					#	datacontext = "[GetScriptedGui('color_placeholder')]"
+					#}
+					#blockoverride "colorcheck" {
+					#	visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_placeholder_color'))]"
+					#}
+				}
+				country_color_tool_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_placeholder_color'))]"
+					}
+				}
+				country_color_tool_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_placeholder_color'))]"
+					}
+				}
+			}
+			flowcontainer = {
+				direction = horizontal
+				country_color_tool_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_placeholder_color'))]"
+					}
+				}
+				country_color_tool_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_placeholder_color'))]"
+					}
+				}
+				country_color_tool_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_placeholder_color'))]"
+					}
+				}
+			}
+			flowcontainer = {
+				direction = horizontal
+				country_color_tool_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_placeholder_color'))]"
+					}
+				}
+				country_color_tool_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_placeholder_color'))]"
+					}
+				}
+				country_color_tool_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_placeholder_color'))]"
+					}
+				}
+			}
+			flowcontainer = {
+				direction = horizontal
+				country_color_tool_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_placeholder_color'))]"
+					}
+				}
+				country_color_tool_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_placeholder_color'))]"
+					}
+				}
+				country_color_tool_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_placeholder_color'))]"
+					}
+				}
+			}
+			
+			###
+		}
+		####
+		
+	}
+	
+	type country_color_tool_toggle = button {
+		tooltip = "Toggle the Country Coloring Tool." #Placeholder_Text
+		icon = {
+			texture = "gfx/interface/icons/generic_icons/red_cross.dds"
+			visible = "[Not(GetVariableSystem.Exists('show_country_color_tool'))]"
+			block "iconsize" {
+				size = { 25 25 }
+			}
+			block "iconposition" {
+				position = { 0 0 }
+			}
+			parentanchor = right
+		}
+		icon = {
+			texture = "gfx/interface/icons/generic_icons/green_checkmark.dds"
+			visible = "[GetVariableSystem.Exists('show_country_color_tool')]"
+			block "iconsize" {
+				size = { 25 25 }
+			}
+			block "iconposition" {
+				position = { 0 0 }
+			}
+			parentanchor = right
+		}
+		using = default_button
+		block "size" {
+			size = { 25 25 }
+		}
+		block "position" {
+			position = { 10 10 }
+		}
+		onclick = "[GetVariableSystem.Toggle('show_country_color_tool')]"
+		shortcut = "color_toggle"
+	}
+	
+	type country_color_tool_entry = container {
+		
+		button = {
+			block "text" {
+				text = "Prussian Blue"#Placeholder_Text
+			}
+			using = default_button
+			size = { 100 20 }
+			#tooltip = "MARK_SELECTED_STATE_TOOLTIP"
+			block "datacontext" {
+				datacontext = "[GetScriptedGui('color_prussian')]"
+			}
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('market_access_var', MakeScopeValue(State.GetMarketAccess)).AddScope('infra_usage', MakeScopeValue(State.GetInfrastructureUsage)).AddScope('tax_cap', MakeScopeValue(State.CalcTaxCapacity)).AddScope('tax_cap_usage', MakeScopeValue(State.CalcTaxCapacityUsage)).AddScope('literacy_rate_var', MakeScopeValue(State.GetLiteracy)).AddScope('turmoil_var', MakeScopeValue(State.CalcTurmoil)).AddScope('infra_var', MakeScopeValue(State.GetInfrastructure)).AddScope('player_credit',MakeScopeValue(State.GetCountry.GetMaxCredit)).AddScope('investor',MakeScopeValue(GetPlayer.GetMaxCredit)).AddScope('population_one',MakeScopeValue(State.GetNumberOfPopsPoor)).AddScope('population_two',MakeScopeValue(State.GetNumberOfPopsMiddle)).AddScope('population_three',MakeScopeValue(State.GetNumberOfPopsRich)).End )]"
+			#shortcut = "state_transfer_mark"	
+		}
+		####
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			block "colorcheck" {
+				visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_prussian_blue'))]"
+			}
+			position = { 0 0 }
+			size = { 100 3 }
+		}
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			block "colorcheck" {
+				visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_prussian_blue'))]"
+			}
+			position = { 0 17 }
+			size = { 100 3 }
+		}
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			block "colorcheck" {
+				visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_prussian_blue'))]"
+			}
+			position = { 98 0 }
+			size = { 3 19 }
+		}
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			block "colorcheck" {
+				visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_prussian_blue'))]"
+			}
+			position = { 0 0 }
+			size = { 3 19 }
+		}
+	}
+	####################################
+	type country_color_tool_country_panel = window {
+		name = "country_color_tool_panel"
+		layer = popups
+		allow_outside = yes
+		movable = no
+		block "visibility" {
+			visible = "[GetVariableSystem.Exists('show_country_color_tool')]"
+		}
+		icon = {
+			texture = "gfx/interface/backgrounds/entry_bg_simple_solid.dds"
+			size = { 320 120 }
+		}
+		background = {
+			using = entry_bg_simple
+		}
+		size = { 320 120 }
+		block "position" {
+			position = { 1150 -20 }
+		}
+		textbox = {
+			text = "#BOLD [Country.GetNameNoFormatting]#!"
+			default_format = "#header"
+			background = {
+				using = entry_bg_simple
+			}
+			position = { 10 10 }
+		}
+		flowcontainer = {
+			direction = vertical
+			position = { 5 22 }
+			margin = { 5 5 }
+			flowcontainer = {
+				direction = horizontal
+				country_color_tool_country_entry = {
+					#blockoverride "text" {
+					#	text = "Placeholder"#Placeholder_Text
+					#}
+					#blockoverride "datacontext" {
+					#	datacontext = "[GetScriptedGui('color_placeholder')]"
+					#}
+					#blockoverride "colorcheck" {
+					#	visible = "[EqualTo_string('yes', State.GetCountry.GetCustom('is_placeholder_color'))]"
+					#}
+				}
+				country_color_tool_country_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', Country.GetCustom('is_placeholder_color'))]"
+					}
+				}
+				country_color_tool_country_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', Country.GetCustom('is_placeholder_color'))]"
+					}
+				}
+			}
+			flowcontainer = {
+				direction = horizontal
+				country_color_tool_country_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', Country.GetCustom('is_placeholder_color'))]"
+					}
+				}
+				country_color_tool_country_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', Country.GetCustom('is_placeholder_color'))]"
+					}
+				}
+				country_color_tool_country_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', Country.GetCustom('is_placeholder_color'))]"
+					}
+				}
+			}
+			flowcontainer = {
+				direction = horizontal
+				country_color_tool_country_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', Country.GetCustom('is_placeholder_color'))]"
+					}
+				}
+				country_color_tool_country_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', Country.GetCustom('is_placeholder_color'))]"
+					}
+				}
+				country_color_tool_country_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', Country.GetCustom('is_placeholder_color'))]"
+					}
+				}
+			}
+			flowcontainer = {
+				direction = horizontal
+				country_color_tool_country_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', Country.GetCustom('is_placeholder_color'))]"
+					}
+				}
+				country_color_tool_country_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', Country.GetCustom('is_placeholder_color'))]"
+					}
+				}
+				country_color_tool_country_entry = {
+					blockoverride "text" {
+						text = "Placeholder"#Placeholder_Text
+					}
+					blockoverride "datacontext" {
+						datacontext = "[GetScriptedGui('color_placeholder')]"
+					}
+					blockoverride "colorcheck" {
+						visible = "[EqualTo_string('yes', Country.GetCustom('is_placeholder_color'))]"
+					}
+				}
+			}
+			
+			###
+		}
+		####
+		
+	}
+	
+	type country_color_tool_country_entry = container {
+		
+		button = {
+			block "text" {
+				text = "Prussian Blue"#Placeholder_Text
+			}
+			using = default_button
+			size = { 100 20 }
+			#tooltip = "MARK_SELECTED_STATE_TOOLTIP"
+			block "datacontext" {
+				datacontext = "[GetScriptedGui('color_prussian')]"
+			}
+			onclick = "[ScriptedGui.Execute(GuiScope.AddScope('market_access_var', MakeScopeValue(Country.AccessCapital.GetMarketAccess)).AddScope('infra_usage', MakeScopeValue(Country.AccessCapital.GetInfrastructureUsage)).AddScope('tax_cap', MakeScopeValue(Country.AccessCapital.CalcTaxCapacity)).AddScope('tax_cap_usage', MakeScopeValue(Country.AccessCapital.CalcTaxCapacityUsage)).AddScope('literacy_rate_var', MakeScopeValue(Country.AccessCapital.GetLiteracy)).AddScope('turmoil_var', MakeScopeValue(Country.AccessCapital.CalcTurmoil)).AddScope('infra_var', MakeScopeValue(Country.AccessCapital.GetInfrastructure)).AddScope('player_credit',MakeScopeValue(Country.GetMaxCredit)).AddScope('investor',MakeScopeValue(GetPlayer.GetMaxCredit)).AddScope('population_one',MakeScopeValue(Country.AccessCapital.GetNumberOfPopsPoor)).AddScope('population_two',MakeScopeValue(Country.AccessCapital.GetNumberOfPopsMiddle)).AddScope('population_three',MakeScopeValue(Country.AccessCapital.GetNumberOfPopsRich)).End )]"
+			#shortcut = "state_transfer_mark"	
+		}
+		####
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			block "colorcheck" {
+				visible = "[EqualTo_string('yes', Country.GetCustom('is_prussian_blue'))]"
+			}
+			position = { 0 0 }
+			size = { 100 3 }
+		}
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			block "colorcheck" {
+				visible = "[EqualTo_string('yes', Country.GetCustom('is_prussian_blue'))]"
+			}
+			position = { 0 17 }
+			size = { 100 3 }
+		}
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			block "colorcheck" {
+				visible = "[EqualTo_string('yes', Country.GetCustom('is_prussian_blue'))]"
+			}
+			position = { 98 0 }
+			size = { 3 19 }
+		}
+		icon = {
+			texture = "gfx/interface/dividers/divider_clean.dds"
+			block "colorcheck" {
+				visible = "[EqualTo_string('yes', Country.GetCustom('is_prussian_blue'))]"
+			}
+			position = { 0 0 }
+			size = { 3 19 }
+		}
+	}
+}
+
+template vplus_country_color_tool_panel {
+	country_color_tool_panel = {}
+}

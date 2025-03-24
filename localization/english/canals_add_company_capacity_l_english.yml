@@ -1,0 +1,12 @@
+﻿l_english:
+ pmg_canal_add_company_capacity:0 "Canal"
+ pm_canal_add_company_capacity:0 "Canal"
+ 
+ company_panama_company_add_company_capacity: "Panama Canal Company"
+ company_suez_company_add_company_capacity: "Suez Canal Company"
+ 
+ rule_canals_add_company_capacity:0 "How Canals add Company Capacity"
+ setting_canal_buildings_add_company_capacity:1 "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_canal_buildings_add_company_capacity_desc Canal Buildings Add Company Capacity#!#!"
+ setting_canal_buildings_add_company_capacity_desc:0 "The [concept_building] for each [concept_canal] will add Company Capacity"
+ setting_canal_companies_prosperity_add_company_capacity:1 "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_canal_companies_prosperity_add_company_capacity_desc Canal Companies Add Company Capacity#!#!"
+ setting_canal_companies_prosperity_add_company_capacity_desc:0 "The [concept_company] for each [concept_canal] will add Company Capacity as a [concept_prosperity] bonus"
