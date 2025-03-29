@@ -1246,13 +1246,13 @@ num_active_interests_global_list_effect = {
 				is_country_type = decentralized
 			}
 		}
-		order_by = num_active_interests
+		order_by = modifier:country_construction_add
 		position = 0
 		max = 1
 		check_range_bounds = no
 		set_global_variable = {
 			name = top_num_active_interests_country_gvar
-			value = num_active_interests
+			value = modifier:country_construction_add
 		}
 	}
 
@@ -1269,7 +1269,7 @@ num_active_interests_global_list_effect = {
 			name = num_active_interests_local_var
 			value = 0
 		}
-		order_by = num_active_interests
+		order_by = modifier:country_construction_add
 		max = 15
 		check_range_bounds = no
 		
@@ -1280,11 +1280,11 @@ num_active_interests_global_list_effect = {
 
 		change_local_variable = {
 			name = num_active_interests_local_var
-			add = num_active_interests
+			add = modifier:country_construction_add
 		}
 		set_variable = { 
 			name = num_active_interests_value_tt
-			value = num_active_interests
+			value = modifier:country_construction_add
 		}
 		change_local_variable = { 
 			name = num_active_interests_local_var
