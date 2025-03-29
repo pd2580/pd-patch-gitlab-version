@@ -1,0 +1,6 @@
+﻿brunel_clothes_trigger = {
+	exists = scope:character
+	scope:character = {
+		has_variable = is_brunel
+	}
+}

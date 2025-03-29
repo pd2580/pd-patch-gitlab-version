@@ -1,0 +1,12 @@
+﻿lawgroup_naval_treaty = {
+	law_group_category = human_rights
+	enactment_approval_mult = 0.3
+	
+	progressive_movement_chance = 0
+	regressive_movement_chance = 0	
+
+	change_allowed_trigger = {
+		always = no
+	}
+
+}

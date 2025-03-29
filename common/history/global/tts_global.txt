@@ -1,0 +1,19 @@
+﻿GLOBAL = {
+	every_country = {
+		set_variable = {
+			name = navy_professionalism
+			value = navyprof_natural_position
+		}
+		update_navprof_modifiers = yes
+	}
+	
+	every_country = {
+		limit = {
+			OR = {
+				is_country_type = recognized
+				is_country_type = colonial
+			}
+		}
+		add_technology_researched = fully_rigged_ships
+	}
+}

@@ -1,0 +1,670 @@
+﻿dangerous_fraction_of_navy = {
+	value = root.navy_size
+	multiply = 0.6
+}
+
+naval_yards_using_ironclads = {
+	value = 0
+	every_scope_building = {
+		limit = {
+			has_active_production_method = pm_military_shipbuilding_ironclad
+		}
+		add = level
+	}
+}
+
+naval_yards_using_steel_shipbuilding = {
+	value = 0
+	every_scope_building = {
+		limit = {
+			has_active_production_method = pm_military_shipbuilding_steel
+		}
+		add = level
+	}
+}
+
+naval_yards_using_turbine_shipbuilding = {
+	value = 0
+	every_scope_building = {
+		limit = {
+			has_active_production_method = pm_military_shipbuilding_turbine
+		}
+		add = level
+	}
+}
+
+number_of_naval_bases = {
+	value = 0
+	every_scope_building = {
+		limit = {
+			is_building_type = building_naval_base
+		}
+		add = level
+	}
+}
+
+HIGH_PROFESSIONALISM_THRESHOLD = 70
+MEDIUM_PROFESSIONALISM_THRESHOLD = 40
+LOW_PROFESSIONALISM_THRESHOLD = 20
+
+navy_professionalism_target = {
+	value = 0
+
+	if = {
+		limit = {
+			OR = {
+				is_country_type = recognized
+				is_country_type = colonial
+			}
+		}
+		add = 30
+	}
+
+	if = {
+		limit = {
+			is_at_war = yes
+		}
+		add = 20
+	}
+
+	if = {
+		limit = {
+			OR = {
+				has_strategy = ai_strategy_colonial_expansion
+				has_strategy = ai_strategy_economic_imperialism
+			}
+		}
+		add = 15
+	}
+
+	if = {
+		limit = {
+			has_strategy = ai_strategy_maintain_two_power_standard
+		}
+		add = 30
+	}
+
+	if = {
+		limit = {
+			ruler ?= {
+				OR = {
+					has_trait = innovative
+					has_trait = ambitious
+				}
+			}
+		}
+		add = 15
+	}
+
+	if = {
+		limit = {
+			ig:ig_armed_forces = {
+				OR = {
+					is_powerful = yes
+					is_in_government = yes
+				}
+			}
+		}
+		add = 10
+	}
+	
+	if = {
+		limit = {
+			has_law = law_type:law_professional_army
+		}
+		add = 10
+	}
+
+	if = {
+		limit = {
+			literacy_rate <= 50
+		}
+		subtract = 5
+	}
+
+	if = {
+		limit = {
+			literacy_rate <= 30
+		}
+		subtract = 5
+	}
+
+	if = {
+		limit = {			
+			has_law = law_type:law_peasant_levies
+		}
+		subtract = 15
+	}
+
+	max = 95
+	min = 0
+}
+
+navyprof_want_difference = {
+	add = navy_professionalism_target
+	subtract = var:navy_professionalism
+}
+
+number_of_naval_yards = {
+	value = 0
+	every_scope_building = {
+		limit = {
+			is_building_type = building_military_shipyards
+		}
+		add = level
+	}
+}
+
+number_of_shipyards = {
+	value = 0
+	every_scope_building = {
+		limit = {
+			is_building_type = building_shipyards
+		}
+		add = level
+	}
+}
+
+navy_tech_level = {
+	value = 0
+	if = {
+		limit = {
+			country_navy_unit_type_fraction = {
+				target = unit_type:combat_unit_type_man_o_war
+				value > 0
+			}
+		}
+		value = 1
+	}
+	if = {
+		limit = {
+			country_navy_unit_type_fraction = {
+				target = unit_type:combat_unit_type_steam_ship_of_the_line
+				value > 0
+			}
+		}
+		value = 2
+	}
+	if = {
+		limit = {
+			country_navy_unit_type_fraction = {
+				target = unit_type:combat_unit_type_ironclad
+				value > 0
+			}
+		}
+		value = 3
+	}
+	if = {
+		limit = {
+			country_navy_unit_type_fraction = {
+				target = unit_type:combat_unit_type_predreadnought
+				value > 0
+			}
+		}
+		value = 4
+	}
+	if = {
+		limit = {
+			country_navy_unit_type_fraction = {
+				target = unit_type:combat_unit_type_dreadnought
+				value > 0
+			}
+		}
+		value = 5
+	}
+	if = {
+		limit = {
+			country_navy_unit_type_fraction = {
+				target = unit_type:combat_unit_type_battleship
+				value > 0
+			}		
+		}
+		value = 6
+	}
+}
+
+test_value = {
+	value = 0
+	if = {
+		limit = {
+			always = yes
+		}
+		add = {
+			value = 0
+			desc = "From having low literacy"
+			format = navprof_tooltip_format
+		}
+	}
+
+	if = {
+		limit = {
+			always = yes
+		}
+		add = {
+			value = 3
+			desc = "From having peace literacy"
+			format = navyprof_tooltip_format
+		}
+	}
+}
+
+navyprof_natural_position = {
+	add = {
+		value = 50
+		format = navyprof_tooltip_format
+		desc = navyprof_base_position_desc
+	}
+
+	add = {
+		value = modifier:country_navy_professionalism_admiralty_add
+		format = navyprof_tooltip_format
+		desc = navyprof_admiralty_desc
+	}
+
+	add = {
+		value = modifier:country_navy_professionalism_add
+		format = navyprof_tooltip_format
+		desc = navyprof_modifiers_desc
+	}
+
+	if = {
+		limit = {
+			military_wage_level = low
+		}
+		add = {
+			value = -10
+			format = navyprof_tooltip_format
+			desc = navyprof_low_wages_desc
+		}
+	}
+
+	if = {
+		limit = {
+			military_wage_level = very_low
+		}
+		add = {
+			value = -20
+			format = navyprof_tooltip_format
+			desc = navyprof_very_low_wages_desc
+		}
+	}
+
+	if = {
+		limit = {
+			literacy_rate <= 0.5
+			literacy_rate > 0.3
+		}
+		add = {
+			value = -10
+			format = navyprof_tooltip_format
+			desc = navyprof_low_literacy_desc
+		}
+	}
+
+	if = {
+		limit = {
+			literacy_rate <= 0.3
+		}
+		add = {
+			value = -20
+			format = navyprof_tooltip_format
+			desc = navyprof_very_low_literacy_desc
+		}
+	}
+
+	add = {
+		value = modifier:country_navy_professionalism_laws_add
+		format = navyprof_tooltip_format
+		desc = navyprof_laws_desc
+	}
+}
+
+navyprof_monthly_change = {
+	if = {
+		limit = {
+			var:navy_professionalism = navyprof_natural_position
+		}
+		value = 0
+	}
+	else_if = { # If you're above the natural position
+		limit = {
+			var:navy_professionalism > navyprof_natural_position
+		}
+		value = navyprof_natural_position
+		subtract = var:navy_professionalism
+		round = yes
+		divide = 10
+		max = -0.5
+		min = { 
+			value = navyprof_natural_position
+			subtract = var:navy_professionalism
+		}
+	}
+	else = { # If you're under the natural position
+		value = navyprof_natural_position
+		subtract = var:navy_professionalism
+		round = yes
+		divide = 10
+		min = 0.5
+		max = {
+			value = navyprof_natural_position
+			subtract = var:navy_professionalism
+		}
+	}
+}
+
+# navyprof_decay_value = {
+# 	IF = {
+# 		limit = {
+# 			NOT = { has_modifier = maintaining_current_navyprof }
+# 		}
+		
+# 		# Scaled between -0.5 at 100 to 0
+# 		add = {
+# 			value = {
+# 				value = var:navy_professionalism
+# 				divide = 200
+# 			}
+# 			format = navyprof_tooltip_format
+# 			desc = navyprof_base_decay_desc
+# 		}
+
+# 		if = { # A peacetime navy will decay faster
+# 			limit = {
+# 				is_at_war = no
+# 				is_diplomatic_play_committed_participant = no
+# 			}
+# 			add = {
+# 				value = 0.2
+# 				format = navyprof_tooltip_format
+# 				desc = navyprof_peace_decay_desc
+# 			}
+# 		}
+
+# 		if = { # 
+# 			limit = {
+# 				military_wage_level < medium
+# 			}
+# 			add = {
+# 				value = 0.3
+# 				format = navyprof_tooltip_format
+# 				desc = navyprof_low_wages_decay_desc
+# 			}
+# 		}
+
+# 		if = { # Low literacy rate decays faster
+# 			limit = {
+# 				literacy_rate <= 0.5
+# 				literacy_rate > 0.3
+# 			}
+# 			add = {
+# 				value = 0.1
+# 				format = navyprof_tooltip_format
+# 				desc = navyprof_low_literacy_decay_desc
+# 			}
+# 		}
+
+# 		if = { # Very low literacy rate decays even faster
+# 			limit = {
+# 				literacy_rate <= 0.3
+# 			}
+# 			add = {
+# 				value = 0.2
+# 				format = navyprof_tooltip_format
+# 				desc = navyprof_very_low_literacy_decay_desc
+# 			}
+# 		}
+
+# 		multiply = {
+# 			value = {
+# 				value = 1
+# 				add = {
+# 					value = modifier:country_navy_professionalism_decay_mult
+# 					format = navyprof_tooltip_mult_format
+# 					desc = navyprof_admiralty_decay_desc
+# 				}
+# 			}
+			
+# 		}
+
+# 	}
+# }
+
+treaty_acceptance_value = { # Should always be the same as the AI chance for the accept treaty button
+ 	value = 0
+
+	if = {
+		limit = {
+			country_rank < rank_value:great_power # majors and below
+		}
+		add = 1
+	}
+
+	if = {
+		limit = {
+			any_interest_group = {
+				leader = {
+					has_ideology = ideology:ideology_pacifist
+				}
+				is_powerful = yes
+			}
+		}
+		add = 1
+	}
+
+	if = {
+		limit = {
+			scaled_debt >= 0.5 # The country is over halfway to its debt limit
+		}
+		add = 1
+	}
+
+	if = {
+		limit = {
+			ig:ig_armed_forces = {
+				is_powerful = yes
+			}
+		}
+		add = -1
+	}
+
+	if = {
+		limit = {
+			ig:ig_rural_folk = {
+				is_powerful = yes
+			}
+		}
+		add = 1
+	}
+
+	if = {
+		limit = {
+			ruler = {
+				has_ideology = ideology:ideology_pacifist
+			}
+		}
+		add = 1
+	}
+
+	if = {
+		limit = {
+			ruler = {
+				has_ideology = ideology:ideology_jingoist_leader
+			}
+		}
+		add = -1
+	}
+}
+
+cryptography_ability = {
+	value = 0
+	
+	if = {
+		limit = {
+			has_technology_researched = mass_surveillance
+		}
+		add = 1
+	}
+
+	if = {
+		limit = {
+			has_technology_researched = telephone
+		}
+		add = 1
+	}
+
+	if = {
+		limit = {
+			has_technology_researched = radio
+		}
+		add = 1
+	}
+
+	if = {
+		limit = {
+			has_technology_researched = analytical_philosophy # Representing advanced math
+		}
+		add = 1
+	}
+
+	if = {
+		limit = {
+			has_institution = institution_home_affairs
+		}
+		add = {
+			add = institution:institution_home_affairs.investment
+			divide = 3
+		}
+	}
+
+	if = {
+		limit = {
+			has_institution = institution_police
+		}
+		add = {
+			add = institution:institution_police.investment
+			divide = 5
+		}
+	}
+}
+
+our_side_penetration = {
+	battle = {
+		every_combat_unit = {
+			limit = {
+				owner = scope:character.owner
+			}
+			add = {
+				value = flotilla_pen_value
+				multiply = manpower
+			}
+	
+		}
+	}
+	divide = {
+		battle = {
+			every_combat_unit = {
+				limit = {
+					owner = scope:character.owner
+				}
+				add = manpower
+			}
+		}
+	}
+}
+
+enemy_side_armor = {
+	battle = {
+		every_combat_unit = {
+			limit = {
+				owner = scope:character.opposing_commander.owner
+			}
+			add = {
+				value = flotilla_armor_value
+				multiply = manpower
+			}
+	
+		}
+	}
+	divide = {
+		battle = {
+			every_combat_unit = {
+				limit = {
+					owner = scope:character.opposing_commander.owner
+				}
+				add = manpower
+			}
+		}
+	}
+}
+
+formation_penetration = {
+	every_combat_unit = {
+		add = {
+			add = flotilla_pen_value
+			multiply = manpower
+		}
+	}
+	if = {
+		limit = {
+			any_combat_unit = {
+				count >= 1
+				manpower >= 1
+			}
+		}
+		divide = {
+			every_combat_unit = {
+				add = manpower
+			}
+		}
+	}
+	else = {
+		value = 0
+	}
+}
+
+formation_armor = {
+	every_combat_unit = {
+		add = {
+			add = flotilla_armor_value
+			multiply = manpower
+		}
+	}
+	if = {
+		limit = {
+			any_combat_unit = {
+				count >= 1
+				manpower >= 1
+			}
+		}
+		divide = {
+			every_combat_unit = {
+				add = manpower
+			}
+		}
+	}
+	else = {
+		value = 0
+	}
+}
+
+# The two largest non-British naval powers
+sum_two_powers = {
+	if = {
+		limit = {
+			exists = c:GBR
+		}
+		ordered_country = {
+			limit = {
+				country_rank = rank_value:great_power
+				NOT = { this = c:GBR }
+			}
+			max = 2
+			order_by = navy_size 
+			add = this.navy_size
+		}
+	}
+	else = {
+		value = 0
+	}
+}

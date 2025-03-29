@@ -1,0 +1,166 @@
+﻿
+ai_strategy_maintain_two_power_standard = { # Basically copied from vanilla Colonial Expansion for now
+	icon = "gfx/interface/icons/ai_strategy_icons/colonial_expansion.dds"
+	
+	type = diplomatic
+	undesirable_infamy_level = {
+		value = 25
+	}
+	
+	unacceptable_infamy_level = {
+		value = 50
+	}
+	
+	ideological_opinion_effect_mult = {
+		value = 1.0
+	}
+	
+	wargoal_maneuvers_fraction = {
+		value = 0
+	
+		if = {
+			limit = {
+				scope:enemy_country = { is_country_type = unrecognized }
+			}
+			add = 0.25
+		}	
+	}		
+	
+	diplomatic_play_neutrality = {
+		value = 25
+	}
+	
+	diplomatic_play_boldness = {
+		value = -15
+	}
+	
+	recklessness = {
+		value = 0.1
+	}
+	
+	# Added to value from default strategy
+	aggression = {
+		value = 0.25
+		if = {
+			limit = { 
+				NOT = { is_country_type = unrecognized }
+				scope:target_country = { is_country_type = unrecognized } 
+			}
+			add = 0.75			
+			
+			if = {
+				limit = { has_technology_researched = civilizing_mission }
+				add = 1.0
+			}			
+		}
+
+		# Less aggressive against countries we're just antagonistic against, rather than belligerent/domineering
+		if = {
+			limit = {
+				has_attitude = {
+					who = scope:target_country
+					attitude = antagonistic
+				}					
+			}
+			multiply = 0.1
+		}	
+
+		# More aggressive against ideological enemies, a bit less aggressive against ideological allies
+		if = {
+			limit = {
+				"ai_ideological_opinion(scope:target_country)" < 0
+			}
+			
+			multiply = {
+				value = "ai_ideological_opinion(scope:target_country)"
+				multiply = -0.2
+				add = 1
+				max = 4.0
+			}				
+		}	
+		else = {
+			multiply = {
+				value = "ai_ideological_opinion(scope:target_country)"
+				multiply = -0.05
+				add = 1
+				min = 0.5
+			}			
+		}		
+	}
+	
+	building_group_weights = {
+		bg_navy = 1.5
+	}
+	
+	colonial_interest_ratio = {
+		value = 0.10
+	
+		if = {
+			limit = { navy_size >= 30 }
+			add = 0.1
+		}
+		
+		if = {
+			limit = { navy_size >= 60 }
+			add = 0.1
+		}		
+		
+		if = {
+			limit = { navy_size >= 90 }
+			add = 0.1
+		}	
+		
+		if = {
+			limit = { navy_size >= 120 }
+			add = 0.1
+		}			
+	}
+	
+	secret_goal_scores = {
+		dominate = {
+			if = {
+				limit = {
+					scope:target_country = { NOT = { is_country_type = unrecognized } }
+				}
+				multiply = 0.25
+			}		
+			if = {
+				limit = {
+					has_strategic_adjacency = scope:target_country
+					scope:target_country = { is_country_type = unrecognized }
+				}
+				add = 200
+			}	
+		}		
+		conquer = {
+			if = {
+				limit = {
+					scope:target_country = { NOT = { is_country_type = unrecognized } }
+				}
+				multiply = 0.25
+			}		
+			if = {
+				limit = {
+					has_strategic_adjacency = scope:target_country
+					scope:target_country = { is_country_type = unrecognized }
+				}
+				add = 200
+			}	
+		}		
+	}
+
+	wargoal_weights = {
+		conquer_state = 1.5
+		make_dominion = 1.5
+		take_treaty_port = 1.5
+	}		
+		
+	possible = {
+		has_journal_entry = je_two_power_standard
+	}
+
+	weight = {
+		value = 1000			
+	}
+
+}

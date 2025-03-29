@@ -1,0 +1,48 @@
+﻿namespace = great_white_fleet
+
+great_white_fleet.1 = {
+	type = country_event
+	placement = ROOT
+
+    title = great_white_fleet.1.t
+    desc = 	great_white_fleet.1.d
+    flavor = great_white_fleet.1.f
+
+	event_image = {
+		video = "great_white_fleet"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	option = {
+		name = great_white_fleet.1.a
+		trigger = {
+			root = scope:usa_scope
+		}
+		add_modifier = {
+			name = great_white_fleet_modifier
+			years = 10
+		}
+	}
+
+	option = {
+		name = great_white_fleet.1.b
+		trigger = {
+			NOT = {
+				root = scope:usa_scope
+			}
+		}
+		show_as_tooltip = {
+			c:USA = {
+				add_modifier = {
+					name = great_white_fleet_modifier
+					years = 10
+				}				
+			}
+		}
+	}
+}

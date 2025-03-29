@@ -1,0 +1,53 @@
+﻿predreadnought_trigger = {
+	custom_tooltip = {
+		text = predreadnought_trigger_tt
+		naval_yards_using_ironclads >= 5
+	}
+}
+
+dreadnought_trigger = {
+	custom_tooltip = {
+		text = dreadnought_trigger_tt
+		naval_yards_using_steel_shipbuilding >= 10
+	}
+	has_technology_researched = steam_turbine
+}
+
+battleship_trigger = {
+	custom_tooltip = {
+		text = battleship_trigger_tt
+		naval_yards_using_turbine_shipbuilding >= 15
+	}
+	has_technology_researched = electric_arc_process
+}
+
+can_take_tech_decision_trigger = {
+	OR = {
+		# Predreadnought tech
+		AND = {
+			has_technology_researched = predreadnought_tech
+			NOT = {
+				has_variable = taken_predreadnoughts_decision
+			}
+			predreadnought_trigger = yes
+		}
+
+		# Dreadnought tech
+		AND = {
+			has_technology_researched = dreadnought
+			NOT = {
+				has_variable = taken_dreadnoughts_decision
+			}
+			dreadnought_trigger = yes
+		}
+
+		# Battleship tech
+		AND = {
+			has_technology_researched = battleship_tech
+			NOT = {
+				has_variable = taken_battleships_decision
+			}
+			battleship_trigger = yes
+		}
+	}
+}

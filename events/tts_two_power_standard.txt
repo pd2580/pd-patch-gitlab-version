@@ -1,0 +1,62 @@
+﻿namespace = twopowerstandard
+
+twopowerstandard.1 = {
+	type = country_event
+	placement = ROOT
+	
+	title = twopowerstandard.1.t
+	desc = twopowerstandard.1.d
+	flavor = twopowerstandard.1.f
+
+	event_image = {
+		video = "gfx/event_pictures/europenorthamerica_capitalists_meeting.bk2"
+	}
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/capitalists_meeting"
+
+	duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	trigger = {
+		exists = c:GBR
+		c:GBR = ROOT
+		has_technology_researched = predreadnought_tech
+		NOT = { has_variable = two_power_event_got }
+	}
+
+	immediate = {
+		set_variable = two_power_event_got
+		ig:ig_armed_forces = {
+			save_scope_as = navy_ig
+		}
+	}
+
+	option = { # We need to stay in the lead
+	 	default_option = yes
+
+		name = twopowerstandard.1.a
+		add_journal_entry = {
+			type = je_two_power_standard
+		}
+		custom_tooltip = { text = twopowerstandard.1.a.tt }
+
+		hidden_effect = { # Event that allows you to withdraw from the standard
+			set_strategy = ai_strategy_maintain_two_power_standard
+			
+			set_variable = {
+				name = two_power_standard_countdown
+				years = 3
+			}
+		}
+	}
+
+	option = { # It's too expensive, don't bother
+		name = twopowerstandard.1.b
+		ig:ig_armed_forces = {
+			add_modifier = {
+				name = rejected_two_power_standard
+				months = normal_modifier_time
+			}
+		}
+	}
+}

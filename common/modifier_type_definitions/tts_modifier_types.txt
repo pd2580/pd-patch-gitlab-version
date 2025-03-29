@@ -1,0 +1,284 @@
+﻿# Goods
+
+goods_input_tts_capital_ships_add = {
+	color = bad
+	percent = no
+}
+
+goods_output_tts_capital_ships_add = {
+	color = good
+	percent = no
+}
+
+# Building Modifiers
+
+building_group_bg_navy_mortality_mult = {
+	color = bad
+	percent = yes
+}
+
+building_group_bg_navy_soldiers_mortality_mult = {
+	color = bad
+	percent = yes
+}
+
+building_group_bg_navy_soldiers_standard_of_living_add = {
+	color = good
+	percent = no
+}
+
+building_military_shipyards_throughput_add = {
+	color = good
+	percent = yes
+}
+
+# Navy Professionalism
+
+country_navy_professionalism_admiralty_add = {
+	color = good
+	percent = no
+}
+
+country_navy_professionalism_add = {
+	color = good
+	percent = no
+}
+
+country_navy_professionalism_laws_add = {
+	color = good
+	percent = no
+}
+
+# Armor
+
+unit_naval_armor_add = {
+	color = good
+	percent = no
+}
+
+unit_naval_pen_add = {
+	color = good
+	percent = no
+}
+
+# Unit Specific Offense/Defense
+
+## Capital Ships
+
+unit_combat_unit_type_man_o_war_offense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_man_o_war_defense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_steam_ship_of_the_line_offense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_steam_ship_of_the_line_defense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_ironclad_offense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_ironclad_defense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_predreadnought_offense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_predreadnought_defense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_dreadnought_offense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_dreadnought_defense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_dreadnought_offense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_dreadnought_defense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_battleship_offense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_battleship_defense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+## Escorts
+
+unit_combat_unit_type_frigate_offense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_frigate_defense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_screw_frigate_offense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_screw_frigate_defense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_destroyer_offense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_destroyer_defense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_scout_cruiser_offense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_scout_cruiser_defense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+## Raiders
+
+unit_combat_unit_type_torpedo_boat_offense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_torpedo_boat_defense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_submarine_offense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_submarine_defense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+## Aviation
+
+unit_combat_unit_type_experimental_carrier_offense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_experimental_carrier_defense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_fleet_carrier_offense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_fleet_carrier_defense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_armored_carrier_offense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+unit_combat_unit_type_armored_carrier_defense_mult = {
+	color = good
+	percent = yes
+	decimals = 0
+}
+
+country_blocks_building_naval_bases_bool = {
+	color = bad
+	boolean = yes
+}
+
+unit_is_equipped_with_torpedoes_bool = {
+	color = good
+	boolean = yes
+}
+
+unit_is_wind_dependent_bool = {
+	color = bad
+	boolean = yes
+}
+
+unit_provides_air_support_bool = {
+	color = good
+	boolean = yes
+}

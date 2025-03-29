@@ -1,0 +1,13 @@
+﻿dreadnought_notification = {
+	type = country
+	texture = "gfx/interface/icons/notification_icons/military.dds"
+	notification_type = feed
+	days = 28
+}
+
+battleship_explosion_notification = {
+	type = country
+	texture = "gfx/interface/icons/notification_icons/military.dds"
+	notification_type = feed
+	days = 28
+}

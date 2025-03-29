@@ -1,0 +1,91 @@
+﻿namespace = greateastern
+
+greateastern.1 = {
+	type = country_event
+	placement = ROOT
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_steam_ship.bk2"
+	}
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/steam_ship"
+
+	title = greateastern.1.t
+	desc = greateastern.1.d
+	flavor = greateastern.1.f
+
+	duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		NOT = { has_variable = built_great_eastern }
+		exists = c:GBR
+		c:GBR = ROOT
+		any_scope_building = {
+			is_building_type = building_shipyards
+			has_active_production_method = pm_metal_shipbuilding
+		}
+	}
+
+	immediate = {
+		set_variable = built_great_eastern
+	}
+
+	option = { # Subsidize it
+		name = greateastern.1.a
+
+		add_modifier = {
+			name = funding_great_eastern
+			years = 10
+		}
+	}
+
+	option = { # Use it to lay telegraph cables
+		name = greateastern.1.b
+
+		trigger = {
+			can_research = electric_telegraph
+			NOT = { has_technology_researched = electric_telegraph }
+		}
+
+		add_technology_progress = {
+			technology = electric_telegraph
+			progress = 3000
+		}
+		
+	}
+
+	option = { # Recruit Brunel
+		name = greateastern.1.c
+
+		create_character = {
+			first_name = Isambard_Kingdom
+			last_name = Brunel
+			ig_leader = yes
+			interest_group = ig_industrialists
+			ideology = ideology_market_liberal
+			female = no
+			dna = dna_isambard_kingdom_brunel
+			birth_date = 1806.4.9
+			traits = {
+				ambitious
+				meticulous
+				kidney_stones
+			}
+			on_created = {
+				set_variable = {
+					name = is_brunel
+				}				
+			}
+		}
+	}
+
+	option = { # Do nothing
+		name = greateastern.1.e
+		default_option = yes
+	}
+
+	
+}

@@ -1,0 +1,10 @@
+﻿new_shipbuilding_tech_decision = {
+	script_context = player_country
+	texture = "gfx/interface/icons/goods_icons/capital_ships.dds"
+	valid = {
+		can_take_tech_decision_trigger = yes
+	}
+	open_panel = journal|decisions
+	color = green
+	type = alert
+}

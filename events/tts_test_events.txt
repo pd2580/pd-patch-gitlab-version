@@ -1,0 +1,32 @@
+﻿namespace = tts_tests
+
+tts_tests.1 = {
+	type = country_event
+	hidden = yes
+
+	immediate = {
+		every_country = {
+			limit = {
+				country_rank = rank_value:great_power
+			}
+			add_technology_researched = dreadnought
+			add_technology_researched = battleship_tech
+		}
+		clear_global_variable_list = main_naval_powers
+		ordered_country = {
+			limit = {
+				OR = {
+					is_country_type = recognized
+					is_country_type = colonial
+				}
+				is_subject = no
+			}
+			order_by = naval_power_projection 
+			max = 7
+			add_to_global_variable_list = {
+				name = main_naval_powers
+				target = this
+			}
+		}
+	}
+}

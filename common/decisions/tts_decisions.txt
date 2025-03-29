@@ -1,0 +1,355 @@
+﻿cheat_treaty_decision = {
+    is_shown = {
+        OR = {
+            has_law = law_type:law_moderate_naval_treaty
+            has_law = law_type:law_extensive_naval_treaty
+        }
+        NOT = { has_variable = cheating_treaty_var }
+        NOT = { has_modifier = battleship_building_holiday }
+    }
+    possible = {
+            OR = {
+                has_law = law_type:law_moderate_naval_treaty
+                has_law = law_type:law_extensive_naval_treaty
+        }
+    }
+
+    when_taken = {
+        trigger_event = cheating_treaty.1
+        set_variable = cheating_treaty_var
+    }
+
+    ai_chance = { # TODO figure out how the AI chance actually works. Placeholder values for now
+        base = 0
+
+        modifier = {
+            trigger = {
+                any_interest_group = {
+                    is_powerful = yes
+                    leader = {
+                        has_ideology = ideology:ideology_pacifist
+                    }
+                }
+            }
+            add = -1
+        }
+
+        modifier = {
+            trigger = {
+                any_interest_group = {
+                    is_marginal = no
+                    leader = {
+                        has_ideology = ideology:ideology_pacifist
+                    }
+                }
+            }
+            add = -1
+        }
+
+        modifier = {
+            trigger = {
+                ruler = {
+                    has_ideology = ideology:ideology_pacifist
+                }
+            }
+            add = -2
+        }
+
+        modifier = {
+            trigger = {
+                OR = {
+                    has_law = law_type:law_protected_speech
+                    has_law = law_type:law_right_of_assembly
+                }
+            }
+            add = -1
+        }
+
+        modifier = {
+            trigger = {
+                has_law = law_type:law_autocracy
+            }
+            add = 1
+        }
+
+        modifier = {
+            trigger = {
+                ig:ig_armed_forces = {
+                    is_powerful = yes
+                }
+            }
+            add = 1
+        }
+
+        modifier = {
+            trigger = {
+                any_interest_group = {
+                    is_powerful = yes
+                    leader = {
+                        has_ideology = ideology:ideology_jingoist_leader
+                    }
+                }
+            }
+            add = 1
+        }
+
+        modifier = {
+            trigger = {
+                any_interest_group = {
+                    is_marginal = no
+                    leader = {
+                        has_ideology = ideology:ideology_jingoist_leader
+                    }
+                }
+            }
+            add = 1
+        }
+
+    }
+}
+
+great_white_fleet_decision = {
+    is_shown = {
+        NOT = {
+            has_variable = white_fleet_decision_taken
+        }
+        exists = c:USA
+        this = c:USA
+        has_technology_researched = predreadnought_tech
+    }
+
+    ai_chance = {
+        base = 2
+    }
+
+    when_taken = {
+        set_variable = white_fleet_decision_taken
+        root = {
+            save_scope_as = usa_scope
+        }
+        hidden_effect = {
+            every_country = {
+                limit = {
+                    country_rank >= rank_value:major_power
+                }
+                trigger_event = great_white_fleet.1
+            }            
+        }
+        show_as_tooltip = {
+            trigger_event = great_white_fleet.1
+        }
+    }
+
+    possible = {
+        NOT = {
+            has_law = law_type:law_minimal_navy
+        }
+        country_navy_unit_type_fraction = {
+            target = unit_type:combat_unit_type_predreadnought
+            value >= 0.2
+        }
+        navy_size >= 100
+        is_at_war = no
+        custom_tooltip = {
+            text = gwf_decision_peace_tooltip
+            AND = {
+                s:STATE_RIO_DE_JANEIRO = {
+                    any_scope_state = {
+                        count = all
+                        owner = {
+                            is_at_war = no
+                        }
+                    }
+                }
+                s:STATE_CALIFORNIA = {
+                    any_scope_state = {
+                        count = all
+                        owner = {
+                            is_at_war = no
+                        }
+                    }
+                }
+                s:STATE_LUZON = {
+                    any_scope_state = {
+                        count = all
+                        owner = {
+                            is_at_war = no
+                        }
+                    }
+                }
+                s:STATE_NEW_SOUTH_WALES = {
+                    any_scope_state = {
+                        count = all
+                        owner = {
+                            is_at_war = no
+                        }
+                    }
+                }
+                s:STATE_KANTO = {
+                    any_scope_state = {
+                        count = all
+                        owner = {
+                            is_at_war = no
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+increase_professionalism_decision = {
+    is_shown = {
+        any_scope_state = {
+            is_coastal = yes
+        }
+        has_variable = navy_professionalism
+    }
+
+    possible = {
+        custom_tooltip = {
+            text = increase_professionalism_decision_possible
+            NOT = {
+                has_variable = recently_increased_professionalism
+            }
+        }
+    }
+
+    when_taken = {
+        set_variable = {
+            name = recently_increased_professionalism
+            months = 12
+        }
+        custom_tooltip = {
+            text = increase_professionalism_decision_tooltip
+            random_list = {
+                10 = {
+                    trigger_event = {
+                        id = navy_professionalism.2
+                        popup = yes
+                    }
+                }
+                10 = {
+                    trigger_event = {
+                        id = navy_professionalism.3
+                        popup = yes
+                    }
+                }
+                50 = {
+                    trigger = {
+                        var:navy_professionalism < LOW_PROFESSIONALISM_THRESHOLD
+                    }
+                    trigger_event = {
+                        id = navy_professionalism.11
+                        popup = yes
+                    }
+                }
+                10 = {
+                    trigger = {
+                        NOT = { has_variable = recently_held_exercise }
+                    }
+                    trigger_event = {
+                        id = navy_professionalism.12
+                        popup = yes
+                    }
+                }
+            }
+        }
+    }
+
+    ai_chance = {
+        base = 0
+        modifier = {
+            trigger = {
+                var:navy_professionalism < root.navy_professionalism_target
+            }
+            add = 10
+        }
+    }
+}
+
+fleet_review_decision = {
+    is_shown = {
+        navy_size > 0
+    }
+    possible = {
+        is_at_war = no
+        navy_size > 10
+        custom_tooltip = {
+            text = fleet_review_decision_tt
+            NOT = {
+                has_variable = recently_held_fleet_review
+            }
+        }
+    }
+    when_taken = {
+        set_variable = {
+            name = recently_held_fleet_review
+            years = 20
+        }
+        remove_variable = ai_wants_fleet_review
+        add_journal_entry = {
+            type = je_fleet_review
+        }
+    }
+    ai_chance = {
+        base = 0
+        modifier = {
+            trigger = {
+                country_rank >= rank_value:major_power
+                has_variable = ai_wants_fleet_review # AI will want fleet reviews after coronation and other events
+            }
+            add = 10
+        }
+        modifier = {
+            trigger = {
+                var:navy_professionalism < MEDIUM_PROFESSIONALISM_THRESHOLD
+            }
+            add = -10
+        }
+    }
+}
+
+build_admiralty_decision = {
+    is_shown = {
+        has_technology_researched = admiralty
+        any_scope_state = {
+            is_coastal = yes
+        }
+        NOR = {
+            has_journal_entry = je_build_admiralty
+            any_scope_building = {
+                is_building_type = building_admiralty
+            }
+            has_variable = finished_admiralty_building_journal
+        }
+    }
+    possible = {
+        produced_bureaucracy > 500
+        navy_size >= 10
+    }
+    when_taken = {
+        add_journal_entry = {
+            type = je_build_admiralty
+        }
+    }
+    ai_chance = {
+        base = 0
+        modifier = {
+            trigger = {
+                produced_bureaucracy > 2000
+                has_technology_researched = dreadnought
+                country_rank >= rank_value:great_power
+            }
+            add = 5
+        }
+
+        modifier = {
+            trigger = {
+                produced_bureaucracy > 5000
+                country_rank >= rank_value:major_power
+            }
+            add = 5
+        }
+    }
+}

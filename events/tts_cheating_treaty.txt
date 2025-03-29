@@ -1,0 +1,35 @@
+﻿namespace = cheating_treaty
+
+cheating_treaty.1 = {
+	type = country_event
+    placement = ROOT
+
+    title = cheating_treaty.1.t
+    desc = cheating_treaty.1.d
+    flavor = cheating_treaty.1.f
+
+    event_image = {
+        video = "gfx/event_pictures/europenorthamerica_capitalists_meeting.bk2"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/capitalists_meeting"
+	
+    duration = 3
+
+    icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+    immediate = {
+        save_scope_as = event_navy # For flavor text
+    }
+
+	option = {
+		name = cheating_treaty.1.a
+		default_option = yes
+
+		add_modifier = {
+            name = cheating_the_treaty
+        }
+		change_infamy = 5
+	}
+}

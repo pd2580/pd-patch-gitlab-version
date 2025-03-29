@@ -1,0 +1,254 @@
+﻿namespace = gbr_threatened
+
+gbr_threatened.1 = {
+    type = country_event
+    placement = ROOT
+
+    title = gbr_threatened.1.t
+    desc = gbr_threatened.1.d
+    flavor = gbr_threatened.1.f
+
+    event_image = {
+        video = "gfx/event_pictures/europenorthamerica_capitalists_meeting.bk2"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/capitalists_meeting"
+
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	trigger = {
+		exists = c:GBR
+		root = c:GBR
+
+		has_journal_entry = je_two_power_standard
+		any_country = {
+			NOR = {
+				this = c:GBR
+				has_variable = recently_asked_to_reduce_navy
+				has_modifier = battleship_building_holiday
+			}
+			navy_size > prev.dangerous_fraction_of_navy
+			OR = {
+				has_technology_researched = predreadnought_tech
+				has_technology_researched = dreadnought
+				has_technology_researched = battleship_tech
+			}
+		}
+	}
+
+	immediate = {
+		root = {
+			save_scope_as = gbr_scope
+		}
+		ordered_country = {
+			limit = {
+				NOR = {
+					this = c:GBR
+					has_variable = recently_asked_to_reduce_navy
+					has_modifier = battleship_building_holiday
+				}
+				OR = {
+					has_technology_researched = predreadnought_tech
+					has_technology_researched = dreadnought
+					has_technology_researched = battleship_tech
+				}				
+			}
+			order_by = navy_size
+			max = 1
+			set_variable = {
+				name = recently_asked_to_reduce_navy
+				years = 3
+			}
+			save_scope_as = threatening_country
+		}
+
+		every_interest_group = {
+			limit = {
+				OR = {
+					has_ideology = ideology:ideology_jingoist
+					leader = {
+						has_ideology = ideology:ideology_jingoist_leader
+					}
+				}
+			}
+			add_to_local_variable_list = {
+				name = jingoist_igs
+				target = this
+			}
+		}
+	}
+
+	option = { # Demand they stop building ships
+		name = gbr_threatened.1.a 
+		default_option = yes
+
+		custom_tooltip = gbr_threatened.1.a.tt
+
+		hidden_effect = {
+			scope:threatening_country = {
+				trigger_event = gbr_threatened.2
+			}
+		}
+
+		ai_chance = {
+			base = 4
+		}
+	}
+
+	option = { # Ignore it
+		name = gbr_threatened.1.b
+
+		every_in_local_list = {
+			variable = jingoist_igs
+			add_modifier = {
+				name = let_our_naval_superiority_slip
+				months = normal_modifier_time
+			}
+		}
+
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+gbr_threatened.2 = {
+    type = country_event
+    placement = ROOT
+
+    title = gbr_threatened.2.t
+    desc = gbr_threatened.2.d
+    flavor = gbr_threatened.2.f
+
+    event_image = {
+        video = "gfx/event_pictures/europenorthamerica_capitalists_meeting.bk2"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/capitalists_meeting"
+
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	option = { # Accept demands
+		name = gbr_threatened.2.a
+		custom_tooltip = gbr_threatened.2.a.tt
+
+		hidden_effect = {
+			add_modifier = {
+				name = battleship_building_holiday
+				years = 5
+			}
+			scope:gbr_scope = {
+				trigger_event = gbr_threatened.3
+			}			
+		}
+
+
+		change_relations = {
+			country = scope:gbr_scope
+			value = 10
+		}
+
+		ai_chance = {
+			base = 1
+		}
+	}
+
+	option = { # Refuse
+		name = gbr_threatened.2.b
+		default_option = yes
+
+		change_relations = {
+			country = scope:gbr_scope
+			value = -30
+		}
+
+		hidden_effect = {
+			scope:gbr_scope = {
+				trigger_event = gbr_threatened.4
+			}
+		}
+
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+gbr_threatened.3 = { # They accepted our demands
+    type = country_event
+    placement = ROOT
+
+    title = gbr_threatened.3.t
+    desc = gbr_threatened.3.d
+    flavor = gbr_threatened.3.f
+
+	duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+    event_image = {
+        video = "gfx/event_pictures/unspecific_signed_contract.bk2"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract"
+
+	option = {
+		name = gbr_threatened.3.a
+		show_as_tooltip = {			
+			change_relations = {
+				country = scope:threatening_country
+				value = 10
+			}
+		}
+	}
+}
+
+gbr_threatened.4 = { # They rejected our demands
+    type = country_event
+    placement = ROOT
+
+    title = gbr_threatened.4.t
+    desc = gbr_threatened.4.d
+    flavor = gbr_threatened.4.f
+
+    event_image = {
+        video = "gfx/event_pictures/unspecific_politicians_arguing.bk2"
+    }
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/asia/politician_parliament_motion"
+
+	duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	option = {
+		name = gbr_threatened.4.a
+
+		show_as_tooltip = {
+			change_relations = {
+				country = scope:threatening_country
+				value = -30
+			}
+		}
+
+		hidden_effect = {
+			set_secret_goal = {
+				country = scope:threatening_country
+				secret_goal = antagonize
+			}
+		}
+
+		add_radicals = {
+			value = 0.02
+		}
+	}
+
+}

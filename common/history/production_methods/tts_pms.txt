@@ -1,0 +1,27 @@
+﻿# GLOBAL = {
+# 	c:GBR = {
+# 		activate_production_method = {
+# 			building_type = building_naval_base
+# 			production_method = pm_tts_steam_ships_of_the_line
+# 		}
+# 		activate_production_method = {
+# 			building_type = building_shipyards
+# 			production_method = pm_tts_complex_shipbuilding
+# 		}
+# 		activate_production_method = {
+# 			building_type = building_military_shipyards
+# 			production_method = pm_military_shipbuilding_wooden_2
+# 		}
+# 	}
+# 	c:FRA = {
+# 		activate_production_method = {
+# 			building_type = building_naval_base
+# 			production_method = pm_tts_steam_ships_of_the_line
+# 		}
+# 		activate_production_method = {
+# 			building_type = building_military_shipyards
+# 			production_method = pm_military_shipbuilding_wooden_2
+# 		}
+# 	}
+	
+# }

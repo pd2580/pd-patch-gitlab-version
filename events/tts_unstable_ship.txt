@@ -1,0 +1,263 @@
+﻿namespace = unstable_ship
+
+unstable_ship.1 = { # HMS Captain disaster
+	type = country_event
+    placement = ROOT
+
+    title = unstable_ship.1.t
+    desc = unstable_ship.1.d
+    flavor = unstable_ship.1.f
+
+    event_image = {
+        video = "gfx/event_pictures/europenorthamerica_capitalists_meeting.bk2"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/capitalists_meeting"
+
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	trigger = {
+		has_technology_researched = ironclad_tech
+		NOT = { has_technology_researched = predreadnought_tech }
+		NOT = { has_law = law_type:law_minimal_navy }
+
+		# An appropriate character exists
+		any_scope_character = {
+			NOR = {
+				ROOT.ig:ig_armed_forces = {
+					leader = prev
+				}
+				is_ruler = yes
+			}
+			NOR = {
+				has_trait = traditionalist_commander
+				has_trait = romantic
+				has_trait = cautious
+				has_trait = reserved
+			}
+			OR = { # He has the media's attention
+				popularity >= 20
+				has_trait = charismatic
+				has_trait = popular_commander
+				has_trait = celebrity_commander
+				has_trait = experienced_political_operator
+				has_trait = expert_political_operator
+			}
+			OR = { # He has a lot of faith in his ideas
+				has_trait = arrogant
+				has_trait = reckless
+				has_trait = ambitious
+				has_trait = firebrand			
+			}
+			OR = { # Has some knowledge of the navy or industry
+				has_role = admiral
+				interest_group = ig:ig_industrialists
+				has_trait = innovative
+			}
+		}
+
+		country_navy_unit_type_fraction = {
+			target = unit_type:combat_unit_type_ironclad
+			value > 0
+		}
+	}
+
+	immediate = {		
+		ig:ig_armed_forces = {
+			save_scope_as = navy_ig
+		}
+		random_scope_character = {
+			limit = {
+				NOR = {
+					scope:navy_ig = {
+						leader = this
+					}
+					is_ruler = yes
+				}
+				NOR = {
+					has_trait = traditionalist_commander
+					has_trait = romantic
+					has_trait = cautious
+					has_trait = reserved
+				}
+				OR = { # He has the media's attention
+					popularity >= 20
+					has_trait = charismatic
+					has_trait = popular_commander
+					has_trait = celebrity_commander
+					has_trait = experienced_political_operator
+					has_trait = expert_political_operator
+				}
+				OR = { # He has a lot of faith in his ideas
+					has_trait = arrogant
+					has_trait = reckless
+					has_trait = ambitious
+					has_trait = firebrand		
+				}
+				OR = { # Has some knowledge of the navy or industry
+					has_role = admiral
+					interest_group = ig:ig_industrialists
+					has_trait = innovative
+				}
+			}
+			save_scope_as = new_ship_designer
+		}
+	}
+
+	option = { # Build the ship
+		name = unstable_ship.1.a
+		custom_tooltip = unstable_ship.1.a.tt
+		hidden_effect = {
+			random_list = {
+				90 = { # The ship sinks
+					trigger_event = {
+						id = unstable_ship.2
+						days = 30
+					}
+				}
+				10 = { # It somehow works
+					trigger_event = {
+						id = unstable_ship.3
+						days = 30
+					}
+				}
+			}			
+		}
+	}
+
+	option = { # Better be safe
+		name = unstable_ship.1.b
+		add_radicals = {
+			value = 0.05
+		}
+	}
+	
+}
+
+unstable_ship.2 = { # The ship sinks
+	type = country_event
+    placement = ROOT
+
+    title = unstable_ship.2.t
+    desc = unstable_ship.2.d
+    flavor = unstable_ship.2.f
+
+	event_image = {
+	    video = "gfx/event_pictures/unspecific_naval_battle.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/naval_battle"
+
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+
+	immediate = {
+		IF = {
+			limit = {
+				country_navy_unit_type_fraction = {
+					target = unit_type:combat_unit_type_ironclad
+					value > 0
+				}
+			}
+			IF = { # The inventor has priority, if he's an admiral leading ironclads
+				limit = {
+					scope:new_ship_designer = {
+						commander_military_formation = {
+							formation_navy_unit_type_fraction = {
+								target = unit_type:combat_unit_type_ironclad
+								value > 0
+							}
+						}
+					}
+				}
+				scope:new_ship_designer = {
+					commander_military_formation = {
+						random_combat_unit = {
+							building = {
+								save_scope_as = sunk_ironclad_scope
+							}							
+						}
+					}
+				}
+			}
+			ELSE = { # Otherwise it's just a random building
+				random_military_formation = {
+					limit = {
+						formation_navy_unit_type_fraction = {
+							target = unit_type:combat_unit_type_ironclad
+							value > 0 
+						}
+					}
+				}
+			}
+		}
+		ELSE = {
+			random_scope_building = {
+				limit = {
+					is_building_type = building_naval_base
+				}
+				save_scope_as = sunk_ironclad_scope
+			}
+		}
+	}
+
+	option = {
+		name = unstable_ship.2.a
+		scope:new_ship_designer = {
+			kill_character = yes
+		}
+		scope:sunk_ironclad_scope = {
+			add_modifier = {
+				name = unstable_ship_sunk
+				months = 5
+			}
+		}
+		ig:ig_armed_forces = {
+			add_modifier = {
+				name = ignored_advice_on_shipbuilding
+				months = normal_modifier_time
+			}
+		}
+	}
+
+}
+
+unstable_ship.3 = { # The ship somehow survives
+	type = country_event
+    placement = ROOT
+
+    title = unstable_ship.3.t
+    desc = unstable_ship.3.d
+    flavor = unstable_ship.3.f
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_steam_ship.bk2"
+	}
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/steam_ship"
+
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	option = {
+		name = unstable_ship.3.a
+		scope:new_ship_designer = {
+			add_modifier = {
+				name = turret_innovator
+				years = 10
+				is_decaying = yes
+			}
+		}
+		add_modifier = {
+			name = efficient_turrets
+			years = 5
+		}
+	}
+}

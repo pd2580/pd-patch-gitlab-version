@@ -1,0 +1,72 @@
+﻿je_fleet_review = {
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	group = je_group_internal_affairs
+
+	fail = {
+		is_at_war = yes
+	}
+
+	immediate = {
+		set_variable = {
+			name = fleet_review_progress
+			value = 0
+		}
+		set_variable = {
+			name = fleet_review_score
+			value = 0
+		}
+		trigger_event = {
+			id = fleet_review_events.1
+			days = 7
+			popup = yes
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_fleet_review_status_0_deciding_on_budget
+				trigger = {
+					var:fleet_review_progress = 0
+				}
+			}
+			triggered_desc = {
+				desc = je_fleet_review_status_1_inviting_guests
+				trigger = {
+					var:fleet_review_progress = 1
+				}
+			}
+			triggered_desc = {
+				desc = je_fleet_review_status_2_in_progress
+				trigger = {
+					var:fleet_review_progress >= 2
+				}
+			}
+		}
+	}
+
+	complete = {
+		hidden_trigger = {
+			var:fleet_review_progress = 6
+		}
+	}
+
+	on_complete = {
+		remove_variable = fleet_review_progress
+		remove_variable = fleet_review_score
+		remove_variable = rival_guest
+		remove_variable = review_size_score
+		remove_variable = review_tech_score
+	}
+
+	on_fail = {
+		remove_variable = fleet_review_progress
+		remove_variable = fleet_review_score
+		remove_variable = rival_guest
+		remove_variable = review_size_score
+		remove_variable = review_tech_score		
+	}
+
+	should_be_pinned_by_default = yes
+}

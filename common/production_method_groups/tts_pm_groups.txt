@@ -1,0 +1,51 @@
+﻿pmg_naval_theory = {
+	ai_selection = most_productive
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_refining.dds"
+	production_methods = {
+		pm_no_naval_theory
+		pm_power_of_the_purse
+		pm_jeune_ecole
+		pm_sea_lane_strategies
+		pm_battlefleet_tactics
+	}
+}
+
+
+pmg_military_base = {
+	ai_selection = most_productive
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
+	production_methods = {
+		pm_military_shipbuilding_wooden
+		pm_military_shipbuilding_wooden_2
+		pm_military_shipbuilding_ironclad
+		pm_military_shipbuilding_steel
+		pm_military_shipbuilding_turbine
+		pm_military_shipbuilding_arc_welding
+	}
+}
+
+pmg_battleship_import = {
+	production_methods = {
+		pm_battleship_import
+	}	
+}
+
+pmg_admiralty_base = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
+	ai_selection = most_productive
+
+	production_methods = {
+		pm_tts_admiralty_base
+	}
+}
+
+pmg_admiralty = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
+	ai_selection = most_productive
+
+	production_methods = {
+		pm_tts_traditionalist_admiralty
+		pm_tts_naval_veterans_admiralty
+		pm_tts_technical_expertise_admiralty
+	}
+}

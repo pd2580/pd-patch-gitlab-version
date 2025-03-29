@@ -1,0 +1,17 @@
+﻿mahan_template = {
+	first_name = alfred_thayer
+	last_name = mahan
+	culture = cu:yankee
+	female = no
+	religion = protestant
+	interest_group = ig_armed_forces
+	ideology = ideology_moderate
+	dna = dna_mahan
+	# age = 55 # For testing purposes, remember to remove
+	birth_date = 1840.9.27
+	traits = {
+		romantic
+		basic_naval_commander 
+	}
+	
+}

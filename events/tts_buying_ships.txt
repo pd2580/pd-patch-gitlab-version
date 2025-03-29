@@ -1,0 +1,714 @@
+﻿namespace = buying_ships
+
+buying_ships.1 = { # Buying a dreadnought from a country that has them
+	type = country_event
+    placement = ROOT
+
+    title = buying_ships.1.t
+    desc = buying_ships.1.d
+    flavor = buying_ships.1.f
+
+    event_image = {
+        video = "gfx/event_pictures/europenorthamerica_capitalists_meeting.bk2"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/capitalists_meeting"
+	
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	immediate = {
+		ordered_country = {
+			limit = {
+				has_technology_researched = turbine_powered_ships_tech
+			}
+			max = 1
+			order_by = relations:root
+			save_scope_as = seller_country
+		}
+
+		root = {
+			save_scope_as = buyer_country
+		}
+		ordered_scope_state = {
+			limit = {
+				has_active_building = building_naval_base
+			}
+			order_by = this.b:building_naval_base.level
+			max = 1
+			save_scope_as = port_state
+		}
+		if = {
+			limit = {
+				any_country = {
+					count >= 2
+					has_technology_researched = turbine_powered_ships_tech
+				}
+			}
+			ordered_country = {
+				limit = {
+					has_technology_researched = turbine_powered_ships_tech
+				}
+				order_by = relations:root
+				position = 2
+				check_range_bounds = no
+				save_scope_as = alternative_seller
+			}
+		}
+	}
+
+	option = {
+		name = buying_ships.1.a
+		
+		hidden_effect = {
+			scope:seller_country = {
+				trigger_event = buying_ships.2
+			}
+		}
+	}
+
+	option = {
+		name = buying_ships.1.b
+
+		trigger = {
+			exists = scope:alternative_seller
+		}
+
+		scope:seller_country = {
+			save_scope_as = buffer_scope
+		}
+		
+		scope:alternative_seller = {
+			save_scope_as = seller_country
+		}
+
+		scope:buffer_scope = {
+			save_scope_as = alternative_seller
+		}
+
+		hidden_effect = {
+			scope:seller_country = {
+				trigger_event = buying_ships.2
+			}
+		}
+	}
+	
+}
+
+buying_ships.2 = { # Dreadnought country receives a deal
+	type = country_event
+    placement = ROOT
+
+    title = buying_ships.2.t
+    desc = buying_ships.2.d
+    flavor = buying_ships.2.f
+
+    event_image = {
+        video = "gfx/event_pictures/europenorthamerica_capitalists_meeting.bk2"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/capitalists_meeting"
+	
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	option = { # Accept deal
+		name = buying_ships.2.a	
+		default_option = yes
+
+		hidden_effect = {
+			scope:buyer_country = {
+				trigger_event = buying_ships.3
+			}			
+		}		
+
+		show_as_tooltip = {
+			change_relations = {
+				country = scope:buyer_country
+				value = 10
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+
+	}
+
+	option = { # Refuse deal
+		name = buying_ships.2.b
+
+		hidden_effect = {
+			scope:buyer_country = {
+				trigger_event = buying_ships.4
+			}
+		}
+
+		show_as_tooltip = {
+			change_relations = {
+				country = scope:buyer_country
+				value = -10
+			}
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+
+}
+
+buying_ships.3 = { # Deal Accepted
+	type = country_event
+    placement = ROOT
+
+    title = buying_ships.3.t
+    desc = buying_ships.3.d
+    flavor = buying_ships.3.f
+
+    event_image = {
+        video = "gfx/event_pictures/europenorthamerica_capitalists_meeting.bk2"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/capitalists_meeting"
+	
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	immediate = {
+		scope:port_state = {
+			state_region = {
+				save_scope_as = port_state_region
+			}
+			region = {
+				save_scope_as = port_strategic_region
+			}
+		}
+	}
+
+	option = {
+		name = buying_ships.3.a
+
+		add_technology_researched = dreadnought
+
+		custom_tooltip = {
+			text = buying_ships.3.a.tt
+			create_military_formation = {
+				hq_region = scope:port_strategic_region
+				type = fleet
+				combat_unit = {
+					type = unit_type:combat_unit_type_dreadnought
+					state_region = scope:port_state_region
+					count = 2
+				}
+			}
+		}
+
+
+		capital = {
+			create_building = {
+				building = building_battleship_import_office	
+				level = 1			
+			}
+		}
+
+		change_relations = {
+			country = scope:seller_country
+			value = 10
+		}
+
+		add_modifier = {
+			name = purchasing_battleships
+			years = 1
+			multiplier = 19178
+		}
+
+		hidden_effect = {
+			scope:seller_country = {
+				add_modifier = {
+					name = receiving_payment_for_battleships
+					years = 1
+					multiplier = 19178
+				}
+			}			
+		}
+	}
+}
+
+buying_ships.4 = { # Deal Rejected
+	type = country_event
+    placement = ROOT
+
+    title = buying_ships.4.t
+    desc = buying_ships.4.d
+    flavor = buying_ships.4.f
+
+    event_image = {
+        video = "gfx/event_pictures/unspecific_politicians_arguing.bk2"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/asia/politician_parliament_motion"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+    duration = 3
+
+	option = {
+		name = buying_ships.4.a
+
+		change_relations = {
+			country = scope:seller_country
+			value = -10
+		}
+	}
+
+	option = {
+		name = buying_ships.4.b
+		trigger = {
+			exists = scope:alternative_seller
+			NOT = {
+				has_variable = tried_alternative_dread_seller
+			}
+		}
+
+		change_relations = {
+			country = scope:seller_country
+			value = -10
+		}
+
+		custom_tooltip = {
+			text = buying_ships.4.b.tt
+			set_variable = tried_alternative_dread_seller
+			scope:alternative_seller = {
+				save_scope_as = seller_country
+			}
+			scope:seller_country = {
+				trigger_event = {
+					id = buying_ships.2
+				}
+			}
+		}
+	}
+}
+
+buying_ships.5 = { # Buying pre-dreadnoughts
+	type = country_event
+	placement = ROOT
+
+    title = buying_ships.5.t
+    desc = buying_ships.5.d
+    flavor = buying_ships.5.f
+
+	event_image = {
+		video = "gfx/event_pictures/southamerica_aristocrats.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/southamerica/aristocrats"
+
+	duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	immediate = {
+		root = {
+			save_scope_as = buyer_country
+		}
+		ordered_country = {
+			limit = {
+				has_technology_researched = steel_shipbuilding_tech
+			}
+			order_by = relations:root
+			max = 1
+			save_scope_as = seller_country
+		}
+		ordered_scope_state = {
+			limit = {
+				has_active_building = building_naval_base
+			}
+			order_by = this.b:building_naval_base.level
+			max = 1
+			save_scope_as = port_state
+		}
+		if = {
+			limit = {
+				any_country = {
+					count >= 2
+					has_technology_researched = steel_shipbuilding_tech
+				}
+			}
+			ordered_country = {
+				limit = {
+					has_technology_researched = steel_shipbuilding_tech
+				}
+				order_by = relations:root
+				position = 2
+				check_range_bounds = no
+				save_scope_as = alternative_seller
+			}
+		}
+	}
+
+	option = {
+		name = buying_ships.5.a
+		custom_tooltip = buying_ships.5.a.tt
+
+		hidden_effect = {
+			scope:seller_country = {
+				trigger_event = buying_ships.6
+			}
+		}
+	}
+
+	option = {
+		name = buying_ships.5.b
+		custom_tooltip = buying_ships.5.a.tt
+
+		trigger = {
+			exists = scope:alternative_seller
+		}
+		
+		scope:seller_country = {
+			save_scope_as = buffer_scope
+		}
+		
+		scope:alternative_seller = {
+			save_scope_as = seller_country
+		}
+
+		scope:buffer_scope = {
+			save_scope_as = alternative_seller
+		}
+
+		hidden_effect = {
+			scope:seller_country = {
+				trigger_event = buying_ships.6
+			}
+		}
+	}
+}
+
+buying_ships.6 = {
+	type = country_event
+	placement = ROOT
+
+    title = buying_ships.6.t
+    desc = buying_ships.6.d
+    flavor = buying_ships.6.f
+
+	event_image = {
+		video = "gfx/event_pictures/southamerica_aristocrats.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/southamerica/aristocrats"
+
+	duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	option = { # Accept
+		default_option = yes
+		name = buying_ships.6.a
+		hidden_effect = {
+			scope:buyer_country = {
+				trigger_event = buying_ships.7
+			}
+		}
+		show_as_tooltip = {
+			change_relations = {
+				country = scope:buyer_country
+				value = 10
+			}
+		}
+	}
+
+	option = { # Reject
+		name = buying_ships.6.b
+		hidden_effect = {
+			scope:buyer_country = {
+				trigger_event = buying_ships.8
+			}
+		}
+		show_as_tooltip = {
+			change_relations = {
+				country = scope:buyer_country
+				value = -10
+			}
+		}
+	}
+}
+
+buying_ships.7 = { # Offer accepted
+	type = country_event
+	placement = ROOT
+
+    title = buying_ships.7.t
+    desc = buying_ships.7.d
+    flavor = buying_ships.7.f
+
+	event_image = {
+		video = "gfx/event_pictures/southamerica_aristocrats.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/southamerica/aristocrats"
+
+	duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	immediate = {
+		scope:port_state = {
+			state_region = {
+				save_scope_as = port_state_region
+			}
+			region = {
+				save_scope_as = port_strategic_region
+			}
+		}
+	}
+
+	option = {
+		name = buying_ships.7.a
+		change_relations = {
+			country = scope:seller_country
+			value = 10
+		}
+
+		create_trade_route = {
+			goods = ironclads
+			level = 1
+			target = scope:seller_country.market
+			direction = import
+		}
+
+		add_technology_researched = predreadnought_tech
+
+		custom_tooltip = {
+			text = buying_ships.7.a.tt
+			create_military_formation = {
+				hq_region = scope:port_strategic_region
+				type = fleet
+				combat_unit = {
+					type = unit_type:combat_unit_type_predreadnought
+					state_region = scope:port_state_region
+					count = 2
+				}
+			}
+		}
+
+		add_modifier = {
+			name = purchasing_battleships
+			years = 1
+			multiplier = 9589
+		}
+
+		hidden_effect = {
+			scope:seller_country = {
+				add_modifier = {
+					name = receiving_payment_for_battleships
+					years = 1
+					multiplier = 9589
+				}
+			}			
+		}
+		
+	}
+
+}
+
+buying_ships.8 = { # Offer rejected
+	type = country_event
+	placement = ROOT
+
+    title = buying_ships.8.t
+    desc = buying_ships.8.d
+    flavor = buying_ships.8.f
+
+    event_image = {
+        video = "gfx/event_pictures/unspecific_politicians_arguing.bk2"
+    }
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/asia/politician_parliament_motion"
+
+	duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	option = {
+		name = buying_ships.8.a
+
+		change_relations = {
+			country = scope:seller_country
+			value = -10
+		}
+	}
+
+	option = {
+		name = buying_ships.8.b
+		trigger = {
+			exists = scope:alternative_seller
+			NOT = {
+				has_variable = tried_alternative_predread_seller
+			}
+		}
+
+		change_relations = {
+			country = scope:seller_country
+			value = -10
+		}
+
+		custom_tooltip = {
+			text = buying_ships.8.b.tt
+			set_variable = tried_alternative_predread_seller
+			scope:alternative_seller = {
+				save_scope_as = seller_country
+			}
+			scope:seller_country = {
+				trigger_event = {
+					id = buying_ships.6
+				}
+			}
+		}
+	}
+
+}
+
+buying_ships.9 = { # South American pre-dreadnoughts (from random event)
+	type = country_event
+	placement = ROOT
+
+    title = buying_ships.9.t
+    desc = buying_ships.9.d
+    flavor = buying_ships.9.f
+
+	event_image = {
+		video = "gfx/event_pictures/southamerica_aristocrats.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/southamerica/aristocrats"
+
+	duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	trigger = {
+		NOT = {
+			has_variable = asked_to_buy_predreads
+		}
+		navy_size >= 1
+		root = {
+			country_is_in_south_america = yes
+			country_rank = rank_value:major_power # Not too weak, not too powerful
+			NOT = {
+				has_technology_researched = predreadnought_tech
+			}
+		}
+		any_country = {
+			has_technology_researched = steel_shipbuilding_tech
+			relations:root >= relations_threshold:cordial
+			has_overlapping_interests = root		
+		}
+	}
+
+	immediate = {
+		ordered_scope_state = {
+			limit = {
+				has_active_building = building_naval_base
+			}
+			order_by = this.b:building_naval_base.level
+			max = 1
+			save_scope_as = port_state
+		}
+		root = {
+			save_scope_as = buyer_country
+			set_variable = asked_to_buy_predreads
+		}
+		ordered_country = {
+			limit = {
+				has_technology_researched = steel_shipbuilding_tech
+				has_overlapping_interests = root
+			}
+			order_by = relations:root
+			max = 1
+			save_scope_as = seller_country
+		}
+		ig:ig_armed_forces = {
+			save_scope_as = navy_ig
+		}
+		if = {
+			limit = {
+				any_country = {
+					count >= 2
+					has_technology_researched = steel_shipbuilding_tech
+				}
+			}
+			ordered_country = {
+				limit = {
+					has_technology_researched = steel_shipbuilding_tech
+				}
+				order_by = relations:root
+				position = 2
+				check_range_bounds = no
+				save_scope_as = alternative_seller
+			}
+		}
+	}
+
+	option = {
+		name = buying_ships.9.a
+		custom_tooltip = buying_ships.9.a.tt
+
+		hidden_effect = {
+			scope:seller_country = {
+				trigger_event = buying_ships.6
+			}
+		}
+	}
+
+	option = {
+		name = buying_ships.9.b
+		custom_tooltip = buying_ships.9.a.tt
+
+		trigger = {
+			exists = scope:alternative_seller
+		}
+
+		scope:seller_country = {
+			save_scope_as = buffer_scope
+		}
+		
+		scope:alternative_seller = {
+			save_scope_as = seller_country
+		}
+
+		scope:buffer_scope = {
+			save_scope_as = alternative_seller
+		}
+
+		hidden_effect = {
+			scope:seller_country = {
+				trigger_event = buying_ships.6
+			}
+		}
+	}
+
+	option = {
+		name = buying_ships.9.c
+
+		ig:ig_armed_forces = {
+			add_modifier = {
+				name = denied_battleships
+				years = 5
+			}
+		}
+	}
+}

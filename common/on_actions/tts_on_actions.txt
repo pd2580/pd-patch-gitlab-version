@@ -1,0 +1,116 @@
+﻿on_monthly_pulse_country = {
+	random_events = {
+		100 = 0
+		20 = gbr_threatened.1		
+		10 = twopowerstandard.1
+		1 = cordite.3
+	}
+	events = {
+		mahan_events.1
+		usa_jealousy.1
+		navy_professionalism.1
+	}
+}
+
+on_half_yearly_pulse_country = {
+	events = {
+		buying_ships.9 # South American pre-dreadnoughts
+		communist_ships.1 # Renaming of battleships
+	}
+	on_actions = {
+		low_navyprof_on_actions
+		update_main_naval_powers
+		tts_half_yearly_actions
+	}
+}
+
+tts_half_yearly_actions = {
+	random_events = { # basegame has 200 weight on 0
+		chance_of_no_event = 80
+		20 = american_isolation.1
+		20 = american_isolation.2
+		20 = greateastern.1		
+		20 = cordite.1
+		20 = navy_professionalism.4 # Ruler takes funds from navy
+		20 = navy_professionalism.5 # Admiral embezzles funds
+		5 = navy_professionalism.9 # Admiral gets promoted through corrupt means
+		20 = shipyard_events.1 # Naval yards hampered by lack of civilian shipbuilding
+		20 = revolt_lash.1
+		20 = unstable_ship.1
+	}
+}
+
+low_navyprof_on_actions = {
+	random_events = {
+		100 = 0		
+		10 = navy_professionalism.6 # torpedo juice - low
+		5 = navy_professionalism.7 # faulty shells - very low
+		10 = navy_professionalism.8 # harsh discipline - low
+		5 = navy_professionalism.10 # breakdown of discipline - very low
+	}
+}
+
+update_main_naval_powers = {	
+	effect = {
+		if = {
+			limit = {
+				is_ai = no
+			}
+			clear_global_variable_list = main_naval_powers
+			ordered_country = {
+				limit = {
+					OR = {
+						is_country_type = recognized
+						is_country_type = colonial
+					}
+					is_subject = no
+				}
+				order_by = naval_power_projection 
+				max = 7
+				add_to_global_variable_list = {
+					name = main_naval_powers
+					target = this
+				}
+			}
+		}
+	}
+}
+
+on_battle_started = {
+	on_actions = {
+		cordite_on_action
+	}
+}
+
+cordite_on_action = {
+	random_events = {
+		20 = 0
+		1 = cordite.2
+	}
+}
+
+on_acquired_technology = {
+	events = {
+		tts_tech_events.2
+	}
+}
+
+on_character_death = {
+	on_actions = {
+		coronation_fleet_review_action 
+	}
+}
+
+coronation_fleet_review_action = {
+	effect = {
+		if = {
+			limit = {
+				is_ruler = yes
+				owner = {
+					has_law = law_type:law_monarchy
+				}
+			}
+			set_variable = ai_wants_fleet_review
+		}
+	}
+}

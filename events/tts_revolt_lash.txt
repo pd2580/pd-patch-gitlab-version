@@ -1,0 +1,159 @@
+﻿namespace = revolt_lash
+
+revolt_lash.1 = {
+	type = country_event
+    placement = ROOT
+
+    title = revolt_lash.1.t
+    desc = revolt_lash.1.d
+    flavor = revolt_lash.1.f
+
+	event_image = {
+	    video = "gfx/event_pictures/unspecific_naval_battle.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/naval_battle"
+
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		c:BRZ ?= this
+
+		cu:afro_brazilian = {
+			culture_is_discriminated_in = root
+		}
+		
+		country_navy_unit_type_fraction = {
+			target = unit_type:combat_unit_type_dreadnought
+			value > 0
+		}
+
+		var:navy_professionalism < MEDIUM_PROFESSIONALISM_THRESHOLD
+		NOT = {
+			has_variable = revolt_of_the_lash_happened
+		}
+	}
+
+	immediate = {
+		set_variable = revolt_of_the_lash_happened
+		if = {
+			limit = {
+				root.capital = {
+					any_scope_building = {
+						any_combat_unit = {
+							has_unit_type = unit_type:combat_unit_type_dreadnought
+						}
+					}
+				}
+			}
+			root.capital = {
+				save_scope_as = revolting_state
+			}
+		}
+		else = {
+			random_scope_state = {
+				limit = {
+					any_scope_building = {
+						any_combat_unit = {
+							has_unit_type = unit_type:combat_unit_type_dreadnought
+						}
+					}
+				}
+				save_scope_as = revolting_state
+			}
+		}
+		cu:afro_brazilian = {
+			save_scope_as = afro_culture
+		}
+	}
+
+	option = { # Negotiate with the protestors
+		name = revolt_lash.1.a
+		default_option = yes
+		ai_chance = {
+			base = 1
+		}
+		trigger_event = {
+			id = revolt_lash.2
+			days = 7
+		}
+	}
+
+	option = { # Destroy the ships
+		name = revolt_lash.1.b
+		ai_chance = {
+			base = 0
+		}
+		scope:revolting_state = {
+			remove_building = building_naval_base
+			state_region = {
+				add_devastation = 40
+			}
+		}
+		every_scope_state = {
+			limit = {
+				has_active_building = building_battleship_import_office
+			}
+			remove_building = building_battleship_import_office
+		}
+		
+	}
+}
+
+revolt_lash.2 = { # The negotiation
+	type = country_event
+    placement = ROOT
+
+    title = revolt_lash.2.t
+    desc = revolt_lash.2.d
+    flavor = revolt_lash.2.f
+
+	event_image = {
+		video = "gfx/event_pictures/asia_union_leader.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/naval_battle"
+
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	option = { # Accept some of their demands, but arrest them anyway
+		name = revolt_lash.2.a
+		default_option = yes
+		ai_chance = {
+			base = 1
+		}
+		increase_navy_professionalism = {
+			AMOUNT = 5
+		}
+		add_radicals = {
+			value = 0.03
+			strata = poor
+		}
+	}
+
+	option = { # Accept the demands
+	 	name = revolt_lash.2.b
+		ai_chance = {
+			base = 0
+		}
+		increase_navy_professionalism = {
+			AMOUNT = 10
+		}
+		ig:ig_armed_forces = {
+			add_modifier = {
+				name = accepted_revolter_demands
+				years = 5
+			}
+		}
+		add_radicals = {
+			value = 0.1
+			strata = rich
+		}		
+	}
+}

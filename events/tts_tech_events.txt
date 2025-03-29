@@ -1,0 +1,1194 @@
+﻿namespace = tts_tech_events
+
+# Innovative Admiral improves ship design
+tts_tech_events.1 = {
+	type = country_event
+	placement = ROOT
+	title = tts_tech_events.1.t
+	desc = tts_tech_events.1.d
+	flavor = tts_tech_events.1.f
+
+	duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	gui_window = event_window_1char_tabloid
+	
+	left_icon = scope:innovative_admiral
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+
+	trigger = {
+		any_scope_admiral = {
+			is_ruler = no
+			has_trait = innovative
+			commander_rank = 5
+		}
+	}
+
+	immediate = {
+		random_scope_admiral = {
+			limit = {
+				is_ruler = no
+				has_trait = innovative
+				commander_rank = 5
+			}
+			save_scope_as = innovative_admiral
+		}
+		#Overrides if there's an adimiral from the armed forces IG
+		random_scope_admiral = {
+			limit = {
+				is_ruler = no
+				has_trait = innovative
+				commander_rank = 5
+				interest_group = root.ig:ig_armed_forces
+			}
+			save_scope_as = innovative_admiral
+		}
+	}
+
+	option = { # Great, add a positive modifier
+		default_option = yes
+		name = tts_tech_events.1.a
+		add_naval_innovations = {
+			AMOUNT = 3
+		}
+	}
+
+	option = { # Add modifiers, AND makes the admiral a popular IG leader for armed forces
+		trigger = { 
+			scope:innovative_admiral = {
+				interest_group = root.ig:ig_armed_forces
+			}
+		}
+
+		scope:innovative_admiral = {
+			set_as_interest_group_leader = yes
+		}
+		hidden_effect = {
+			scope:innovative_admiral = {
+				add_modifier = {
+					name = naval_innovator
+					years = 10
+					is_decaying = yes
+				}
+			}
+		}
+		name = tts_tech_events.1.b
+		add_naval_innovations = {
+			AMOUNT = 3
+		}
+	}
+}
+
+tts_tech_events.2 = { # Is triggered whenever a tech is researched
+	type = country_event
+	hidden = yes
+
+	immediate = {
+		IF = {
+			limit = {
+				has_technology_researched = battleship_tech
+			}
+			remove_modifier = naval_innovations_dreadnoughts
+		}
+
+		IF = {
+			limit = {
+				has_technology_researched = dreadnought
+			}
+			remove_modifier = naval_innovations_predreadnoughts
+		}
+	}
+}
+
+tts_tech_events.3 = { # open hearth steel making advantages
+	type = country_event
+	placement = scope:industrial_state
+
+	title = tts_tech_events.3.t
+	desc = tts_tech_events.3.d
+	flavor = tts_tech_events.3.f
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_gears_pistons.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/gears_pistons"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	trigger = {
+		any_scope_building = {
+			is_building_type = building_steel_mills
+			level >= 5
+			has_active_production_method = pm_open_hearth_process
+		}
+	}
+
+	immediate = {
+		ordered_scope_state = {
+			limit = {
+				any_scope_building = {
+					has_active_production_method = pm_open_hearth_process
+				}
+			}
+			order_by = this.b:building_steel_mills.level
+			max = 1
+			save_scope_as = industrial_state
+			every_scope_building = {
+				limit = {
+					is_building_type = building_steel_mills
+				}
+				save_scope_as = steel_mill_scope
+			}
+		}
+	}
+
+	option = { # Good
+		name = tts_tech_events.3.a
+		add_naval_innovations = {
+			AMOUNT = 5
+		}
+	}
+}
+
+tts_tech_events.4 = { # Predreadnought Research finished
+	type = country_event
+	placement = ROOT
+
+	title = tts_tech_events.4.t
+	desc = tts_tech_events.4.d
+	flavor = tts_tech_events.4.f
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_gears_pistons.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/gears_pistons"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	option = {
+		name = tts_tech_events.4.a
+		default_option = yes
+		IF = {
+			limit = {
+				var:naval_innovations > 0
+			}
+			add_modifier = {
+				name = naval_innovations_predreadnoughts
+				years = 20
+				multiplier = var:naval_innovations
+			}
+			custom_tooltip = naval_innovations_tooltip
+		}
+		add_technology_researched = steel_shipbuilding_tech
+	}
+}
+
+tts_tech_events.5 = { # Dreadnought Research finished
+	type = country_event
+	placement = ROOT
+
+	title = tts_tech_events.5.t
+	desc = tts_tech_events.5.d
+	flavor = tts_tech_events.5.f
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_gears_pistons.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/gears_pistons"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	option = {
+		name = tts_tech_events.5.a
+		default_option = yes
+		IF = {
+			limit = {
+				var:naval_innovations > 0
+			}
+			add_modifier = {
+				name = naval_innovations_dreadnoughts
+				years = 20
+				multiplier = var:naval_innovations
+			}
+			custom_tooltip = naval_innovations_tooltip
+		}
+		add_technology_researched = turbine_powered_ships_tech
+	}
+}
+
+tts_tech_events.6 = { # Battleship Research finished
+	type = country_event
+	placement = scope:port_state
+
+	title = tts_tech_events.6.t
+	desc = tts_tech_events.6.d
+	flavor = tts_tech_events.6.f
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_gears_pistons.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/gears_pistons"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	immediate = {
+		ordered_scope_state = {
+			limit = {
+				has_active_building = building_military_shipyards
+			}
+			order_by = b:building_military_shipyards.level
+			max = 1
+			save_scope_as = port_state
+		}
+	}
+
+	option = {
+		name = tts_tech_events.6.a
+		default_option = yes
+		IF = {
+			limit = {
+				var:naval_innovations > 0
+			}
+			add_modifier = {
+				name = naval_innovations_battleships
+				years = 20
+				multiplier = var:naval_innovations
+			}
+		}
+		add_technology_researched = large_scale_shipbuilding_tech
+	}
+}
+
+tts_tech_events.7 = { # dreadnought research helped by civilian shipyards
+	type = country_event
+	placement = scope:shipyard_state
+
+	title = tts_tech_events.7.t
+	desc = tts_tech_events.7.d
+	flavor = tts_tech_events.7.f
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_gears_pistons.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/gears_pistons"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	trigger = {
+		any_scope_building = {
+			is_building_type = building_shipyards
+			level >= 5
+			OR = {
+				has_active_production_method = pm_metal_shipbuilding
+				has_active_production_method = pm_arc_welding_shipbuilding
+			}
+		}
+	}
+
+	immediate = {
+		ordered_scope_state = {
+			limit = {
+				any_scope_building = {
+					is_building_type = building_shipyards
+					OR = {
+						has_active_production_method = pm_metal_shipbuilding
+						has_active_production_method = pm_arc_welding_shipbuilding
+					}
+				}
+			}
+			order_by = b:building_shipyards.level
+			max = 1
+			save_scope_as = shipyard_state
+			every_scope_building = {
+				limit = {
+					is_building_type = building_shipyards
+				}
+				save_scope_as = shipyard_building
+			}
+		}
+	}
+
+	option = {
+		default_option = yes
+		name = tts_tech_events.7.a
+		add_naval_innovations = {
+			AMOUNT = 5
+		}
+	}
+}
+
+tts_tech_events.8 = { # battleship research helped by civilian shipyards
+	type = country_event
+	placement = scope:shipyard_state
+
+	title = tts_tech_events.8.t
+	desc = tts_tech_events.8.d
+	flavor = tts_tech_events.8.f
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_gears_pistons.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/gears_pistons"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	trigger = {
+		any_scope_building = {
+			is_building_type = building_shipyards
+			level >= 10
+			OR = {
+				has_active_production_method = pm_metal_shipbuilding
+				has_active_production_method = pm_arc_welding_shipbuilding
+			}
+		}
+	}
+
+	immediate = {
+		ordered_scope_state = {
+			limit = {
+				any_scope_building = {
+					is_building_type = building_shipyards
+					OR = {
+						has_active_production_method = pm_metal_shipbuilding
+						has_active_production_method = pm_arc_welding_shipbuilding
+					}
+				}
+			}
+			order_by = b:building_shipyards.level
+			max = 1
+			save_scope_as = shipyard_state
+			every_scope_building = {
+				limit = {
+					is_building_type = building_shipyards
+				}
+				save_scope_as = shipyard_building
+			}
+		}
+	}
+
+	option = {
+		default_option = yes
+		name = tts_tech_events.8.a
+		add_naval_innovations = {
+			AMOUNT = 5
+		}
+	}
+}
+
+
+tts_tech_events.9 = { # large scale steel making benefits battleships
+	type = country_event
+	placement = scope:industrial_state
+
+	title = tts_tech_events.9.t
+	desc = tts_tech_events.9.d
+	flavor = tts_tech_events.9.f
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_gears_pistons.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/gears_pistons"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	trigger = {
+		any_scope_building = {
+			is_building_type = building_steel_mills
+			level >= 20
+		}
+	}
+
+	immediate = {
+		ordered_scope_state = {
+			limit = {
+				any_scope_building = {
+					is_building_type = building_steel_mills
+				}
+			}
+			order_by = this.b:building_steel_mills.level
+			max = 1
+			save_scope_as = industrial_state
+			every_scope_building = {
+				limit = {
+					is_building_type = building_steel_mills
+				}
+				save_scope_as = steel_mill_scope
+			}
+		}
+	}
+
+	option = { # Good
+		name = tts_tech_events.9.a
+		add_naval_innovations = {
+			AMOUNT = 3
+		}
+	}
+}
+
+
+tts_tech_events.10 = { # Convert one of our battleships to aircraft carrier?
+	type = country_event
+	placement = scope:carrier_state
+
+	title = tts_tech_events.10.t
+	desc = tts_tech_events.10.d
+	flavor = tts_tech_events.10.f
+
+	event_image = {
+		video = "unspecific_carrier"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	cooldown = {
+		years = 1
+	}
+
+	trigger = {
+		NOT = {
+			has_variable = converted_battleship_to_carrier
+		}
+		NOR = {
+			has_law = law_type:law_moderate_naval_treaty
+			has_law = law_type:law_extensive_naval_treaty
+		}
+		any_military_formation = {
+			any_combat_unit = {
+				has_unit_type = unit_type:combat_unit_type_battleship
+			}
+		}
+	}
+
+	immediate = {
+		random_scope_state = {
+			limit = {
+				any_scope_building = {
+					any_combat_unit = {
+						has_unit_type = unit_type:combat_unit_type_battleship
+					}
+				}
+			}
+			save_scope_as = carrier_state
+
+			state_region = {
+				save_scope_as = carrier_state_region
+			}
+
+			region = {
+				save_scope_as = carrier_region
+			}
+		}
+	}
+
+	option = {
+		name = tts_tech_events.10.a
+		default_option = yes
+
+		scope:carrier_state = {
+			add_modifier = {
+				name = converted_warship_to_carrier_modifier
+				years = 2
+			}
+		}
+
+		create_military_formation = {
+			type = fleet
+			hq_region = scope:carrier_region
+			combat_unit = {
+				type = unit_type:combat_unit_type_experimental_carrier
+				count = 1
+				state_region = scope:carrier_state_region
+			}
+		}
+
+		hidden_effect = {
+			set_variable = converted_battleship_to_carrier
+		}
+
+		custom_tooltip = {
+			text = tts_tech_events.10.a.tt
+			change_variable = {
+				name = carrier_progress_var
+				add = 12
+			}
+		}
+
+		ai_chance = {
+			base = 1
+		}
+	}
+
+	option = {
+		name = tts_tech_events.10.b
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+
+tts_tech_events.11 = { # Naval treaty forces us to convert one of our battleships to carrier
+	type = country_event
+	placement = ROOT
+
+	title = tts_tech_events.11.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					has_global_variable = naval_conference_state_region
+				}
+				desc = tts_tech_events.11.d_treaty_name
+			}
+			desc = tts_tech_events.11.d
+		}
+	}
+	flavor = tts_tech_events.11.f
+
+	event_image = {
+		video = "unspecific_carrier"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	trigger = {
+		NOT = {
+			has_variable = converted_battleship_to_carrier
+		}
+		OR = {
+			has_law = law_type:law_moderate_naval_treaty
+			has_law = law_type:law_extensive_naval_treaty
+		}
+		any_scope_building = {
+			any_combat_unit = {
+				has_unit_type = unit_type:combat_unit_type_battleship
+			}
+		}
+	}
+
+	immediate = {
+		set_variable = converted_battleship_to_carrier
+		random_scope_state = {
+			limit = {
+				any_scope_building = {
+					any_combat_unit = {
+						has_unit_type = unit_type:combat_unit_type_battleship
+					}
+				}
+			}
+			save_scope_as = carrier_state
+
+			state_region = {
+				save_scope_as = carrier_state_region
+			}
+
+			region = {
+				save_scope_as = carrier_region
+			}
+		}
+	}
+
+	option = {
+		name = tts_tech_events.11.a
+		default_option = yes
+
+		custom_tooltip = {
+			text = tts_tech_events.11.a.tt
+			change_variable = {
+				name = carrier_progress_var
+				add = 12
+			}
+		}
+
+		create_military_formation = {
+			type = fleet
+			hq_region = scope:carrier_region
+			combat_unit = {
+				type = unit_type:combat_unit_type_experimental_carrier
+				count = 1
+				state_region = scope:carrier_state_region
+			}
+		}
+	}
+}
+
+tts_tech_events.12 = { # Convert an ocean liner to a carrier
+	type = country_event
+	placement = ROOT
+
+	title = tts_tech_events.12.t
+	desc = tts_tech_events.12.d
+	flavor = tts_tech_events.12.f
+
+	event_image = {
+		video = "unspecific_steam_ship"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+	
+	cooldown = {
+		years = 1
+	}
+
+	trigger = {
+		NOT = {
+			has_variable = converted_ocean_liner_to_carrier
+		}
+		any_scope_building = {
+			has_active_production_method = pm_modern_port
+		}
+	}
+
+	immediate = {
+		random_scope_state = {
+			limit = {
+				has_building = building_naval_base
+			}
+			save_scope_as = carrier_state
+
+			state_region = {
+				save_scope_as = carrier_state_region
+			}
+
+			region = {
+				save_scope_as = carrier_region
+			}
+		}
+	}
+
+	option = {
+		name = tts_tech_events.12.a
+		default_option = yes
+		ai_chance = {
+			base = 1
+		}
+		add_modifier = {
+			name = paying_for_ocean_liner
+			years = 1
+		}
+		custom_tooltip = {
+			text = tts_tech_events.12.a.tt
+			change_variable = {
+				name = carrier_progress_var
+				add = 12
+			}
+			set_variable = converted_ocean_liner_to_carrier
+		}
+
+		create_military_formation = {
+			type = fleet
+			hq_region = scope:carrier_region
+			combat_unit = {
+				type = unit_type:combat_unit_type_experimental_carrier
+				count = 1
+				state_region = scope:carrier_state_region
+			}
+		}
+	}
+
+	option = {
+		name = tts_tech_events.12.b
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+tts_tech_events.13 = { # Development of dive bombers
+	type = country_event
+	placement = scope:aircraft_state
+
+	title = tts_tech_events.13.t
+	desc = tts_tech_events.13.d
+	flavor = tts_tech_events.13.f
+
+	event_image = {
+		video = "unspecific_airplane"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	trigger = {
+		NOT = {
+			has_variable = developed_dive_bombers
+		}
+		any_scope_building = {
+			modifier:goods_output_aeroplanes_add > 0
+			level >= 5
+		}
+		var:carrier_progress_var >= 60 # Only on the second half of the journal
+	}
+
+	immediate = {
+		set_variable = developed_dive_bombers
+		random_scope_building = {
+			limit = {
+				modifier:goods_output_aeroplanes_add > 0
+				level >= 5
+			}
+			save_scope_as = aircraft_building
+			state = {
+				save_scope_as = aircraft_state
+			}
+		}
+	}
+
+	option = {
+		name = tts_tech_events.13.a
+		default_option = yes
+		custom_tooltip = {
+			text = tts_tech_events.13.a.tt
+			change_variable = {
+				name = carrier_progress_var
+				add = 12
+			}
+		}
+	}
+}
+
+
+tts_tech_events.14 = { # Development of monoplane fighters
+	type = country_event
+	placement = scope:carrier_state
+
+	title = tts_tech_events.14.t
+	desc = tts_tech_events.14.d
+	flavor = tts_tech_events.14.f
+
+	event_image = {
+		video = "unspecific_carrier"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	trigger = {
+		NOT = {
+			has_variable = developed_monoplane_fighter
+		}
+		any_scope_building = {
+			modifier:goods_output_aeroplanes_add > 0
+			level >= 5
+		}
+		var:carrier_progress_var >= 60 # Only on the second half of the journal
+	}
+
+	immediate = {
+		set_variable = developed_monoplane_fighter
+	}
+
+	option = {
+		name = tts_tech_events.14.a
+		default_option = yes
+		custom_tooltip = {
+			text = tts_tech_events.14.a.tt
+			change_variable = {
+				name = carrier_progress_var
+				add = 12
+			}
+		}
+	}
+}
+
+
+tts_tech_events.15 = { # Homing Beacon
+	type = country_event
+	placement = scope:radio_state
+
+	title = tts_tech_events.15.t
+	desc = tts_tech_events.15.d
+	flavor = tts_tech_events.15.f
+
+	event_image = {
+		video = "middleeast_engineer_blueprint"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	trigger = {
+		NOT = {
+			has_variable = developed_homing_beacon
+		}
+		any_scope_building = {
+			has_active_production_method = pm_radios
+			level >= 10
+		}
+	}
+
+	immediate = {
+		set_variable = developed_homing_beacon
+		ordered_scope_building = {
+			limit = {
+				has_active_production_method = pm_radios
+			}
+			order_by = level
+			max = 1
+			save_scope_as = radio_building
+			state = {
+				save_scope_as = radio_state
+			}
+		}
+	}
+
+	option = {
+		name = tts_tech_events.15.a
+		default_option = yes
+		custom_tooltip = {
+			text = tts_tech_events.15.a.tt
+			change_variable = {
+				name = carrier_progress_var
+				add = 6
+			}
+		}
+	}
+}
+
+
+tts_tech_events.16 = { # Carrier Research finished
+	type = country_event
+	placement = ROOT
+
+	title = tts_tech_events.16.t
+	desc = tts_tech_events.16.d
+	
+	event_image = {
+		video = "middleeast_engineer_blueprint"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	option = { # Choose strike power over armor
+		name = tts_tech_events.16.a
+		default_option = yes
+		ai_chance = {
+			base = 1
+		}
+		custom_tooltip = {
+			text = tts_tech_events.16.a.tt
+			trigger_event = {
+				id = tts_tech_events.17
+				popup = yes
+			}
+		}
+		
+	}
+
+	option = { # Choose armored carriers
+		name = tts_tech_events.16.b
+		ai_chance = {
+			base = 0
+			modifier = {
+				trigger = {
+					c:GBR ?= this
+				}
+				add = 3
+			}
+		}
+		custom_tooltip = {
+			text = tts_tech_events.16.b.tt
+			trigger_event = {
+				id = tts_tech_events.18
+				popup = yes
+			}
+		}
+	}
+}
+
+tts_tech_events.17 = { # Chose Unarmored (Strike) Carriers
+	type = country_event
+	placement = scope:carrier_state
+
+	title = tts_tech_events.17.t
+	desc = tts_tech_events.17.d
+	flavor = tts_tech_events.17.f
+
+	event_image = {
+		video = "unspecific_carrier"
+	}
+
+	immediate = {
+		random_scope_building = {
+			limit = {
+				is_building_type = building_naval_base
+			}
+			# TODO: fix state weights
+			# weight = {
+			# 	base = 1
+			# 	modifier = {
+			# 		trigger = { has_active_production_method = pm_tts_battleships }
+			# 		add = 100
+			# 	}
+			# 	modifier = {
+			# 		trigger = { has_active_production_method = pm_tts_dreadnoughts }
+			# 		add = 10
+			# 	}
+			# }
+			save_scope_as = carrier_building
+			state = {
+				save_scope_as = carrier_state
+			}
+		}
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	option = {
+		name = tts_tech_events.17.a
+		default_option = yes
+		add_technology_researched = fleet_carrier_tech
+		# scope:carrier_state = {
+		# 	activate_production_method = {
+		# 		building_type = building_naval_base
+		# 		production_method = pm_tts_strike_carriers
+		# 	}
+		# }
+	}
+}
+
+tts_tech_events.18 = { # Chose Armored Carriers
+	type = country_event
+	placement = scope:carrier_state
+
+	title = tts_tech_events.18.t
+	desc = tts_tech_events.18.d
+	flavor = tts_tech_events.18.f
+
+	event_image = {
+		video = "unspecific_carrier"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	immediate = {
+		random_scope_building = {
+			limit = {
+				is_building_type = building_naval_base
+			}
+			# weight = {
+			# 	base = 1
+			# 	modifier = {
+			# 		trigger = { has_active_production_method = pm_tts_battleships }
+			# 		add = 100
+			# 	}
+			# 	modifier = {
+			# 		trigger = { has_active_production_method = pm_tts_dreadnoughts }
+			# 		add = 10
+			# 	}
+			# }
+			save_scope_as = carrier_building
+			state = {
+				save_scope_as = carrier_state
+			}
+		}
+	}
+
+	option = {
+		name = tts_tech_events.18.a
+		default_option = yes
+		add_technology_researched = armored_carrier_tech
+		# scope:carrier_state = {
+		# 	activate_production_method = {
+		# 		building_type = building_naval_base
+		# 		production_method = pm_tts_armored_carriers
+		# 	}
+		# }
+	}
+}
+
+tts_tech_events.19 = { # Innovative admiral using carriers
+	type = country_event
+	placement = ROOT
+
+	title = tts_tech_events.19.t
+	desc = tts_tech_events.19.d
+	flavor = tts_tech_events.19.f
+	
+	gui_window = event_window_1char_tabloid
+	
+	left_icon = scope:admiral_scope
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	trigger = {
+		any_scope_admiral = {
+			has_trait = innovative
+			# TODO: Fix carrier usage once trigger no longer crashes the game
+			# commander_pm_usage = {
+			# 	target = ROOT
+			# 	production_method = pm_tts_carriers
+			# 	value >= 0.5
+			# }
+		}
+	}
+
+	cooldown = {
+		years = 11 # Should probably never trigger twice
+	}
+
+	immediate = {
+		random_scope_admiral = {
+			# limit = {
+			# 	has_trait = innovative
+			# 	commander_pm_usage = {
+			# 		target = ROOT
+			# 		production_method = pm_tts_carriers
+			# 		value >= 0.5
+			# 	}
+			# }
+			save_scope_as = admiral_scope
+		}
+	}
+
+	option = {
+		name = tts_tech_events.19.a
+		default_option = yes
+		scope:admiral_scope = {
+			add_modifier = {
+				name = carrier_innovator
+				years = 10
+				is_decaying = yes
+			}
+		}
+		custom_tooltip = {
+			text = tts_tech_events.19.a.tt
+			change_variable = {
+				name = carrier_progress_var
+				add = 6
+			}
+		}
+	}
+
+}
+
+
+
+tts_tech_events.20 = { # Budget issues
+	type = country_event
+	placement = ROOT
+
+	title = tts_tech_events.20.t
+	desc = tts_tech_events.20.d
+	flavor = tts_tech_events.20.f
+
+	event_image = {
+		video = "africa_leader_arguing"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	trigger = {
+		military_wage_level <= 0
+	}
+
+	cooldown = {
+		years = 1
+	}
+
+	option = {
+		name = tts_tech_events.20.a
+		default_option = yes
+		ai_chance = {
+			base = 2
+		}
+		custom_tooltip = {
+			text = tts_tech_events.20.a.tt
+			change_variable = {
+				name = carrier_progress_var
+				subtract = 6
+			}
+		}
+	}
+
+	option = {
+		name = tts_tech_events.20.b
+		ai_chance = {
+			base = 1
+		}
+		add_modifier = {
+			name = emergency_carrier_budget
+			multiplier = money_amount_multiplier_medium
+			years = 1
+		}
+		custom_tooltip = {
+			text = tts_tech_events.20.b.tt
+			change_variable = {
+				name = carrier_progress_var
+				add = 6
+			}
+		}
+	}
+}

@@ -1,0 +1,85 @@
+﻿je_build_admiralty = {
+	group = je_group_internal_affairs
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	modifiers_while_active = {
+		setting_up_admiralty
+	}
+	immediate = {
+		set_variable = {
+			name = admiralty_progress_var
+			value = 0
+		}
+	}
+	complete = {
+		scope:journal_entry = {
+			is_goal_complete = yes
+		}
+	}
+	on_complete = {
+		remove_variable = admiralty_setback_1
+		remove_variable = admiralty_setback_2
+		remove_variable = admiralty_setback_3
+		remove_variable = admiralty_progress_var
+		set_variable = finished_admiralty_building_journal
+	}
+	on_monthly_pulse = {
+		effect = {
+			change_variable = {
+				name = admiralty_progress_var
+				add = 1
+			}
+			if = {
+				limit = {
+					var:admiralty_progress_var = 3
+					NOT = { has_variable = admiralty_setback_1 }
+				}
+				random_list = {
+					30 = {}
+					70 = {
+						trigger_event = {
+							id = admiralty.1
+							popup = yes
+						}
+					}
+				}
+				
+			}
+			if = {
+				limit = {
+					var:admiralty_progress_var = 6
+					NOT = { has_variable = admiralty_setback_2 }
+				}
+				random_list = {
+					30 = {}
+					70 = {
+						trigger_event = {
+							id = admiralty.2
+							popup = yes
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					var:admiralty_progress_var = 9
+					NOT = { has_variable = admiralty_setback_3 }
+				}
+				random_list = {
+					30 = {}
+					70 = {
+						trigger_event = {
+							id = admiralty.3
+							popup = yes
+						}
+					}
+				}
+			}
+		}
+	}
+	current_value = {
+		value = root.var:admiralty_progress_var
+	}
+	goal_add_value = 12
+	progressbar = yes
+	should_be_pinned_by_default = yes	
+}

@@ -1,0 +1,326 @@
+﻿cheating_the_treaty = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+    state_building_naval_base_max_level_add = 5
+    country_authority_add = -100
+}
+
+relaxed_safety_procedures = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_positive.dds
+    unit_navy_offense_mult = 0.05
+    unit_navy_defense_mult = 0.05
+}
+
+exploding_ships = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+}
+
+funding_great_eastern = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+    country_prestige_mult = 0.05
+    country_expenses_add = 5000
+}
+
+developing_predreadnoughts = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+    country_expenses_add = 40000
+}
+
+developing_dreadnoughts = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+    country_expenses_add = 60000
+}
+
+developing_battleships = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+    country_expenses_add = 60000
+}
+
+naval_innovations_predreadnoughts = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_positive.dds
+    unit_navy_offense_mult = 0.01
+    unit_navy_defense_mult = 0.01
+}
+
+naval_innovations_dreadnoughts = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_positive.dds
+    unit_navy_offense_mult = 0.01
+    unit_navy_defense_mult = 0.01
+}
+
+naval_innovations_battleships = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_positive.dds
+    unit_navy_offense_mult = 0.01
+    unit_navy_defense_mult = 0.01
+}
+
+naval_innovator = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+    character_popularity_add = 50
+}
+
+well_engineered_hulls = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_positive.dds
+    unit_navy_offense_mult = 0.05
+    unit_navy_defense_mult = 0.05
+}
+
+
+developed_mahanian_thought = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+    country_prestige_add = 100
+}
+
+treaty_temp_modifier = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+    state_building_naval_base_max_level_add = -1
+}
+
+battleship_building_holiday = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    country_blocks_building_naval_bases_bool = yes
+}
+
+purchasing_battleships = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+    country_expenses_add = 1
+}
+
+receiving_payment_for_battleships = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+    country_tax_income_add = 1
+}
+
+great_white_fleet_modifier = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+    country_prestige_mult = 0.1
+}
+
+battleship_explosion_state = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    building_group_bg_navy_mortality_mult = 5
+}
+
+battleship_explosion_building = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    unit_navy_offense_mult = -0.2
+    unit_navy_defense_mult = -0.2
+}
+
+unstable_ship_sunk = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    building_group_bg_navy_mortality_mult = 3
+}
+
+revolutionary_turret_design = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_positive.dds
+    unit_navy_offense_mult = 0.05
+    unit_navy_defense_mult = 0.05
+}
+
+high_navy_prof_modifier = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_positive.dds
+    unit_navy_offense_mult = 0.1
+    unit_navy_defense_mult = 0.1
+}
+
+medium_navy_prof_modifier = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_positive.dds
+}
+
+low_navy_prof_modifier = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    unit_navy_offense_mult = -0.1
+    unit_navy_defense_mult = -0.1
+}
+
+very_low_navy_prof_modifier = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    unit_navy_offense_mult = -0.2
+    unit_navy_defense_mult = -0.2
+}
+
+paying_for_naval_training = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+    country_expenses_add = 1
+}
+
+stopped_ruler_from_diverting_funds = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_negative.dds
+    country_authority_add = -100
+}
+
+torpedo_juice = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    unit_convoy_raiding_mult = -0.4
+}
+
+laced_torpedo_juice = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    unit_convoy_raiding_mult = -0.15
+    building_group_bg_navy_soldiers_mortality_mult = 0.2
+    building_group_bg_navy_soldiers_standard_of_living_add = -1
+}
+
+faulty_shells = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    unit_navy_offense_mult = -0.2
+    unit_navy_defense_mult = -0.2
+}
+
+replacing_defective_shells = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+    country_expenses_add = 1
+}
+
+relaxed_discipline = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    unit_navy_offense_mult = -0.1
+    unit_navy_defense_mult = -0.1
+}
+
+enforcing_harsh_discipline = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    building_group_bg_navy_soldiers_mortality_mult = 0.2
+    building_group_bg_navy_soldiers_standard_of_living_add = -1
+}
+
+didnt_honor_admirals_favor = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_negative.dds
+    country_legitimacy_base_add = -5
+}
+
+navy_discipline_breakdown = {    
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    unit_navy_offense_mult = -0.4
+    unit_navy_defense_mult = -0.4
+}
+
+cracking_down_on_mutineers = {    
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    building_group_bg_navy_soldiers_mortality_mult = 0.4
+    building_group_bg_navy_soldiers_standard_of_living_add = -1
+    unit_navy_offense_mult = -0.1
+    unit_navy_defense_mult = -0.1
+}
+
+paying_for_naval_equipment = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+    country_expenses_add = 1
+}
+
+lacking_specialized_workers = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_military_shipyards_throughput_add = -0.3
+}
+
+paying_extra_for_shipyard_workers = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+    country_expenses_add = 1000
+}
+
+restructuring_navy = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    unit_navy_offense_mult = -0.5
+    unit_navy_defense_mult = -0.5
+}
+
+conducting_major_naval_exercises = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    unit_navy_offense_mult = -0.3
+    unit_navy_defense_mult = -0.3
+}
+
+conducting_naval_exercises = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    unit_navy_offense_mult = -0.15
+    unit_navy_defense_mult = -0.15
+}
+
+paying_for_naval_exercises = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+    country_expenses_add = 1
+}
+
+paying_for_fleet_review = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+    country_expenses_add = 1
+}
+
+fleet_review_modifier_rival = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_positive.dds
+    country_prestige_mult = 0.05
+    country_prestige_from_navy_power_projection_mult = 0.05
+}
+
+fleet_review_modifier_no_rival = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_positive.dds
+    country_prestige_mult = 0.05
+}
+
+fleet_review_modifier_bad = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    country_prestige_from_navy_power_projection_mult = -0.05
+}
+
+converted_warship_to_carrier_modifier = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    unit_navy_offense_mult = -0.1
+    unit_navy_defense_mult = -0.1
+}
+
+paying_for_ocean_liner = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+    country_expenses_add = 10000
+    country_convoys_capacity_add = -200
+}
+
+carrier_innovator = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+    character_popularity_add = 50
+}
+
+emergency_carrier_budget = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+    country_expenses_add = 1
+}
+
+setting_up_admiralty = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_bureaucracy_add = -500
+}
+
+receiving_naval_conference_bribes = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+    country_tax_income_add = 9615
+}
+
+paying_naval_conference_bribes = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+    country_expenses_add = 9615
+}
+
+efficient_turrets = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_positive.dds
+    unit_combat_unit_type_ironclad_offense_mult = 0.1
+    unit_combat_unit_type_ironclad_defense_mult = 0.1
+}
+
+turret_innovator = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+    character_popularity_add = 30
+}
+
+navy_professionalization_effort = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_positive.dds
+    country_navy_professionalism_add = 1
+}
+
+eroding_navy_professionalism = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_ship_negative.dds
+    country_navy_professionalism_add = -1
+}
+
+early_navy_adopter = {
+    icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+    country_prestige_from_navy_power_projection_mult = 0.15
+}

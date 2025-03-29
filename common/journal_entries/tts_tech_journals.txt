@@ -1,0 +1,286 @@
+﻿je_predreadnought_tech = {
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	group = je_group_technology
+
+	immediate = {
+		set_variable = {
+			name = predreadnought_progress_var
+			value = 0 # It takes 40 weeks, or 280 days
+			# Total cost of 40*40k = 1.6 million
+		}
+		set_variable = {
+			name = naval_innovations
+			value = 0
+		}
+		trigger_event = {
+			id = tts_tech_events.3 # open hearth steel making advantages, adds 5 innovation
+			days = 140
+		}
+	}
+
+
+	complete = {
+		scope:journal_entry = {
+			is_goal_complete = yes
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = tts_tech_events.4
+			popup = yes
+		}
+		remove_modifier = developing_predreadnoughts
+		remove_variable = predreadnought_progress_var
+	}
+
+	current_value = {
+		value = var:predreadnought_progress_var
+	}
+
+	goal_add_value = {
+		value = 40
+	}
+
+	on_weekly_pulse = {
+		effect = {
+			change_variable = {
+				name = predreadnought_progress_var
+				add = 1
+			}
+		}
+	}
+
+	progressbar = yes
+
+	weight = 300
+
+	should_be_pinned_by_default = yes
+
+	
+}
+
+je_dreadnought_tech = {
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	group = je_group_technology
+
+	immediate = {
+		set_variable = {
+			name = dreadnought_progress_var
+			value = 0 # It takes 40 weeks, or 280 days
+			# Total cost = 40*60k = 2.4 million
+		}		
+		set_variable = {
+			name = naval_innovations
+			value = 0
+		}
+
+		trigger_event = { # Innovative admiral suggests improvements, adds 3 innovation
+			days = 60
+			id = tts_tech_events.1
+		}
+		trigger_event = { # Civilian shipyards , adds 5 innovation
+			days = 120
+			id = tts_tech_events.7
+		}
+	}
+
+
+	complete = {
+		scope:journal_entry = {
+			is_goal_complete = yes
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = tts_tech_events.5
+			popup = yes
+		}
+		remove_modifier = developing_dreadnoughts
+		if = {
+			limit = {
+				NOT = { has_global_variable = dreadnought_launched}
+			}
+			set_global_variable = dreadnought_launched
+			save_scope_as = dreadnought_country
+			every_country = {
+				post_notification = dreadnought_notification
+			}
+
+		}
+		remove_variable = dreadnought_progress_var
+	}
+
+	current_value = {
+		value = var:dreadnought_progress_var
+	}
+
+	goal_add_value = {
+		value = 40
+	}
+
+	on_weekly_pulse = {
+		effect = {
+			change_variable = {
+				name = dreadnought_progress_var
+				add = 1
+			}
+		}
+	}
+
+	progressbar = yes
+
+	weight = 300
+
+	should_be_pinned_by_default = yes
+
+	
+}
+
+je_battleship_tech = {
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	group = je_group_technology
+
+	immediate = {
+		set_variable = {
+			name = battleship_progress_var
+			value = 0 # It takes 40 weeks, or 280 days
+			# Total cost = 40*60k = 2.4 million
+		}
+		set_variable = {
+			name = naval_innovations
+			value = 0
+		}
+		trigger_event = { # large scale steel production, adds 3 innovation
+			id = tts_tech_events.9
+			days = 120
+		}
+		trigger_event = { # civilian shipyards, adds 5 innovation
+			id = tts_tech_events.8
+			days = 180
+		}
+	}
+
+
+	complete = {
+		scope:journal_entry = {
+			is_goal_complete = yes
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = tts_tech_events.6
+			popup = yes
+		}
+		remove_modifier = developing_battleships
+		remove_variable = battleship_progress_var
+	}
+
+	current_value = {
+		value = var:battleship_progress_var
+	}
+
+	goal_add_value = {
+		value = 40
+	}
+
+	on_weekly_pulse = {
+		effect = {
+			change_variable = {
+				name = battleship_progress_var
+				add = 1
+			}
+		}
+	}
+
+	progressbar = yes
+
+	weight = 300
+
+	should_be_pinned_by_default = yes
+	
+}
+
+je_carrier_tech = {
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	group = je_group_technology
+
+	immediate = {
+		set_variable = {
+			name = carrier_progress_var
+			value = 0
+		}
+	}
+
+	complete = {
+		scope:journal_entry = {
+			is_goal_complete = yes
+		}
+		country_navy_unit_type_fraction = {
+			target = unit_type:combat_unit_type_experimental_carrier
+			value > 0
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = tts_tech_events.16
+			popup = yes
+		}
+	}
+
+	progressbar = yes
+
+	current_value = {
+		value = var:carrier_progress_var
+	}
+
+	goal_add_value = {
+		value = 120 # 120 months, or 10 years
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					country_navy_unit_type_fraction = {
+						target = unit_type:combat_unit_type_experimental_carrier
+						value > 0
+					}
+				}
+				change_variable = {
+					name = carrier_progress_var
+					add = 1
+				}
+			}
+		}
+		random_events = {
+			50 = 0
+			10 = tts_tech_events.10 # convert one of our battleships to carrier, adds 1 year of progress
+			50 = tts_tech_events.11 # treaty forces battleship conversion, adds 1 year of progress, mutual exclusive with event 10
+			10 = tts_tech_events.12 # convert an ocean liner to a carrier, adds 1 year of progress
+			10 = tts_tech_events.13 # Development of dive bombers, adds 1 year of progress
+			10 = tts_tech_events.14 # Monoplane Fighters, adds 1 year of progress
+			5 = tts_tech_events.15 # Homing Beacon, adds 6 months of progress
+			5 = tts_tech_events.19 # Innovative admiral, adds 6 months of progress
+			5 = tts_tech_events.20 # Budget problems, either adds or removes 6 months of progress
+		}
+	}
+
+	is_progressing = {
+		country_navy_unit_type_fraction = {
+			target = unit_type:combat_unit_type_experimental_carrier
+			value > 0
+		}
+	}
+
+	weight = 300
+
+	should_be_pinned_by_default = yes
+}

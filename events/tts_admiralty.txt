@@ -1,0 +1,209 @@
+﻿namespace = admiralty
+
+admiralty.1 = { # Opposition politicians want some concessions
+	type = country_event
+	placement = ROOT
+
+	title = admiralty.1.t
+	desc = admiralty.1.d
+	flavor = admiralty.1.f
+
+	event_image = {
+		video = "africa_leader_arguing"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 2
+
+	immediate = {
+		set_variable = admiralty_setback_1
+		random_interest_group = {
+			limit = {
+				is_in_government = no
+			}
+			weight = {
+				base = 1
+				modifier = {
+					trigger = {
+						is_powerful = yes
+					}
+					add = 10
+				}
+			}
+			save_scope_as = complaining_ig
+		}
+		random_interest_group = {
+			limit = {
+				is_in_government = yes
+				is_marginal = no
+			}
+			weight = {
+				base = 1
+				modifier = {
+					trigger = {
+						is_powerful = yes
+					}
+					add = 10
+				}
+			}
+			save_scope_as = government_ig
+		}
+	}
+
+	option = { # make concessions
+		name = admiralty.1.a
+		default_option = yes
+		custom_tooltip = {
+			text = admiralty.1.a.tt
+			change_variable = {
+				name = admiralty_progress_var
+				subtract = 3
+			}
+		}
+		ai_chance = {
+			base = 2
+		}
+	}
+
+	option = { # ignore their complaints
+		name = admiralty.1.b
+		default_option = yes
+		scope:complaining_ig = {
+			add_modifier = {
+				name = admiralty_concessions_denied
+				years = 5
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+admiralty.2 = { # Government politicians want some concessions
+	type = country_event
+	placement = ROOT
+
+	title = admiralty.2.t
+	desc = admiralty.2.d
+	flavor = admiralty.2.f
+
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 2
+
+	trigger = {
+		any_interest_group = {
+			is_in_government = yes
+			is_marginal = no
+		}
+	}
+
+	immediate = {
+		set_variable = admiralty_setback_2
+		random_interest_group = {
+			limit = {
+				is_in_government = yes
+				is_marginal = no
+			}
+			weight = {
+				base = 1
+				modifier = {
+					trigger = {
+						is_powerful = yes
+					}
+					add = 10
+				}
+			}
+			save_scope_as = complaining_ig
+		}
+	}
+
+	option = { # make concessions
+		name = admiralty.2.a
+		default_option = yes
+		custom_tooltip = {
+			text = admiralty.2.a.tt
+			change_variable = {
+				name = admiralty_progress_var
+				subtract = 3
+			}
+		}
+		ai_chance = {
+			base = 2
+		}
+	}
+
+	option = { # ignore their complaints
+		name = admiralty.2.b
+		default_option = yes
+		scope:complaining_ig = {
+			add_modifier = {
+				name = admiralty_concessions_denied
+				years = 5
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+admiralty.3 = { # Officers don't want to lose control
+	type = country_event
+	placement = ROOT
+
+	title = admiralty.3.t
+	desc = admiralty.3.d
+	flavor = admiralty.3.f
+
+	event_image = {
+		video = "asia_westerners_arriving"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 2
+
+	immediate = {
+		set_variable = admiralty_setback_3
+	}
+
+	option = { # make concessions
+		name = admiralty.3.a
+		default_option = yes
+		custom_tooltip = {
+			text = admiralty.3.a.tt
+			change_variable = {
+				name = admiralty_progress_var
+				subtract = 3
+			}
+		}
+		ai_chance = {
+			base = 2
+		}
+	}
+
+	option = { # ignore their complaints
+		name = admiralty.3.b
+		default_option = yes
+		add_radicals = {
+			pop_type = officers
+			value = 0.1
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}

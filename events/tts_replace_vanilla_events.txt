@@ -1,0 +1,347 @@
+﻿namespace = tts_replacement
+
+tts_replacement.1 = { # Replaces military_tech_events.403 - IRONCLADS
+	
+	type = country_event
+	placement = ROOT
+
+	title = military_tech_events.403.t
+	desc = military_tech_events.403.d
+	flavor = military_tech_events.403.f
+
+	duration = 3
+
+	event_image = {
+		video = "unspecific_naval_battle"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	trigger = {
+		# triggered by ironclads JE
+	}
+	immediate = {
+		random_scope_character = {
+			limit = {
+				has_role = admiral
+				commander_military_formation = {
+				   formation_navy_unit_type_fraction = {  
+					   target = unit_type:combat_unit_type_ironclad
+					   value >= 0.2  
+				   }
+			   }
+			}
+			save_scope_as = ironclad_admiral
+		}
+	}
+
+	option = { # 
+		name = military_tech_events.403.a
+		add_modifier = {
+			name = armoured_doctrine
+			months = long_modifier_time
+		}
+	}
+	option = { # 
+		name = military_tech_events.403.b
+		add_modifier = {
+			name = ramming_doctrine
+			months = long_modifier_time
+		}
+	}
+	option = { # 
+		name = military_tech_events.403.c
+		default_option = yes
+		add_modifier = {
+			name = armoured_high_seas_fleet
+			months = long_modifier_time
+		}
+	}
+}
+
+tts_replacement.2 = {	# Replaces naval_tech_events.1 DREADNOUGHTS
+	type = country_event
+	placement = root
+
+	duration = 3
+
+	event_image = {
+		video = "unspecific_naval_battle"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	title = naval_tech_events.1.t
+	desc = naval_tech_events.1.d
+	flavor = naval_tech_events.1.f
+
+	trigger = {
+		# triggered by JE
+	}
+
+	immediate = {
+		random_scope_character = {
+			limit = {
+				has_role = admiral
+				commander_military_formation = {
+				   formation_navy_unit_type_fraction = {  
+					   target = unit_type:combat_unit_type_dreadnought  
+					   value >= 0.2  
+				   }
+			   }
+			}
+			save_scope_as = dreadnought_tech_commander
+		}
+	}
+
+	option = {
+		name = naval_tech_events.1.a
+		add_modifier = {
+			name = fearless_navy # country_prestige_mult
+			months = normal_modifier_time
+		}
+	}
+
+	option = {
+		name = naval_tech_events.1.b
+		default_option = yes
+		add_modifier = {
+			name = not_just_for_show # country_navy_power_projection_mult
+			months = normal_modifier_time
+		}
+	}
+}
+
+tts_replacement.3 = { # Replaces naval_tech_events.3 BATTLESHIPS
+	type = country_event
+	placement = root
+
+	duration = 3
+
+	event_image = {
+		video = "unspecific_naval_battle"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	title = naval_tech_events.3.t
+	desc = naval_tech_events.3.d
+	flavor = naval_tech_events.3.f
+
+	trigger = {
+		# triggered by JE
+	}
+
+	immediate = {
+		random_scope_character = {
+			limit = {
+				has_role = admiral
+				commander_military_formation = {
+				   formation_navy_unit_type_fraction = {  
+					   target = unit_type:combat_unit_type_battleship
+					   value >= 0.2  
+				   }
+			   }
+			}
+			save_scope_as = battleship_tech_commander
+		}
+	}
+
+	option = {
+		name = naval_tech_events.3.a
+		add_modifier = {
+			name = gunship_diplomacy # country_influence_mult
+			months = normal_modifier_time
+		}
+	}
+
+	option = {
+		name = naval_tech_events.3.b
+		default_option = yes
+		add_modifier = {
+			name = mighty_navy # country_navy_power_projection_mult
+			months = normal_modifier_time
+		}
+	}
+
+	option = {
+		name = naval_tech_events.3.c
+		default_option = yes
+		trigger = {
+			has_technology_researched = sea_lane_strategies
+			NOT = { has_technology_researched = battlefleet_tactics }
+			can_research = battlefleet_tactics
+		}
+		add_technology_progress = { progress = 6500 technology = battlefleet_tactics }
+	}
+}
+
+tts_replacement.4 = { # Replaces naval_tech_events.2 DESTROYERS
+	type = country_event
+	placement = root
+
+	duration = 3
+
+	event_image = {
+		video = "unspecific_naval_battle"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	title = naval_tech_events.2.t
+	desc = naval_tech_events.2.d
+	flavor = naval_tech_events.2.f
+
+	trigger = {
+		# triggered by JE
+	}
+
+	immediate = {
+		random_scope_character = {
+			limit = {
+				has_role = admiral
+				commander_military_formation = {
+				   formation_navy_unit_type_fraction = {  
+					   target = unit_type:combat_unit_type_destroyer  
+					   value >= 0.2  
+				   }
+			   }
+			}
+			save_scope_as = destroyer_tech_commander
+		}
+	}
+
+	option = {
+		name = naval_tech_events.2.a
+		add_modifier = {
+			name = safer_convoys # unit_convoy_requirements_mult
+			months = normal_modifier_time
+		}
+	}
+
+	option = {
+		name = naval_tech_events.2.b
+		default_option = yes
+		add_modifier = {
+			name = safer_fleets # unit_navy_defense_mult
+			months = normal_modifier_time
+		}
+	}
+}
+
+tts_replacement.5 = { # replaces naval_tech_events.4 SUBMARINES
+	type = country_event
+	placement = root
+
+	duration = 3
+
+	event_image = {
+		video = "unspecific_steam_ship"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	title = naval_tech_events.4.t
+	desc = naval_tech_events.4.d
+	flavor = naval_tech_events.4.f
+
+	trigger = {
+	}
+
+	immediate = {
+		random_scope_character = {
+			limit = {
+				has_role = admiral
+				commander_military_formation = {
+				   formation_navy_unit_type_fraction = {  
+					   target = unit_type:combat_unit_type_submarine
+					   value >= 0.2  
+				   }
+			   }
+			}
+			save_scope_as = submarine_commander
+		}
+	}
+	
+	option = {
+		name = naval_tech_events.4.a
+		default_option = yes
+		
+		add_modifier = {
+			name = unrestricted_submarine_warfare
+			months = normal_modifier_time
+		}			
+	}
+	
+	option = {
+		name = naval_tech_events.4.b
+		trigger = {
+			NOT = { has_technology_researched = destroyer }
+			can_research = destroyer
+		}
+		add_technology_progress = { progress = 6250 technology = destroyer } # half of total cost
+	}
+
+	option = {
+		name = naval_tech_events.4.c
+		
+		trigger = {
+			scope:submarine_commander = {
+				NOT = { has_trait = expert_convoy_raider }
+			}
+		}
+		
+		scope:submarine_commander = {
+			if = {
+				limit = {
+					has_trait = experienced_convoy_raider
+				}
+				remove_trait = experienced_convoy_raider
+				add_trait = expert_convoy_raider
+			}
+			else_if = {
+				limit = {
+					has_trait = convoy_raider_commander
+				}
+				remove_trait = convoy_raider_commander
+				add_trait = experienced_convoy_raider
+			}
+			else = {
+				add_trait = convoy_raider_commander
+			}
+		}
+	}
+
+	option = {
+		name = naval_tech_events.4.e
+		
+		trigger = {
+			scope:submarine_commander = {
+				NOT = { has_trait = celebrity_commander }
+			}
+		}
+		
+		scope:submarine_commander = {
+			if = {
+				limit = {
+					has_trait = popular_commander
+				}
+				remove_trait = popular_commander
+				add_trait = celebrity_commander
+			}
+			else = {
+				add_trait = popular_commander
+			}
+		}
+	}
+}

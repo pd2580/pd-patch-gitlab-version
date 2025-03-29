@@ -1,0 +1,9 @@
+﻿great_white_fleet = {
+	video = "gfx/event_pictures/great_white_fleet.bk2"
+	audio = "event:/SFX/Events/unspecific/steam_ship"
+}
+
+unspecific_carrier = {
+	video = "gfx/event_pictures/unspecific_carrier.bk2"
+	audio = "event:/SFX/Events/unspecific/airplane"
+}

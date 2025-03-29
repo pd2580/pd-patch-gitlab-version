@@ -1,0 +1,934 @@
+﻿namespace = fleet_review_events
+
+fleet_review_events.1 = { # Set budget
+	type = country_event
+	placement = ROOT
+
+	title = fleet_review_events.1.t
+	desc = fleet_review_events.1.d
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	duration = 3
+
+	immediate = {		
+		set_variable = {
+			name = fleet_review_progress
+			value = 0
+		}
+		set_variable = {
+			name = fleet_review_score
+			value = 0
+		}
+	}
+
+	option = { # Spend as much as we can
+		name = fleet_review_events.1.a
+		default_option = yes
+		hidden_effect = {
+			change_variable = {
+				name = fleet_review_score
+				add = 2
+			}
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+			trigger_event = {
+				id = fleet_review_events.2
+				days = 7
+				popup = yes
+			}
+		}
+		add_modifier = {
+			name = paying_for_fleet_review
+			multiplier = money_amount_multiplier_medium
+			years = 2
+		}
+	}
+	
+	option = { # Spend a moderate amount
+		name = fleet_review_events.1.b
+		hidden_effect = {
+			change_variable = {
+				name = fleet_review_score
+				add = 1
+			}
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+			trigger_event = {
+				id = fleet_review_events.2
+				days = 7
+				popup = yes
+			}
+		}
+		add_modifier = {
+			name = paying_for_fleet_review
+			multiplier = money_amount_multiplier_small
+			years = 2
+		}
+	}
+	
+	option = { # Keep costs at a minimum
+		name = fleet_review_events.1.c		
+		change_variable = {
+			name = fleet_review_progress
+			add = 1
+		}
+		ai_chance = {
+			base = 0
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = fleet_review_events.2
+				days = 7
+				popup = yes
+			}
+		}
+	}
+}
+
+fleet_review_events.2 = { # Invite guest of honor
+	type = country_event
+	placement = ROOT
+
+	title = fleet_review_events.2.t
+	desc = fleet_review_events.2.d
+
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	duration = 3
+
+	immediate = {
+		if = { # Most powerful navy that's friendly to us
+			limit = {
+				any_country = {
+					this != root
+					relations:root >= relations_threshold:amicable
+					country_rank >= rank_value:major_power
+				}
+			}
+			ordered_country = {
+				limit = {
+					this != root
+					this.relations:root >= relations_threshold:amicable
+				}
+				order_by = navy_size
+				max = 1
+				save_scope_as = friendly_nation_1
+			}
+		}
+		else = {
+			ordered_country = {
+				limit = {
+					this != root
+					this.relations:root >= relations_threshold:cordial
+				}
+				order_by = navy_size
+				max = 1
+				save_scope_as = friendly_nation_1
+			}
+		}
+
+		ordered_country = {
+			limit = {
+				trigger_if = {
+					limit = {
+						exists = scope:friendly_nation_1
+					}
+					this != scope:friendly_nation_1
+				}
+				this != root
+				country_rank >= root.country_rank
+			}
+			order_by = this.relations:root
+			max = 1
+			save_scope_as = friendly_nation_2
+		}
+
+		ordered_rival_country = {
+			order_by = navy_size
+			max = 1
+			save_scope_as = rival_country
+		}
+	}
+
+	option = { # Invite friend (powerful friend)
+		name = fleet_review_events.2.a
+		custom_tooltip = fleet_review_events.2.a.tt
+		trigger = {
+			exists = scope:friendly_nation_1
+		}
+		scope:friendly_nation_1 = {
+			save_scope_as = guest_country
+		}
+		hidden_effect = {
+			set_variable = {
+				name = rival_guest
+				value = no
+			}
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+			trigger_event = {
+				id = fleet_review_events.3
+				days = 7
+				popup = yes
+			}
+		}
+	}
+	
+	option = { # invite friend (best friend)
+		name = fleet_review_events.2.b
+		custom_tooltip = fleet_review_events.2.b.tt
+		default_option = yes
+		scope:friendly_nation_2 = {
+			save_scope_as = guest_country
+		}
+		hidden_effect = {
+			set_variable = {
+				name = rival_guest
+				value = no
+			}
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+			trigger_event = {
+				id = fleet_review_events.3
+				days = 7
+				popup = yes
+			}
+		}
+	}
+	
+	option = { # invite our rival
+		name = fleet_review_events.2.c
+		custom_tooltip = fleet_review_events.2.c.tt
+		trigger = {
+			exists = scope:rival_country
+		}
+		scope:rival_country = {
+			save_scope_as = guest_country
+		}
+		hidden_effect = {
+			set_variable = {
+				name = rival_guest
+				value = yes
+			}
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+			trigger_event = {
+				id = fleet_review_events.3
+				days = 7
+				popup = yes
+			}
+		}
+	}
+}
+
+fleet_review_events.3 = { # Review starts: technology level
+	type = country_event
+	placement = ROOT
+
+	title = fleet_review_events.3.t
+	desc = {
+		desc = fleet_review_events.3.d_intro
+		first_valid = {
+			triggered_desc = {
+				desc = fleet_review_events.3.d_impressive
+				trigger = {
+					var:review_tech_score = 2
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.3.d_middle
+				trigger = {
+					var:review_tech_score = 1
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.3.d_disappointing
+				trigger = {
+					var:review_tech_score = 0
+				}
+			}
+		}
+	}
+
+	flavor = {
+		desc = fleet_review_events.3.f_intro
+		first_valid = {
+			triggered_desc = {
+				desc = fleet_review_events.3.f_impressive_friend
+				trigger = {
+					var:rival_guest = no
+					var:review_tech_score = 2
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.3.f_middle_friend
+				trigger = {
+					var:rival_guest = no
+					var:review_tech_score = 1
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.3.f_disappointing_friend
+				trigger = {
+					var:rival_guest = no
+					var:review_tech_score = 0
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.3.f_impressive_rival
+				trigger = {
+					var:rival_guest = yes
+					var:review_tech_score = 2
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.3.f_middle_rival
+				trigger = {
+					var:rival_guest = yes
+					var:review_tech_score = 1
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.3.f_disappointing_rival
+				trigger = {
+					var:rival_guest = yes
+					var:review_tech_score = 0
+				}
+			}
+		}
+	}
+
+	event_image = {
+		video = "great_white_fleet"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	duration = 3
+
+	immediate = {
+		if = {
+			limit = { # Our country has technology that at most 3 others have - the cutting edge.
+				any_country = {
+					navy_tech_level >= root.navy_tech_level
+					count <= 4
+				}
+			}
+			set_variable = {
+				name = review_tech_score
+				value = 2
+				months = 4
+			}
+		}
+
+		else_if = { # There are more countries at the same level, and at most one country above our level
+			limit = {
+				NOT = {
+					any_country = {
+						navy_tech_level > root.navy_tech_level
+						count > 1
+					}
+				}
+			}
+			set_variable = {
+				name = review_tech_score
+				value = 1
+				months = 4
+			}
+		}
+
+		else = { # There's more than 1 country with better tech than ours
+			set_variable = {
+				name = review_tech_score
+				value = 0
+				months = 4
+			}
+		}
+	}
+
+	option = {
+		name = fleet_review_events.3.a
+		trigger = {
+			var:review_tech_score = 2
+		}
+		hidden_effect = {
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+			change_variable = {
+				name = fleet_review_score
+				add = 2
+			}
+			trigger_event = {
+				id = fleet_review_events.4
+				days = 7
+				popup = yes
+			}
+		}
+	}
+
+	option = {
+		name = fleet_review_events.3.b
+		trigger = {
+			var:review_tech_score = 1
+		}
+		hidden_effect = {
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+			change_variable = {
+				name = fleet_review_score
+				add = 1
+			}
+			trigger_event = {
+				id = fleet_review_events.4
+				days = 7
+				popup = yes
+			}
+		}
+	}
+
+	option = {
+		name = fleet_review_events.3.c
+		trigger = {
+			var:review_tech_score = 0
+		}
+		hidden_effect = {
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+			trigger_event = {
+				id = fleet_review_events.4
+				days = 7
+				popup = yes
+			}
+		}
+	}
+}
+
+
+fleet_review_events.4 = { # Review: Navy professionalism
+	type = country_event
+	placement = ROOT
+
+	title = fleet_review_events.4.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = fleet_review_events.4.d_high
+				trigger = {
+					var:navy_professionalism >= HIGH_PROFESSIONALISM_THRESHOLD
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.4.d_medium
+				trigger = {
+					var:navy_professionalism >= MEDIUM_PROFESSIONALISM_THRESHOLD
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.4.d_low
+			}
+		}
+	}
+	flavor = {
+		first_valid = {
+			triggered_desc = {
+				desc = fleet_review_events.4.f_high
+				trigger = {
+					var:navy_professionalism >= HIGH_PROFESSIONALISM_THRESHOLD
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.4.f_medium
+				trigger = {
+					var:navy_professionalism >= MEDIUM_PROFESSIONALISM_THRESHOLD
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.4.f_low
+			}
+		}
+	}
+
+	event_image = {
+		video = "great_white_fleet"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	duration = 3
+
+	option = {
+		name = fleet_review_events.4.a
+		trigger = {
+			var:navy_professionalism >= HIGH_PROFESSIONALISM_THRESHOLD
+		}
+		hidden_effect = {
+			change_variable = {
+				name = fleet_review_score
+				add = 2
+			}
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+			trigger_event = {
+				id = fleet_review_events.5
+				days = 7
+				popup = yes
+			}
+		}
+	}
+	option = {
+		name = fleet_review_events.4.b
+		trigger = {
+			var:navy_professionalism >= MEDIUM_PROFESSIONALISM_THRESHOLD
+			var:navy_professionalism < HIGH_PROFESSIONALISM_THRESHOLD
+		}
+		hidden_effect = {
+			change_variable = {
+				name = fleet_review_score
+				add = 1
+			}
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+			trigger_event = {
+				id = fleet_review_events.5
+				days = 7
+				popup = yes
+			}
+		}
+	}
+	option = {
+		name = fleet_review_events.4.c
+		trigger = {
+			var:navy_professionalism < MEDIUM_PROFESSIONALISM_THRESHOLD
+		}
+		hidden_effect = {
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+			trigger_event = {
+				id = fleet_review_events.5
+				days = 7
+				popup = yes
+			}
+		}
+	}
+}
+
+fleet_review_events.5 = { # The size of our navy.
+	type = country_event
+	placement = ROOT
+	
+	event_image = {
+		video = "great_white_fleet"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	duration = 3
+
+	title = fleet_review_events.5.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = fleet_review_events.5.d_best
+				trigger = {
+					var:review_size_score = 2
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.5.d_good
+				trigger = {
+					var:review_size_score = 1
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.5.d_medium
+				trigger = {
+					var:review_size_score = 0
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.5.d_small
+				trigger = {
+					var:review_size_score = -1
+				}
+			}
+		}
+	}
+
+	flavor = {
+		first_valid = {
+			triggered_desc = {
+				desc = fleet_review_events.5.f_best
+				trigger = {
+					var:review_size_score = 2
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.5.f_good
+				trigger = {
+					var:review_size_score = 1
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.5.f_medium
+				trigger = {
+					var:review_size_score = 0
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.5.f_small
+				trigger = {
+					var:review_size_score = -1
+				}
+			}
+		}
+		triggered_desc = {
+			desc = fleet_review_events.5.f_rival
+			trigger = {
+				var:review_size_score = -1
+				var:rival_guest = yes
+			}
+		}
+	}
+
+	immediate = {
+		if = { # We're the largest navy in the world
+			limit = {
+				NOT = {
+					any_country = {
+						navy_size > root.navy_size
+					}
+				}
+			}
+			set_variable = {
+				name = review_size_score
+				value = 2
+				months = 4
+			}
+		}
+		else_if = { # We're in the top 5 in the world
+			limit = {
+				any_country = {
+					navy_size > root.navy_size
+					count < 5
+				}
+			}
+			set_variable = {
+				name = review_size_score
+				value = 1
+				months = 4
+			}
+		}
+		else_if = { # We have at least 20 ships
+			limit = {
+				navy_size >= 20
+			}
+			set_variable = {
+				name = review_size_score
+				value = 0
+				months = 4
+			}
+		}
+		else = { # We have less than 20 ships
+			set_variable = {
+				name = review_size_score
+				value = -1
+				months = 4
+			}
+		}
+	}
+
+	option = {
+		name = fleet_review_events.5.a
+		trigger = {
+			var:review_size_score = 2
+		}
+		hidden_effect = {
+			change_variable = {
+				name = fleet_review_score
+				add = 2
+			}
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+			trigger_event = {
+				id = fleet_review_events.6
+				days = 7
+				popup = yes
+			}
+		}
+	}
+	option = {
+		name = fleet_review_events.5.b
+		trigger = {
+			var:review_size_score = 1
+		}
+		hidden_effect = {
+			change_variable = {
+				name = fleet_review_score
+				add = 1
+			}
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+			trigger_event = {
+				id = fleet_review_events.6
+				days = 7
+				popup = yes
+			}
+		}
+	}
+	option = {
+		name = fleet_review_events.5.c
+		trigger = {
+			var:review_size_score = 0
+		}
+		hidden_effect = {
+			change_variable = {
+				name = fleet_review_score
+				add = 0
+			}
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+			trigger_event = {
+				id = fleet_review_events.6
+				days = 7
+				popup = yes
+			}
+		}
+	}
+	option = {
+		name = fleet_review_events.5.e
+		trigger = {
+			var:review_size_score = -1
+		}
+		hidden_effect = {
+			change_variable = {
+				name = fleet_review_score
+				add = -1
+			}
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+			trigger_event = {
+				id = fleet_review_events.6
+				days = 7
+				popup = yes
+			}
+		}
+	}
+}
+
+
+fleet_review_events.6 = { # The end of the review
+	type = country_event
+	placement = ROOT
+	
+	event_image = {
+		trigger = {
+			var:fleet_review_score >= 3
+		}
+		video = "great_white_fleet"
+	}
+
+	event_image = {
+		trigger = {
+			var:fleet_review_score < 3
+		}
+		video = "unspecific_politicians_arguing"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	duration = 3
+
+	title = fleet_review_events.6.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = fleet_review_events.6.d_good
+				trigger = {
+					var:fleet_review_score >= 6 # out of the possible 8
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.6.d_medium
+				trigger = {
+					var:fleet_review_score >= 3
+				}
+			}
+			desc = fleet_review_events.6.d_bad
+		}
+	}
+	flavor = {
+		first_valid = {
+			triggered_desc = {
+				desc = fleet_review_events.6.f_good
+				trigger = {
+					var:fleet_review_score >= 6 # out of the possible 8
+				}
+			}
+			triggered_desc = {
+				desc = fleet_review_events.6.f_medium
+				trigger = {
+					var:fleet_review_score >= 3
+				}
+			}
+			desc = fleet_review_events.6.f_bad
+		}
+	}
+
+	option = {
+		name = fleet_review_events.6.a
+		trigger = {
+			var:fleet_review_score >= 6
+		}
+		default_option = yes
+		if = {
+			limit = {
+				var:rival_guest = yes
+			}
+			add_modifier = {
+				name = fleet_review_modifier_rival
+				multiplier = 2
+				years = 10
+				is_decaying = yes
+			}	
+		}
+		else = {
+			change_relations = {
+				country = scope:guest_country
+				value = 20
+			}
+			add_modifier = {
+				name = fleet_review_modifier_no_rival
+				multiplier = 2
+				years = 10
+				is_decaying = yes
+			}	
+			
+		}
+		hidden_effect = {
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+		}
+	}
+
+	option = {
+		name = fleet_review_events.6.b
+		trigger = {
+			var:fleet_review_score >= 3
+			var:fleet_review_score < 6
+		}
+		if = {
+			limit = {
+				var:rival_guest = yes
+			}
+			add_modifier = {
+				name = fleet_review_modifier_rival
+				multiplier = 1
+				years = 10
+				is_decaying = yes
+			}	
+		}
+		else = {
+			change_relations = {
+				country = scope:guest_country
+				value = 10
+			}
+			add_modifier = {
+				name = fleet_review_modifier_no_rival
+				multiplier = 1
+				years = 10
+				is_decaying = yes
+			}	
+			
+		}
+		hidden_effect = {
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+		}
+	}
+
+	option = {
+		name = fleet_review_events.6.c
+		trigger = {
+			var:fleet_review_score < 3
+		}
+		if = {
+			limit = {
+				var:rival_guest = yes
+			}
+			add_modifier = {
+				name = fleet_review_modifier_bad
+				years = 10
+				is_decaying = yes
+			}	
+		}
+		else = {
+			change_relations = {
+				country = scope:guest_country
+				value = -10
+			}
+			
+		}
+		hidden_effect = {
+			change_variable = {
+				name = fleet_review_progress
+				add = 1
+			}
+		}
+	}
+
+}

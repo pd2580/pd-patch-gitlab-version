@@ -1,0 +1,99 @@
+﻿namespace = communist_ships
+
+communist_ships.1 = { # The Soviet Red Fleets
+	type = country_event
+	placement = ROOT
+
+	title = communist_ships.1.t
+	desc = communist_ships.1.d
+	flavor = {
+		triggered_desc = {
+			desc = communist_ships.1.f.start
+		}
+		triggered_desc = {
+			trigger = {
+				has_state_in_state_region = STATE_KIEV
+			}
+			desc = communist_ships.1.f.ukraine
+		}
+		triggered_desc = {
+			trigger = {
+				has_global_variable = paris_commune_happened
+			}
+			desc = communist_ships.1.f.paris
+		}
+		triggered_desc = {
+			trigger = {
+				NOT = {has_global_variable = paris_commune_happened}
+			}
+			desc = communist_ships.1.f.noparis
+		}
+	}
+
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	trigger = {		
+		exists = c:RUS
+		this = c:RUS
+		has_law = law_type:law_council_republic
+		is_at_war = no
+		ig:ig_armed_forces = {
+			OR = {
+				has_ideology = ideology:ideology_proletarian
+				leader = {
+					OR = {
+						has_ideology = ideology:ideology_communist
+						has_ideology = ideology:ideology_vanguardist
+					}
+				}
+			}
+		}
+		NOT = {
+			has_variable = renamed_battleships
+		}
+		navy_size >= 20
+	}
+
+	immediate = {
+		set_variable = renamed_battleships
+		every_interest_group = {
+			limit = {
+				OR = {
+					has_ideology = ideology:ideology_proletarian
+					leader = {
+						OR = {
+							has_ideology = ideology:ideology_communist
+							has_ideology = ideology:ideology_vanguardist
+						}
+					}
+				}
+			}
+			add_to_list = communist_igs_list
+
+		}
+	}
+
+	option = {		
+		name = communist_ships.1.a
+		default_option = yes
+		every_in_list = {
+			list = communist_igs_list
+			add_modifier = {
+				name = renamed_battleships
+				years = 5
+			}
+		}
+		add_loyalists = {
+			value = 0.02
+			strata = poor
+		}
+	}
+}

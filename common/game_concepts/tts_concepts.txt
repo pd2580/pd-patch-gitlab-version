@@ -1,0 +1,15 @@
+﻿concept_navy_professionalism = {
+	texture = "gfx/interface/icons/generic_icons/navyprof.dds"
+}
+
+concept_main_naval_powers = {
+	
+}
+
+concept_naval_armor = {
+	texture = "gfx/interface/icons/military_icons/armor.dds"
+}
+
+concept_naval_pen = {
+	texture = "gfx/interface/icons/military_icons/penetration.dds"
+}

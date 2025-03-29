@@ -1,0 +1,171 @@
+﻿pre_dreadnoughts_decision = {
+	is_shown = { 
+		has_technology_researched = predreadnought_tech
+		NOT = {
+			has_variable = taken_predreadnoughts_decision
+		}
+	}
+	possible = { 
+		predreadnought_trigger = yes
+	}
+	when_taken = { 
+		add_journal_entry = {
+			type = je_predreadnought_tech
+		}
+		add_modifier = {
+			name = developing_predreadnoughts
+			days = 280
+		}
+		set_variable = taken_predreadnoughts_decision
+	}
+	ai_chance = {
+		base = 1
+		modifier = {
+			trigger = {
+				country_rank = rank_value:great_power
+			}
+			add = 100
+		}
+
+		modifier = {
+			trigger = {
+				country_rank = rank_value:major_power
+			}
+			add = 1
+		}
+
+		modifier = {
+			trigger = {
+				taking_loans = yes
+			}
+			add = -2
+		}
+	}
+}
+
+dreadnoughts_decision = {
+	is_shown = {
+		has_technology_researched = dreadnought
+		NOT = {
+			has_variable = taken_dreadnoughts_decision
+		}
+	}
+	possible = {
+		dreadnought_trigger = yes
+	}
+	when_taken = {
+		set_variable = taken_dreadnoughts_decision
+		add_journal_entry = {
+			type = je_dreadnought_tech
+		}
+		add_modifier = {
+			name = developing_dreadnoughts
+			days = 280
+		}
+	}
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				country_rank = rank_value:great_power
+			}
+			add = 100
+		}
+
+		modifier = {
+			trigger = {
+				country_rank = rank_value:major_power
+			}
+			add = 1
+		}
+
+		modifier = {
+			trigger = {
+				taking_loans = yes
+			}
+			add = -1
+		}
+	}
+}
+
+battleships_decision = {
+	is_shown = { 
+		has_technology_researched = battleship_tech
+		NOT = {
+			has_variable = taken_battleships_decision
+		}
+	}
+	possible = { 
+		battleship_trigger = yes
+	}
+	when_taken = { 
+		set_variable = taken_battleships_decision
+		add_journal_entry = {
+			type = je_battleship_tech
+		}
+		add_modifier = {
+			name = developing_battleships
+			days = 280
+		}
+	}
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				country_rank = rank_value:great_power
+			}
+			add = 100
+		}
+
+		modifier = {
+			trigger = {
+				country_rank = rank_value:major_power
+			}
+			add = 1
+		}
+
+		modifier = {
+			trigger = {
+				taking_loans = yes
+			}
+			add = -1
+		}
+	}
+}
+
+carriers_decision = {
+	is_shown = {
+		has_technology_researched = carrier_tech
+		NOR = {
+			has_technology_researched = fleet_carrier_tech
+			has_technology_researched = armored_carrier_tech
+			has_variable = researching_carriers
+		}
+	}
+
+	possible = {
+		has_technology_researched = carrier_tech
+		has_technology_researched = battleship_tech
+		has_technology_researched = military_aviation
+	}
+
+	when_taken = {
+		set_variable = researching_carriers
+		add_journal_entry = {
+			type = je_carrier_tech
+		}
+	}
+
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				country_navy_unit_type_fraction = {
+					target = unit_type:combat_unit_type_experimental_carrier
+					value > 0
+				}
+			}
+			add = 10
+		}
+	}
+}

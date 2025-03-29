@@ -1,0 +1,732 @@
+﻿namespace = navalconference
+
+# The initiator country starts the conference
+navalconference.1 = {
+    type = country_event
+    placement = ROOT
+
+    title = navalconference.1.t
+    desc = navalconference.1.d
+    flavor = navalconference.1.f
+
+    event_image = {
+        video = "gfx/event_pictures/europenorthamerica_capitalists_meeting.bk2"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/capitalists_meeting"
+
+    duration = 3
+
+    icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+    immediate = {
+        law_type:law_extensive_naval_treaty = { 
+            save_scope_as = extensive_law
+        }
+        law_type:law_moderate_naval_treaty = {
+            save_scope_as = moderate_law
+        }
+    }
+
+    option = { # large fleet reduction
+        name = navalconference.1.a
+
+        hidden_effect = {
+            every_in_global_list = {
+                variable = naval_treaty_countries
+                limit = {
+                    NOT = { THIS = scope:naval_conference_host }
+                }
+                trigger_event = { id = navalconference.2 }
+                add_journal_entry = {
+                    type = je_naval_conference_participant
+                }           
+            }
+            add_journal_entry = {
+                type = je_naval_conference_host
+            }
+
+            set_global_variable = {
+                name = treaty_law_var
+                value = law_type:law_extensive_naval_treaty
+            }
+        }
+
+        custom_tooltip = navalconference.1.a.tt
+    }
+
+    option = { # small fleet reduction
+        name = navalconference.1.b
+        default_option = yes
+
+        hidden_effect = {
+            every_in_global_list = {
+                variable = naval_treaty_countries
+                limit = {
+                    NOT = { THIS = scope:naval_conference_host }
+                }
+                add_journal_entry = {
+                    type = je_naval_conference_participant
+                }
+                trigger_event = { id = navalconference.3 }                
+            }
+
+            add_journal_entry = {
+                type = je_naval_conference_host
+            }
+
+            set_global_variable = {
+                name = treaty_law_var
+                value = law_type:law_moderate_naval_treaty
+            }
+        }
+
+        custom_tooltip = navalconference.1.b.tt
+    }
+}
+
+navalconference.2 = { # Other countries receive proposal for large reduction
+    type = country_event
+    placement = ROOT
+
+    title = navalconference.2.t
+    desc = navalconference.2.d
+    flavor = navalconference.2.f
+
+    event_image = {
+        video = "gfx/event_pictures/europenorthamerica_capitalists_meeting.bk2"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/capitalists_meeting"
+
+    immediate = {
+        law_type:law_extensive_naval_treaty = {
+            save_scope_as = treaty_law
+        }
+    }
+
+    duration = 1
+
+    icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+    option = { # Acknowledge
+        name = navalconference.2.a 
+        default_option = yes
+        show_as_tooltip = {
+            add_journal_entry = {
+                type = je_naval_conference_participant
+            }
+        }
+    }
+}
+
+navalconference.3 = { # Other countries receive proposal for small reduction
+    type = country_event
+    placement = ROOT
+
+    title = navalconference.3.t
+    desc = navalconference.3.d
+    flavor = navalconference.3.f
+
+    event_image = {
+        video = "gfx/event_pictures/europenorthamerica_capitalists_meeting.bk2"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/capitalists_meeting"
+
+    duration = 1
+
+    icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+    immediate = {
+        law_type:law_moderate_naval_treaty = {
+            save_scope_as = treaty_law
+        }
+    }
+
+    option = { # Acknowledge
+        name = navalconference.3.a
+        default_option = yes
+        show_as_tooltip = {
+            add_journal_entry = {
+                type = je_naval_conference_participant
+            }
+        }
+    }
+}
+
+navalconference.4 = { # Success!
+    type = country_event
+    placement = ROOT
+    duration = 1
+
+    title = navalconference.4.t
+    desc = navalconference.4.d
+    flavor = navalconference.4.f
+
+    event_image = {
+        video = "gfx/event_pictures/unspecific_signed_contract.bk2"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract"
+
+    icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+    immediate = {
+        random_in_global_list = { # Just for flavor text
+            variable = naval_treaty_countries
+            save_scope_as = event_navy
+        }
+    }
+
+    option = {
+        name = navalconference.4.a
+        default_option = yes
+
+        if = {
+            limit = { 
+                global_var:treaty_law_var = law_type:law_extensive_naval_treaty
+            }
+
+            show_as_tooltip = {
+                activate_law = law_type:law_extensive_naval_treaty
+                add_modifier = {
+                    name = battleship_building_holiday
+                    years = 5
+                }
+                change_infamy = -15
+            }
+        }
+
+        else = {
+            show_as_tooltip = {
+                activate_law = law_type:law_moderate_naval_treaty
+                add_modifier = {
+                    name = battleship_building_holiday
+                    years = 5
+                }
+                change_infamy = -10
+            }
+        }
+
+        hidden_effect = {
+            trigger_event = navalconference.7
+        }
+    }
+}
+
+
+navalconference.5 = { # Failure
+    type = country_event
+    placement = ROOT
+    duration = 1
+    
+    title = navalconference.5.t
+    desc = navalconference.5.d
+    flavor = navalconference.5.f
+
+    icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+    event_image = {
+        video = "gfx/event_pictures/unspecific_politicians_arguing.bk2"
+    }
+
+    immediate = {
+        random_in_global_list = {
+            variable = naval_treaty_countries
+            limit = {
+                NOR = {
+                    has_variable = is_voting_on_treaty
+                    has_variable = is_naval_conference_host
+                }
+            }
+            save_scope_as = rejected_country
+        }
+    }
+
+	on_opened_soundeffect = "event:/SFX/Events/asia/politician_parliament_motion"
+
+    option = {
+        name = navalconference.5.a
+        default_option = yes
+    }
+}
+
+# navalconference.6 = { # Hidden event that triggers the success or failure of the treaty
+#     type = country_event
+#     hidden = yes
+
+#     immediate = {
+
+#         set_global_variable = naval_conference_ended
+
+#         IF = {
+#             limit = {
+#                 NOT = {
+#                     has_global_variable = naval_treaty_rejected
+#                 }
+#             }
+#             every_in_global_list = {
+#                 variable = naval_treaty_countries
+#                 trigger_event = {
+#                     id = navalconference.4
+#                     popup = yes
+#                 }              
+#             }
+
+#         }
+#         ELSE = {
+#             every_in_global_list = {
+#                 variable = naval_treaty_countries
+#                 trigger_event = {
+#                     id = navalconference.5
+#                     popup = yes
+#                 }              
+#             }          
+#         } 
+#     }
+
+# }
+
+navalconference.7 = { #hidden event that actually applies the effects of the treaty
+    type = country_event
+    hidden = yes
+
+    immediate = {
+
+        add_modifier = {
+            name = battleship_building_holiday
+            years = 5
+        }
+
+        IF = {
+            limit = {
+                global_var:treaty_law_var = law_type:law_extensive_naval_treaty
+            }
+
+            change_infamy = -15
+
+            every_scope_state = {
+                limit = {
+                    has_active_building = building_naval_base
+                }
+                set_local_variable = {
+                    name = reducing_number
+                    value = {
+                        value = b:building_naval_base.level
+                        divide = 2
+                        floor = yes
+                        subtract = 20
+                        multiply = -1
+                        min = 0
+                    }
+                }
+
+                add_modifier = {
+                    name = treaty_temp_modifier
+                    multiplier = local_var:reducing_number
+                    days = 1
+                }
+            }
+
+            activate_law = law_type:law_extensive_naval_treaty
+
+        }
+
+        ELSE = {
+
+            change_infamy = -10
+            
+            every_scope_state = {
+                limit = {
+                    has_active_building = building_naval_base
+                }
+                set_local_variable = {
+                    name = reducing_number
+                    value = {
+                        value = b:building_naval_base.level
+                        multiply = 0.75
+                        floor = yes
+                        subtract = 30
+                        multiply = -1
+                        min = 0
+                    }
+                    
+                }
+
+                add_modifier = {
+                    name = treaty_temp_modifier
+                    multiplier = local_var:reducing_number
+                    days = 1
+                }
+            }
+
+            activate_law = law_type:law_moderate_naval_treaty
+
+        }
+    }
+
+}
+
+navalconference.8 = { # Accepting the treaty
+    type = country_event
+    placement = ROOT
+
+    title = navalconference.8.t
+    desc = navalconference.8.d
+
+    event_image = {
+        video = "unspecific_ruler_speaking_to_people"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    duration = 3
+
+    icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+
+    option = { # Accept
+        name = navalconference.8.a
+
+        custom_tooltip = {
+            text = navalconference.8.a.tt
+
+            set_variable = is_voting_on_treaty
+        }
+
+        ai_chance = {
+            base = 1
+        }
+    }
+
+    option = { # Think again
+        name = navalconference.8.b
+
+        default_option = yes
+
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+navalconference.9 = { # Convincing somebody to join the treaty
+    type = country_event
+    placement = ROOT
+
+    title = navalconference.9.t
+    desc = navalconference.9.d
+    flavor = navalconference.9.f
+
+    event_image = {
+        video = "europenorthamerica_capitalists_meeting"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    duration = 3
+
+    icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+    immediate = {
+        save_scope_as = host_country
+    }
+
+    option = { # Offer them an obligation
+        name = navalconference.9.a
+
+        trigger = {
+            NOR = {
+                owes_obligation_to = scope:persuaded_country
+                scope:persuaded_country = {
+                    owes_obligation_to = ROOT
+                }
+            }
+        }
+
+        custom_tooltip = {
+            text = navalconference.9.a.tt
+            scope:persuaded_country = {
+                trigger_event = navalconference.10
+            }
+        }
+
+    } 
+
+    option = { # Forgive an obligation
+        name = navalconference.9.b
+
+        trigger = {
+            is_owed_obligation_by = scope:persuaded_country
+        }
+
+        custom_tooltip = {
+            text = navalconference.9.b.tt
+            scope:persuaded_country = {
+                trigger_event = navalconference.11
+            }
+        }
+    }
+
+    option = { # Bribe them
+        name = navalconference.9.c
+        default_option = yes
+
+        custom_tooltip = {
+            text = navalconference.9.c.tt
+            scope:persuaded_country = {
+                trigger_event = navalconference.12
+            }
+        }
+    }
+}
+
+navalconference.10 = { # Conference host offers an obligation
+    type = country_event
+    placement = ROOT
+
+    title = navalconference.10.t
+    desc = navalconference.10.d
+    flavor = navalconference.10.f
+
+    event_image = {
+        video = "europenorthamerica_capitalists_meeting"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    duration = 2
+
+    icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+    cancellation_trigger = {
+        has_variable = is_voting_on_treaty
+    }
+
+    option = { # Accept
+        name = navalconference.10.a
+
+        set_variable = is_voting_on_treaty
+        
+        add_to_global_variable_list = {
+            name = countries_owed_obligations
+            target = root
+        }
+
+        custom_tooltip = {
+            text = navalconference.10.a.tt
+            scope:host_country = {
+                trigger_event = {
+                    id = navalconference.13
+                    popup = yes
+                }
+            }
+        }
+
+        ai_chance = {
+            base = 1
+        }
+    }
+
+    option = { # Decline
+        name = navalconference.10.b
+        default_option = yes
+
+        hidden_effect = {
+            scope:host_country = {
+                trigger_event = {
+                    id = navalconference.14
+                    popup = yes
+                }
+            }
+        }
+
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+navalconference.11 = { # Conference host offers to forgive our obligation
+    type = country_event
+    placement = ROOT
+
+    title = navalconference.11.t
+    desc = navalconference.11.d
+    flavor = navalconference.11.f
+
+    event_image = {
+        video = "europenorthamerica_capitalists_meeting"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    duration = 2
+
+    icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+    cancellation_trigger = {
+        has_variable = is_voting_on_treaty
+    }
+
+    option = { # Accept
+        name = navalconference.11.a
+
+        set_variable = is_voting_on_treaty
+        
+        add_to_global_variable_list = {
+            name = countries_to_forgive_obligations
+            target = root
+        }
+
+        custom_tooltip = {
+            text = navalconference.11.a.tt
+            scope:host_country = {
+                trigger_event = {
+                    id = navalconference.13
+                    popup = yes
+                }
+            }
+        }
+
+        ai_chance = {
+            base = 1
+        }
+    }
+
+    option = { # Decline
+        name = navalconference.11.b
+        default_option = yes
+
+        hidden_effect = {
+            scope:host_country = {
+                trigger_event = {
+                    id = navalconference.14
+                    popup = yes
+                }
+            }
+        }
+
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+navalconference.12 = { # Conference host offers bribes
+    type = country_event
+    placement = ROOT
+
+    title = navalconference.12.t
+    desc = navalconference.12.d
+    flavor = navalconference.12.f
+
+    event_image = {
+        video = "europenorthamerica_capitalists_meeting"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    duration = 2
+
+    icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+    cancellation_trigger = {
+        has_variable = is_voting_on_treaty
+    }
+
+    option = { # Accept
+        name = navalconference.12.a
+
+        set_variable = is_voting_on_treaty
+        
+        add_to_global_variable_list = {
+            name = countries_to_bribe
+            target = root
+        }
+
+        custom_tooltip = {
+            text = navalconference.12.a.tt
+            scope:host_country = {
+                trigger_event = {
+                    id = navalconference.13
+                    popup = yes
+                }
+            }
+        }
+
+        ai_chance = {
+            base = 1
+        }
+    }
+
+    option = { # Decline
+        name = navalconference.12.b
+        default_option = yes
+
+        hidden_effect = {
+            scope:host_country = {
+                trigger_event = {
+                    id = navalconference.14
+                    popup = yes
+                }
+            }
+        }
+
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+navalconference.13 = { # We've successfully convinced them
+    type = country_event
+    placement = ROOT
+
+    title = navalconference.13.t
+    desc = navalconference.13.d
+
+    event_image = {
+        video = "europenorthamerica_capitalists_meeting"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    duration = 2
+
+    icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+    option = {
+        name = navalconference.13.a
+        default_option = yes
+    }
+
+}
+
+navalconference.14 = { # We failed to convince them
+    type = country_event
+    placement = ROOT
+
+    title = navalconference.14.t
+    desc = navalconference.14.d
+
+    event_image = {
+        video = "europenorthamerica_capitalists_meeting"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    duration = 2
+
+    icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+    option = {
+        name = navalconference.14.a
+        default_option = yes
+    }
+}

@@ -1,0 +1,172 @@
+﻿buy_dreadnoughts_decision = {
+	is_shown = {
+		NOT = {
+			has_technology_researched = turbine_powered_ships_tech
+		}
+		any_country = {
+			has_technology_researched = turbine_powered_ships_tech
+		}
+		NOT = {
+			has_variable = asked_to_buy_dreads
+		}
+		any_scope_state = {
+			has_active_building = building_naval_base
+		}
+	}
+
+	possible = {
+		has_technology_researched = predreadnought_tech
+	}
+
+	when_taken = {		
+		set_variable = asked_to_buy_dreads
+		trigger_event = {
+			id = buying_ships.1
+			popup = yes
+		}
+	}
+
+	ai_chance = {
+		base = 0
+		modifier = { # Less likely take decision if you can research dreadnoughts yourself
+			trigger = {
+				dreadnought_trigger = yes
+			}
+			add = -5
+		}
+
+		modifier = { # Too proud to buy dreadnoughts from somebody else
+			trigger = {
+				country_rank = rank_value:great_power
+			}
+			add = -1
+		}
+
+		modifier = {
+			trigger = {
+				taking_loans = yes
+			}
+			add = -2
+		}
+
+		modifier = { # Countries with a navy too small won't be interested
+			trigger = {
+				navy_size <= 15
+			}
+			add = -1
+		}
+
+		modifier = { # Mid sized powers are likely to buy
+			trigger = {
+				country_rank = rank_value:major_power
+			}
+			add = 2
+		}
+
+		modifier = {
+			trigger = {
+				gold_reserves >= 1000000 # A million pounds to spare on vanity projects 
+			}
+			add = 2
+		}
+
+		modifier = { # If a neighbour has the tech, they're more likely to spread
+		trigger = {
+			any_country = {
+				is_adjacent_to_country = root
+				has_technology_researched = dreadnought
+			}
+		}
+		add = 2
+	}
+
+	}
+
+}
+
+buy_predreadnoughts_decision = {
+	is_shown = {
+		NOR = {
+			has_technology_researched = predreadnought_tech
+			has_technology_researched = dreadnought
+		}
+		any_country = {
+			has_technology_researched = steel_shipbuilding_tech
+		}
+		NOT = {
+			has_variable = asked_to_buy_predreads
+		}
+		any_scope_state = {
+			has_active_building = building_naval_base
+		}
+	}
+
+	possible = {
+		has_technology_researched = ironclad_tech
+	}
+
+	when_taken = {		
+		set_variable = asked_to_buy_predreads
+		trigger_event = {
+			id = buying_ships.5
+			popup = yes
+		}
+	}
+
+	ai_chance = {
+		base = 0
+		modifier = { # Less likely take decision if you can research dreadnoughts yourself
+			trigger = {
+				predreadnought_trigger = yes
+			}
+			add = -5
+		}
+
+		modifier = { # Too proud to buy dreadnoughts from somebody else
+			trigger = {
+				country_rank = rank_value:great_power
+			}
+			add = -1
+		}
+
+		modifier = {
+			trigger = {
+				taking_loans = yes
+			}
+			add = -2
+		}
+
+		modifier = { # Countries with a navy too small won't be interested
+			trigger = {
+				navy_size <= 15
+			}
+			add = -1
+		}
+
+		modifier = { # Mid sized powers are likely to buy
+			trigger = {
+				country_rank = rank_value:major_power
+			}
+			add = 2
+		}
+
+		modifier = {
+			trigger = {
+				gold_reserves >= 500000 
+			}
+			add = 2
+		}
+
+		modifier = { # If a neighbour has the tech, they're more likely to spread
+			trigger = {
+				any_country = {
+					is_adjacent_to_country = root
+					has_technology_researched = predreadnought_tech
+				}
+			}
+			add = 2
+		}
+
+	}
+
+}

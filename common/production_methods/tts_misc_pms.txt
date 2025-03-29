@@ -1,0 +1,10 @@
+﻿pm_battleship_import = {
+	texture = "gfx/interface/icons/production_method_icons/turbine_military_shipbuilding.dds"
+	
+	building_modifiers = {
+		level_scaled = {
+			goods_output_tts_capital_ships_add = 20
+			building_employment_clerks_add = 100
+		}
+	}
+}

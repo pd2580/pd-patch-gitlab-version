@@ -1,0 +1,9 @@
+﻿namespace = dreadnought_race
+
+dreadnought_race.1 = {
+	type = country_event
+	placement = ROOT
+	duration = 3
+
+	
+}

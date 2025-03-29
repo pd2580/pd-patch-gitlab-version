@@ -1,0 +1,7 @@
+﻿ahistorical_ship_prefixes = {
+	default = ahistorical_prefixes_allowed
+
+	ahistorical_prefixes_allowed = {}
+
+	no_ahistorical_prefixes = {}
+}

@@ -1,0 +1,94 @@
+﻿namespace = mahan_events
+
+mahan_events.1 = {
+	type = country_event
+	placement = ROOT
+	title = mahan_events.1.t
+	desc = mahan_events.1.d
+	flavor = mahan_events.1.f
+
+	duration = 3
+
+	gui_window = event_window_1char_tabloid
+	
+	left_icon = scope:mahan_scope
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	trigger = {
+		exists = c:USA
+		this = c:USA
+
+		NOT = {
+			has_variable = mahan_variable
+		}
+
+		OR = {
+			is_researching_technology = sea_lane_strategies
+			has_technology_researched = sea_lane_strategies
+		}
+
+		year >= 1880
+		year <= 1895
+	}
+
+	immediate = {
+		create_character = {
+			template = mahan_template
+			save_scope_as = mahan_scope
+		}
+		set_variable = mahan_variable
+	}
+
+	option = {
+		name = mahan_events.1.a
+
+		default_option = yes
+
+		scope:mahan_scope = {
+			set_as_interest_group_leader = yes
+		}
+
+		if = {
+			limit = {
+				NOT = { has_technology_researched = sea_lane_strategies }
+			}
+			add_technology_progress = {
+				technology = sea_lane_strategies
+				progress = 4000
+			}
+		}
+
+		add_modifier = {
+			name = developed_mahanian_thought
+			years = 10
+		}
+
+		set_variable = {
+			name = rejected_minimal_navy
+			value = yes
+		}
+
+		if = {
+			limit = {
+				has_law = law_type:law_minimal_navy
+			}
+			activate_law = law_type:law_no_naval_treaty
+		}
+
+		ai_chance = {
+			base = 4
+		}
+	}
+
+	option = {
+		name = mahan_events.1.b
+
+		ai_chance = {
+			base = 1
+		}
+	}
+}

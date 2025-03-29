@@ -1,0 +1,62 @@
+﻿tts_headgear = {
+	usage = game
+
+	brunel_headgear = {
+        dna_modifiers = {
+            accessory = {
+                mode = add
+                gene = headgear
+                template = european_tophat
+                range = { 0 1 } # For the randomness to work correctly
+            }
+        }
+        weight = {
+            base = 0
+            modifier = {
+               add = 1000
+               brunel_clothes_trigger = yes
+            }
+        }
+    }
+}
+
+tts_clothes = {
+	usage = game
+
+	brunel_clothes = {
+        dna_modifiers = {
+            accessory = {
+                mode = add
+                gene = shirt
+                template = european_shirt
+                range = { 0.9 1 } # For the randomness to work correctly
+            }
+
+            accessory = {
+                mode = add
+                gene = legwear
+                template = european_legwear
+                range = { 0 1 } # For the randomness to work correctly
+            }
+
+            accessory = {
+                mode = remove
+                gene = civilian_coats
+            }
+            
+            accessory = {
+                mode = remove
+                gene = waistcoats
+            }
+        } 
+        weight = {
+            base = 0
+            modifier = {
+                add = 1000
+                brunel_clothes_trigger = yes
+            }
+        }
+    }
+
+
+}

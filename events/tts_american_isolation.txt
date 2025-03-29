@@ -1,0 +1,178 @@
+﻿namespace = american_isolation
+
+american_isolation.1 = {
+	type = country_event
+	placement = ROOT
+
+    title = american_isolation.1.t
+    desc = american_isolation.1.d
+    flavor = american_isolation.1.f
+
+	event_image = {
+		video = "gfx/event_pictures/southamerica_aristocrats.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/southamerica/aristocrats"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+
+	trigger = {
+		exists = c:USA
+		root = c:USA
+
+		NOT = {
+			has_journal_entry = je_acw_countdown
+		}
+
+		is_at_war = no
+		is_diplomatic_play_committed_participant = no
+
+		NOT = {
+			has_law = law_type:law_minimal_navy
+		}
+
+		NOT = {
+			has_variable = rejected_minimal_navy
+		}
+
+		ig:ig_rural_folk = {
+			is_in_government = yes
+			is_powerful = yes
+		}
+	}
+
+	option = { # Downsize our navy
+		name = american_isolation.1.a
+		custom_tooltip = american_isolation.1.a.tt
+
+		default_option = yes
+
+		activate_law = law_type:law_minimal_navy
+
+		add_loyalists = {
+			strata = poor
+			value = 0.05
+		}
+
+		ai_chance = {
+			base = 1
+		}
+
+		set_variable = {
+			name = recently_set_minimal_navy
+			years = 10
+		}
+	}
+
+	option = { # Keep our navy
+		name = american_isolation.1.b
+
+		add_radicals = {
+			strata = poor
+			value = 0.1
+		}
+
+		ai_chance = {
+			base = 0
+
+			modifier = {
+				trigger = {
+					ig:ig_armed_forces = {
+						is_powerful = yes
+						is_in_government = yes
+					}
+				}
+				add = 3
+			}
+		}
+	}
+}
+
+american_isolation.2 = {
+	type = country_event
+	placement = ROOT
+
+    title = american_isolation.2.t
+    desc = american_isolation.2.d
+    flavor = american_isolation.2.f
+
+	event_image = {
+		video = "gfx/event_pictures/southamerica_aristocrats.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/southamerica/aristocrats"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+
+	cooldown = {
+		years = 5
+	}
+
+	trigger = {
+		NOT = { has_variable = recently_set_minimal_navy }
+		has_law = law_type:law_minimal_navy
+
+		any_interest_group = {
+			OR = {
+				is_powerful = yes
+				is_in_government = yes
+			}
+
+			OR = {
+				leader = {
+					has_ideology = ideology:ideology_jingoist_leader
+				}
+				has_ideology = ideology:ideology_jingoist
+			}
+		}
+	}
+
+	immediate = {
+		random_interest_group = {
+			limit = {
+				OR = {
+					is_powerful = yes
+					is_in_government = yes
+				}
+
+				leader = {
+					has_ideology = ideology:ideology_jingoist_leader
+				}
+			}
+
+			save_scope_as = jingoist_ig
+
+			leader = {
+				save_scope_as = jingoist_leader
+			}
+		}
+	}
+
+	option = { # Get out of isolationism
+		name = american_isolation.2.a
+		default_option = yes
+
+		set_variable = rejected_minimal_navy
+
+		activate_law = law_type:law_no_naval_treaty
+
+		ai_chance = {
+			base = 2
+		}
+
+	}
+
+	option = { # Keep the status quo
+		name = american_isolation.2.b
+
+		ai_chance = {
+			base = 1
+		}
+	}
+}

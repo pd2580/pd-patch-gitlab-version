@@ -1,0 +1,93 @@
+﻿namespace = shipyard_events
+
+shipyard_events.1 = {
+	type = country_event
+	placement = scope:naval_yard_state
+
+	title = shipyard_events.1.t
+	desc = shipyard_events.1.d
+	flavor = shipyard_events.1.f
+
+	event_image = {
+		video = "unspecific_factory_closed"
+	}
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+
+	cooldown = {
+		years = 5
+	}
+
+	trigger = {
+		number_of_shipyards < {
+			value = number_of_naval_yards
+			divide = 2
+		}
+	}
+
+	immediate = {
+		ordered_scope_state = {
+			limit = {
+				AND = {
+					has_building = building_military_shipyards
+					OR = {
+						NOT = { has_building = building_shipyards }
+						b:building_military_shipyards.level > b:building_shipyards.level
+					}
+				}
+			}
+			order_by = b:building_military_shipyards.level
+			max = 1
+			save_scope_as = naval_yard_state
+			every_scope_building = {
+				limit = {
+					is_building_type = building_military_shipyards
+				}
+				save_scope_as = naval_yard_building
+			}
+
+		}
+	}
+
+	option = { # Ignore it
+		name = shipyard_events.1.a
+		default_option = yes
+		scope:naval_yard_state = {
+			add_modifier = {
+				name = lacking_specialized_workers
+				years = 5
+			}
+		}
+		ai_chance = {
+			base = 3
+		}
+	}
+
+	option = { # Protect it at any cost
+		name = shipyard_events.1.b
+		add_modifier = {
+			name = paying_extra_for_shipyard_workers
+			years = 5
+			multiplier = { # costs 1000 per level
+				scope:naval_yard_state = {
+					b:building_military_shipyards = {
+						value = level
+					}
+				}
+			}
+		}
+		ai_chance = {
+			base = 1
+			modifier = {
+				trigger = {
+					has_law = law_type:law_laissez_faire
+				}
+				add = -1
+			}
+		}
+	}
+}

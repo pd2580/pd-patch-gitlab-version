@@ -1,0 +1,14 @@
+﻿increase_navyprof_tooltip = {
+	first = INCREASE_NAVY_PROFESSIONALISM
+	global = INCREASE_NAVY_PROFESSIONALISM
+}
+
+decrease_navyprof_tooltip = {
+	first = DECREASE_NAVY_PROFESSIONALISM
+	global = DECREASE_NAVY_PROFESSIONALISM
+}
+
+add_naval_innovations_tooltip = {
+	first = ADD_NAVAL_INNOVATIONS
+	global = ADD_NAVAL_INNOVATIONS
+}

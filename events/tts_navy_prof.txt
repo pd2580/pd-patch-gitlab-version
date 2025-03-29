@@ -1,0 +1,975 @@
+﻿namespace = navy_professionalism
+
+navy_professionalism.1 = {
+	type = country_event
+	hidden = yes
+
+	immediate = {
+		IF = {
+			limit = {
+				NOT = {
+					has_variable = navy_professionalism
+				}
+			}
+			set_variable = {
+				name = navy_professionalism
+				value = 0
+			}
+		}
+
+		change_variable = {
+			name = navy_professionalism
+			add = navyprof_monthly_change
+		}
+
+
+		clamp_variable = {
+			name = navy_professionalism
+			max = 100
+			min = 0
+		}
+
+		# This part should always be near the end, after every change in professionalism has been made and the number is final
+		update_navprof_modifiers = yes
+	}
+}
+
+navy_professionalism.2 = { # Navy Professionalism - crew side
+    type = country_event
+    placement = ROOT
+
+    title = navy_professionalism.2.t
+    desc = navy_professionalism.2.d
+
+    event_image = {
+        video = "gfx/event_pictures/europenorthamerica_capitalists_meeting.bk2"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/capitalists_meeting"
+
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	immediate = {
+		random_country = {
+			limit = {				
+				country_rank >= rank_value:major_power
+				relations:root >= relations_threshold:cordial
+				var:navy_professionalism > root.var:navy_professionalism
+			}
+			save_scope_as = attache_country
+		}
+	}
+
+	option = { # comprehensive training program
+		name = navy_professionalism.2.a
+		increase_navy_professionalism = {
+			AMOUNT = 40
+		}
+		trigger = {
+			NOT = {
+				has_modifier = paying_for_naval_training
+			}
+			money_amount_multiplier_large > 0
+		}
+		add_modifier = {
+			name = paying_for_naval_training
+			years = 3
+			multiplier = money_amount_multiplier_large
+		}
+		update_navprof_modifiers = yes
+		ai_chance = {
+			base = 1
+			modifier = {
+				trigger = {
+					taking_loans = yes
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					navyprof_want_difference < 30
+				}
+				add = -10
+			}
+		}
+	}
+
+	option = { # purge corrupt officers
+		name = navy_professionalism.2.b
+		increase_navy_professionalism = {
+			AMOUNT = 40
+		}
+		trigger = {
+			ig:ig_armed_forces = {
+				NOT = {
+					has_modifier = purged_corrupt_officers
+				}
+			}
+		}
+		ig:ig_armed_forces = {
+			add_modifier = {
+				name = purged_corrupt_officers
+				years = 5
+			}	
+		}
+		update_navprof_modifiers = yes
+		ai_chance = {
+			base = 1
+			modifier = {
+				trigger = {
+					navyprof_want_difference < 30
+				}
+				add = -10
+			}
+		}
+	}
+
+	option = { # enforce discipline
+		name = navy_professionalism.2.c
+		default_option = yes
+		increase_navy_professionalism = {
+			AMOUNT = 10
+		}
+		ig:ig_armed_forces = {
+			add_modifier = {
+				name = enforcing_discipline
+				years = 1
+			}
+		}
+		update_navprof_modifiers = yes
+		ai_chance = {
+			base = 2
+		}
+	}
+
+	option = { # send naval attaché
+		name = navy_professionalism.2.e
+		increase_navy_professionalism = {
+			AMOUNT = 5
+		}
+		trigger = {
+			exists = scope:attache_country
+			NOT = {
+				has_variable = recently_sent_attache
+			}
+		}
+		change_relations = {
+			country = scope:attache_country
+			value = 10
+		}
+		set_variable = {
+			name = recently_sent_attache
+			years = 2
+		}
+		update_navprof_modifiers = yes
+		ai_chance = {
+			base = 1
+		}
+	}
+
+}
+
+navy_professionalism.3 = { # Navy Professionalism - equipment side
+    type = country_event
+    placement = ROOT
+
+    title = navy_professionalism.3.t
+    desc = navy_professionalism.3.d
+
+    event_image = {
+        video = "gfx/event_pictures/europenorthamerica_capitalists_meeting.bk2"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/capitalists_meeting"
+
+    duration = 3
+
+	immediate = {
+		random_country = {
+			limit = {				
+				country_rank >= rank_value:major_power
+				relations:root >= relations_threshold:cordial
+				var:navy_professionalism > root.var:navy_professionalism
+			}
+			save_scope_as = lender_country
+		}
+	}
+
+	option = { # Invest on the best equipment
+		name = navy_professionalism.3.a
+		trigger = {
+			money_amount_multiplier_large > 0
+		}
+		increase_navy_professionalism = {
+			AMOUNT = 30
+		}
+		add_modifier = {
+			name = paying_for_naval_equipment
+			years = 3
+			multiplier = money_amount_multiplier_large
+		}
+		ai_chance = {
+			base = 1
+			modifier = {
+				trigger = {
+					taking_loans = yes
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					navyprof_want_difference < 20
+				}
+				add = -10
+			}
+		}
+	}
+
+	option = { # Invest on not-so-great equipment
+		name = navy_professionalism.3.b
+		increase_navy_professionalism = {
+			AMOUNT = 15
+		}
+		add_modifier = {
+			name = paying_for_naval_equipment
+			years = 3
+			multiplier = money_amount_multiplier_medium
+		}
+		ai_chance = {
+			base = 1
+		}
+		default_option = yes
+	}
+
+	option = { # Ask to borrow some other country's equipment
+		name = navy_professionalism.3.c
+		increase_navy_professionalism = {
+			AMOUNT = 5
+		}
+		trigger = {
+			exists = scope:lender_country
+		}
+		change_relations = {
+			country = scope:lender_country
+			value = -5
+		}
+	}
+}
+
+
+navy_professionalism.4 = { # Ruler takes funds from the navy
+	type = country_event
+	placement = ROOT
+	title = navy_professionalism.4.t
+	desc = navy_professionalism.4.d
+
+	cooldown = {
+		years = 5
+	}
+
+	duration = 3
+
+	gui_window = event_window_1char_tabloid
+	
+	left_icon = ruler
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	trigger = {
+		any_scope_state = {
+			is_coastal = yes
+		}
+		OR = {
+			has_law = law_type:law_autocracy
+			has_law = law_type:law_oligarchy
+		}
+		ruler = {
+			OR = {
+				has_trait = grifter
+				has_trait = bandit
+				has_trait = opium_addiction
+				has_trait = hedonist
+				has_trait = cocaine_addiction
+			}
+		}
+	}
+
+	option = { # Let him get away with it
+		name = navy_professionalism.4.a
+		default_option = yes
+
+		decrease_navy_professionalism = {
+			AMOUNT = 20
+		}
+	}
+
+	option = { # Stop him somehow
+		name = navy_professionalism.4.b
+
+		add_modifier = {
+			name = stopped_ruler_from_diverting_funds
+			years = 3
+		}
+	}
+}
+
+navy_professionalism.5 = { # Admiral takes funds from the navy
+	type = country_event
+	placement = ROOT
+	title = navy_professionalism.5.t
+	desc = {
+		desc = navy_professionalism.5.d
+		triggered_desc = {
+			trigger = {
+				scope:corrupt_admiral = {
+					OR = {						
+						has_trait = opium_addiction
+						has_trait = alcoholic
+						has_trait = cocaine_addiction
+						has_trait = expensive_tastes
+					}
+				}
+			}
+			desc = navy_professionalism.5.d2
+		}
+	}
+
+	cooldown = {
+		years = 5
+	}
+
+	duration = 3
+
+	gui_window = event_window_1char_tabloid
+	
+	left_icon = scope:corrupt_admiral
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	trigger = {
+		any_scope_state = {
+			is_coastal = yes
+		}
+		any_scope_admiral = {
+			OR = {
+				has_trait = grifter
+				has_trait = bandit
+				has_trait = opium_addiction
+				has_trait = alcoholic
+				has_trait = cocaine_addiction
+			}
+		}
+	}
+
+	immediate = {
+		random_scope_admiral = {
+			limit = {
+				OR = {
+					has_trait = grifter
+					has_trait = bandit
+					has_trait = opium_addiction
+					has_trait = alcoholic
+					has_trait = cocaine_addiction
+				}
+			}
+			save_scope_as = corrupt_admiral
+		}
+	}
+
+	option = { # Let him get away
+		name = navy_professionalism.5.a
+		default_option = yes
+
+		decrease_navy_professionalism = {
+			AMOUNT = 10
+		}		
+	}
+
+	option = { # kill him
+		name = navy_professionalism.5.b
+		increase_navy_professionalism = {
+			AMOUNT = 5
+		}
+
+		scope:corrupt_admiral = {
+			kill_character = yes
+		}		
+	}
+
+}
+
+navy_professionalism.6= { # Torpedo juice
+	type = country_event
+	placement = ROOT
+	title = navy_professionalism.6.t
+	desc = navy_professionalism.6.d
+	# flavor = navy_professionalism.6.f
+
+	cooldown = {
+		years = 5
+	}
+
+	event_image = {
+	    video = "gfx/event_pictures/unspecific_naval_battle.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/naval_battle"
+
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	trigger = {
+		OR = {
+			country_navy_unit_type_fraction = {
+				target = unit_type:combat_unit_type_torpedo_boat
+				value > 0
+			}
+			country_navy_unit_type_fraction = {
+				target = unit_type:combat_unit_type_destroyer
+				value > 0
+			}
+			country_navy_unit_type_fraction = {
+				target = unit_type:combat_unit_type_submarine
+				value > 0
+			}
+			country_navy_unit_type_fraction = {
+				target = unit_type:combat_unit_type_scout_cruiser
+				value > 0
+			}
+		}
+		var:navy_professionalism < MEDIUM_PROFESSIONALISM_THRESHOLD
+	}
+
+	# weight_multiplier = {
+	# 	base = 1
+	# 	modifier = {
+	# 		trigger = {
+	# 			is_at_war = yes
+	# 		}
+	# 		factor = 4
+	# 	}
+	# }
+
+	option = { # Let them get away
+		name = navy_professionalism.6.a
+	
+		add_modifier = {
+			name = torpedo_juice
+			years = 5
+		}
+	}
+
+	option = { # Poison the fuel
+		name = navy_professionalism.6.b
+		default_option = yes
+
+		add_modifier = {
+			name = laced_torpedo_juice
+			years = 5
+		}
+	}
+}
+
+navy_professionalism.7 = { # Faulty shells
+	type = country_event
+	placement = ROOT
+	title = navy_professionalism.7.t
+	desc = navy_professionalism.7.d
+	# flavor = navy_professionalism.7.f
+
+	cooldown = {
+		years = 5
+	}
+
+	event_image = {
+	    video = "gfx/event_pictures/unspecific_naval_battle.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/naval_battle"
+
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	trigger = {
+		OR = {
+			country_navy_unit_type_fraction = {
+				target = unit_type:combat_unit_type_predreadnought
+				value > 0
+			}
+			country_navy_unit_type_fraction = {
+				target = unit_type:combat_unit_type_dreadnought
+				value > 0
+			}
+			country_navy_unit_type_fraction = {
+				target = unit_type:combat_unit_type_battleship
+				value > 0
+			}
+			country_navy_unit_type_fraction = {
+				target = unit_type:combat_unit_type_scout_cruiser
+				value > 0
+			}
+		}
+		var:navy_professionalism < LOW_PROFESSIONALISM_THRESHOLD
+	}
+
+	# weight_multiplier = {
+	# 	base = 1
+	# 	modifier = {
+	# 		trigger = {
+	# 			is_at_war = yes
+	# 		}
+	# 		factor = 4
+	# 	}
+	# }
+
+	option = { # Let them get away with it
+		name = navy_professionalism.7.a
+		default_option = yes
+
+		add_modifier = {
+			name = faulty_shells
+			years = 5
+		}
+
+		ai_chance = {
+			base = 1
+		}
+	}
+
+	option = { # Prosecute them harshly
+		name = navy_professionalism.7.b
+		ai_chance = {
+			base = 0
+		}
+
+		ig:ig_armed_forces = {
+			add_modifier = {
+				name = prosecuting_ammunition_thieves
+				years = 5
+			}
+		}
+
+		add_modifier = {
+			name = replacing_defective_shells
+			years = 5
+			multiplier = money_amount_multiplier_medium
+		}
+	}
+}
+
+navy_professionalism.8 = { # Sailors protest against harsh discipline
+	type = country_event
+	placement = ROOT
+	title = navy_professionalism.8.t
+	desc = navy_professionalism.8.d
+	# flavor = navy_professionalism.8.f
+
+	cooldown = {
+		years = 5
+	}
+
+	event_image = {
+	    video = "gfx/event_pictures/unspecific_naval_battle.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/naval_battle"
+
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	trigger = {
+		any_scope_building = {
+			is_building_type = building_naval_base
+		}
+
+		var:navy_professionalism < MEDIUM_PROFESSIONALISM_THRESHOLD
+	}
+
+	option = { # Beatings will continue until morale improves
+		name = navy_professionalism.8.a
+		default_option = yes
+
+		add_modifier = {
+			name = enforcing_harsh_discipline
+			years = 5
+		}
+		
+	}
+	
+	option = { # Relax discipline somewhat
+		name = navy_professionalism.8.b
+
+		add_modifier = {
+			name = relaxed_discipline
+			years = 5
+		}
+	}
+}
+
+navy_professionalism.9 = { #Admiral gets promoted through corrupt means
+	type = country_event
+	placement = root
+
+	title = navy_professionalism.9.t
+	desc = navy_professionalism.9.d
+	flavor = navy_professionalism.9.f
+
+	duration = 3
+
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:corrupt_admiral
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	cooldown = {
+		years = 5
+	}
+
+	trigger = {
+		any_scope_admiral = {
+			commander_rank <= 4
+			OR = {
+				has_trait = charismatic
+				has_trait = ambitious
+				has_trait = inspirational_orator
+				has_trait = demagogue
+				has_trait = firebrand
+				has_trait = experienced_diplomat
+				has_trait = masterful_diplomat
+			}
+			NOR = {
+				has_trait = experienced_naval_commander
+				has_trait = expert_naval_commander
+				has_trait = experienced_convoy_raider
+				has_trait = expert_convoy_raider
+				has_trait = dockyard_master
+			}
+		}
+	}
+
+	immediate = {
+		random_scope_admiral = {
+			weight = {
+				base = 1
+				modifier = {
+					trigger = {
+						popularity >= 25
+					}
+					add = 1
+				}
+				modifier = {
+					trigger = {
+						popularity >= 50
+					}
+					add = 1
+				}
+				modifier = {
+					trigger = {
+						popularity >= 75
+					}
+					add = 1
+				}
+			}
+			limit = {
+				commander_rank <= 4
+				OR = {
+					has_trait = charismatic
+					has_trait = ambitious
+					has_trait = inspirational_orator
+					has_trait = demagogue
+					has_trait = firebrand
+					has_trait = experienced_diplomat
+					has_trait = masterful_diplomat
+				}
+				NOR = {
+					has_trait = experienced_naval_commander
+					has_trait = expert_naval_commander
+					has_trait = experienced_convoy_raider
+					has_trait = expert_convoy_raider
+					has_trait = dockyard_master
+				}
+			}
+
+			save_scope_as = corrupt_admiral
+			interest_group = {
+				save_scope_as = admiral_ig
+			}
+		}
+	}
+
+	option = { # Promote him
+		default_option = yes
+		name = navy_professionalism.9.a
+
+		scope:corrupt_admiral = {
+			add_commander_rank = 1
+		}
+		decrease_navy_professionalism = {
+			AMOUNT = 10
+		}
+	}
+
+	option = {
+		name = navy_professionalism.9.b
+
+		scope:admiral_ig = {
+			add_modifier = {
+				name = refused_to_promote_admiral
+				years = 3
+			}
+		}
+
+		add_modifier = {
+			name = didnt_honor_admirals_favor
+			years = 3
+		}
+	}
+}
+
+navy_professionalism.10 = { # Generalized breakdown of discipline
+	type = country_event
+	placement = ROOT
+	title = navy_professionalism.10.t
+	desc = navy_professionalism.10.d
+	flavor = navy_professionalism.10.f
+
+	cooldown = {
+		years = 5
+	}
+
+	event_image = {
+	    video = "gfx/event_pictures/unspecific_naval_battle.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/naval_battle"
+
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	trigger = {
+		var:navy_professionalism < LOW_PROFESSIONALISM_THRESHOLD	
+		any_scope_building = {
+			is_building_type = building_naval_base
+		}
+	}
+
+	option = { # Intensify punishments
+		name = navy_professionalism.10.a
+		default_option = yes
+
+		add_modifier = {
+			name = cracking_down_on_mutineers
+			years = 5
+		}
+	}
+
+	option = { # Just wait it out
+		name = navy_professionalism.10.b
+
+		add_modifier = {
+			name = navy_discipline_breakdown
+			years = 5
+		}
+
+		decrease_navy_professionalism = {
+			AMOUNT = 10
+		}
+	}
+}
+
+
+navy_professionalism.11 = { # Navy Professionalism - officer purge
+    type = country_event
+    placement = ROOT
+
+    title = navy_professionalism.11.t
+    desc = navy_professionalism.11.d
+
+    event_image = {
+        video = "africa_leader_arguing"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	trigger = {
+		var:navy_professionalism < LOW_PROFESSIONALISM_THRESHOLD # Only for very low professionalism, this is a drastic measure
+	}
+
+	immediate = {
+		random_scope_admiral = {
+			limit = {
+				popularity < 0
+			}
+			save_scope_as = scapegoat_admiral
+		}
+	}
+
+	option = { # Purge everybody
+		name = navy_professionalism.11.a
+		ig:ig_armed_forces = {
+			add_modifier = {
+				name = officer_purge
+				years = 5
+				is_decaying = yes
+			}
+		}
+		add_modifier = {
+			name = restructuring_navy
+			years = 5
+			is_decaying = yes
+		}
+		custom_tooltip = {
+			text = navy_professionalism.11.a.tt
+			every_scope_admiral = {
+				kill_character = {
+					hidden = yes
+				}
+			}
+		}
+		increase_navy_professionalism = {
+			AMOUNT = 60
+		}
+	}
+
+	option = { # Minor cleanup of lower ranks
+		name = navy_professionalism.11.b
+		default_option = yes
+		ig:ig_armed_forces = {
+			add_modifier = {
+				name = officer_reshuffle
+				years = 3
+			}
+		}
+		increase_navy_professionalism = {
+			AMOUNT = 15
+		}
+	}
+
+	option = { # Purge just one scapegoat
+		name = navy_professionalism.11.c
+		trigger = {
+			exists = scope:scapegoat_admiral
+		}
+		scope:scapegoat_admiral = {
+			interest_group = {
+				add_modifier = {
+					name = fired_admiral
+					years = 3
+				}
+			}
+			custom_tooltip = {
+				text = navy_professionalism.11.c.tt
+				kill_character = {
+					hidden = yes
+				}
+			}
+		}
+	}
+
+}
+
+navy_professionalism.12 = { # Navy Professionalism - naval exercise
+    type = country_event
+    placement = ROOT
+
+    title = navy_professionalism.12.t
+    desc = navy_professionalism.12.d
+
+    event_image = {
+        video = "unspecific_naval_battle"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    duration = 3
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	trigger = {
+		NOT = {
+			has_variable = recently_held_exercise
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = recently_held_exercise
+			years = 5
+		}
+	}
+
+	option = { # Largest exercise possible
+		name = navy_professionalism.12.a
+		trigger = {
+			money_amount_multiplier_large > 0
+		}
+		add_modifier = {
+			name = conducting_major_naval_exercises
+			months = 6
+		}
+		add_modifier = {
+			name = paying_for_naval_exercises
+			years = 2
+			multiplier = money_amount_multiplier_large
+		}
+		increase_navy_professionalism = {
+			AMOUNT = 30
+		}
+	}
+
+	option = { # Medium scale exercise
+		name = navy_professionalism.12.b
+		default_option = yes
+		add_modifier = {
+			name = conducting_naval_exercises
+			months = 6
+		}
+		add_modifier = {
+			name = paying_for_naval_exercises
+			years = 2
+			multiplier = money_amount_multiplier_medium
+		}
+		increase_navy_professionalism = {
+			AMOUNT = 15
+		}
+	}
+
+	option = { # Minor training
+		name = navy_professionalism.12.c
+		add_modifier = {
+			name = paying_for_naval_exercises
+			years = 2
+			multiplier = money_amount_multiplier_small
+		}
+		increase_navy_professionalism = {
+			AMOUNT = 5
+		}
+	}
+
+}

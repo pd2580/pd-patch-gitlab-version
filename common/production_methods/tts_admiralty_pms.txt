@@ -1,0 +1,78 @@
+﻿pm_tts_admiralty_base = {
+	texture = "gfx/interface/icons/production_method_icons/admiralty_base.dds"
+	country_modifiers = {
+		workforce_scaled = {
+			country_navy_professionalism_admiralty_add = 20
+		}
+	}
+
+	building_modifiers = {
+		level_scaled = {
+			building_employment_officers_add = 1000
+			building_employment_bureaucrats_add = 2000
+		}
+	}
+}
+
+pm_tts_traditionalist_admiralty = {
+	texture = "gfx/interface/icons/production_method_icons/traditionalist_staff.dds"
+	disallowing_laws = {
+		law_council_republic
+	}
+
+	country_modifiers = {
+		workforce_scaled = {
+			interest_group_ig_landowners_approval_add = 2
+			interest_group_ig_landowners_pol_str_mult = 0.05
+		}
+	}
+
+	building_modifiers = {
+		level_scaled = {
+			building_employment_aristocrats_add = 1000
+		}
+	}
+}
+
+
+pm_tts_naval_veterans_admiralty = {
+	texture = "gfx/interface/icons/production_method_icons/naval_veterans.dds"
+	country_modifiers = {
+		workforce_scaled = {
+			interest_group_ig_armed_forces_approval_add = 2
+			interest_group_ig_armed_forces_pol_str_mult = 0.05
+		}
+	}
+
+	building_modifiers = {
+		level_scaled = {
+			building_employment_officers_add = 1000
+		}
+	}
+}
+
+
+pm_tts_technical_expertise_admiralty = {
+	texture = "gfx/interface/icons/production_method_icons/technical_expertise.dds"
+
+	unlocking_technologies = {
+		dreadnought
+	}
+
+	disallowing_laws = {
+		law_peasant_levies
+	}
+
+	country_modifiers = {
+		workforce_scaled = {
+			country_military_tech_research_speed_mult = 0.05
+		}
+	}
+
+	building_modifiers = {
+		level_scaled = {
+			building_employment_engineers_add = 1500
+		}
+	}
+}
+

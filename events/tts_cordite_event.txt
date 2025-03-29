@@ -1,0 +1,360 @@
+﻿namespace = cordite
+
+# Should we relax safety standards?
+cordite.1 = {
+    type = country_event
+    placement = ROOT
+
+    title = cordite.1.t
+    desc = cordite.1.d
+    flavor = cordite.1.f
+
+	event_image = {
+	    video = "gfx/event_pictures/unspecific_naval_battle.bk2"
+	}
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/capitalists_meeting"
+
+    icon = "gfx/interface/icons/event_icons/event_fire.dds"
+
+
+    trigger = {
+        has_technology_researched = predreadnought_tech
+        NOT = {
+            has_variable = cordite_event_got
+        }
+    }
+
+    duration = 3
+
+    immediate = {
+        set_variable = cordite_event_got
+    }
+
+    option = { # Relax procedures
+        name = cordite.1.a
+
+        add_modifier = {
+            name = relaxed_safety_procedures
+            years = 20
+        } 
+        custom_tooltip = cordite.1.a.tt
+
+        ai_chance = {
+            base = 10
+        }
+    }
+
+    option = { # Safety first
+        name = cordite.1.b
+
+        default_option = yes
+
+        ai_chance = {
+            base = 30
+            modifier = {
+                trigger = {
+                    exists = c:GBR
+                    c:GBR = ROOT
+                }                
+                add = -28
+            }
+        }
+    }
+}
+
+# Ship ends up blowing up
+# Triggered by on_action, 1 in 20 chance
+cordite.2 = {
+    type = country_event
+    placement = ROOT
+
+    title = cordite.2.t
+    desc = cordite.2.d
+    flavor = cordite.2.f
+
+	event_image = {
+	    video = "gfx/event_pictures/unspecific_naval_battle.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/naval_battle"
+
+    duration = 3
+
+    trigger = {
+        has_modifier = relaxed_safety_procedures
+        scope:battle = {
+            any_combat_unit = {
+                owner = ROOT
+                OR = {
+                    has_unit_type = unit_type:combat_unit_type_predreadnought
+                    has_unit_type = unit_type:combat_unit_type_dreadnought
+                }
+            }
+        }        
+    }
+
+    icon = "gfx/interface/icons/event_icons/event_skull.dds"
+
+    immediate = {
+        remove_modifier = relaxed_safety_procedures
+        add_modifier = {
+            name = exploding_ships
+            days = 14
+        }
+    }
+    
+    option = {
+        name = cordite.2.a
+        show_as_tooltip = {
+            remove_modifier = relaxed_safety_procedures
+            add_modifier = {
+                name = exploding_ships
+                days = 14
+            }
+            custom_tooltip = cordite.2.a.tt
+        }
+    }
+}
+
+cordite.3 = { # Ship explodes in port
+    type = country_event
+    placement = ROOT
+
+    title = cordite.3.t
+    desc = cordite.3.d
+    flavor = cordite.3.f
+
+	event_image = {
+	    video = "gfx/event_pictures/unspecific_naval_battle.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/naval_battle"
+
+    duration = 3
+
+    icon = "gfx/interface/icons/event_icons/event_skull.dds"
+
+    trigger = {
+        has_modifier = relaxed_safety_procedures
+        NOT = {
+            has_variable = recently_had_cordite_explosion
+        }
+    }
+
+    immediate = {
+        set_variable = recently_had_cordite_explosion
+
+        random_scope_building = {
+            limit = {
+                is_building_type = building_naval_base
+            }
+            save_scope_as = exploding_naval_base
+            state = {
+                save_scope_as = exploding_state
+            }
+        }
+
+        root = {
+            save_scope_as = exploding_country
+        }
+
+        if = {
+            limit = {
+                any_country = {
+                    this != ROOT
+                    relations:root <= 0
+                    is_subject = no
+                    OR = { # The scapegoat either has a state ROOT claims, or has a subject in a region they're interested in
+                        any_state = {
+                            owner = prev
+                            has_claim_by = root
+                        }
+                        any_subject_or_below = {
+                            is_direct_subject_of = prev
+                            root = {
+                                has_interest_marker_in_region = prev.capital.region
+                            }
+                        }   
+                    }
+                    navy_size <= root.navy_size
+                    country_rank >= rank_value:minor_power
+                    country_rank < rank_value:great_power # Hopefully not starting a major war 
+                }
+            }  
+            random_country = {
+                limit = {
+                    this != ROOT
+                    relations:root <= 0
+                    is_subject = no
+                    OR = { # The scapegoat either has a state ROOT claims, or has a subject in a region they're interested in
+                        any_state = {
+                            owner = prev
+                            has_claim_by = root
+                        }
+                        any_subject_or_below = {
+                            is_direct_subject_of = prev
+                            root = {
+                                has_interest_marker_in_region = prev.capital.region
+                            }
+                        }   
+                    }
+                    navy_size <= root.navy_size
+                    country_rank >= rank_value:minor_power
+                    country_rank < rank_value:great_power # Hopefully not starting a major war 
+                }
+                save_scope_as = scapegoat_country
+            }
+        }
+    }
+
+    option = { # Maybe the explosive is not as safe as we thought
+        name = cordite.3.a
+
+        scope:exploding_state = {
+            add_modifier = {
+                name = battleship_explosion_state
+                months = 5
+            }
+        }
+
+        scope:exploding_naval_base = {
+            add_modifier = {
+                name = battleship_explosion_building
+                months = 5
+            }
+        }
+
+        remove_modifier = relaxed_safety_procedures
+    }
+
+    option = { # just ignore the problem
+        name = cordite.3.b
+
+        scope:exploding_state = {
+            add_modifier = {
+                name = battleship_explosion_state
+                months = 5
+            }
+        }
+
+        scope:exploding_naval_base = {
+            add_modifier = {
+                name = battleship_explosion_building
+                months = 5
+            }
+        }
+
+        add_radicals = {
+            value = 0.05
+        }
+    }
+
+    option = { # Blame somebody else
+        name = cordite.3.c
+
+        trigger = {
+            exists = scope:scapegoat_country
+        }
+
+        scope:exploding_state = {
+            add_modifier = {
+                name = battleship_explosion_state
+                months = 5
+            }
+        }
+
+        scope:exploding_naval_base = {
+            add_modifier = {
+                name = battleship_explosion_building
+                months = 5
+            }
+        }
+
+        change_relations = {
+            country = scope:scapegoat_country
+            value = -50
+        }
+
+        if = {
+            limit = {
+                scope:scapegoat_country = {
+                    any_scope_state = {
+                        has_claim_by = root
+                    }
+                }
+            }
+            scope:scapegoat_country = {
+                random_scope_state = {
+                    limit = {
+                        has_claim_by = root
+                    }
+                    save_scope_as = wargoal_state
+                }
+            }
+            create_diplomatic_play = {
+                type = dp_return_state
+                target_state = scope:wargoal_state
+            }   
+        }
+
+        else_if = {
+            limit = {
+                scope:scapegoat_country = {
+                    any_subject_or_below = {
+                        is_direct_subject_of = prev
+                        root = {
+                            has_interest_marker_in_region = prev.capital.region
+                        }
+                    }
+                }
+            }
+
+            scope:scapegoat_country = {
+                random_subject_or_below = {
+                    limit = {
+                        root = {
+                            has_interest_marker_in_region = prev.capital.region
+                        }
+                    }
+                    save_scope_as = target_subject
+                }
+            }
+
+            root = {
+                create_diplomatic_play = {
+                    type = dp_transfer_subject
+                    target_country = scope:target_subject
+                }
+            }
+        }
+
+        else = {
+            create_diplomatic_play = {
+                type = dp_humiliation
+                target_country = scope:scapegoat_country
+            }
+        }
+
+        hidden_effect = {
+            set_secret_goal = {
+                country = scope:scapegoat_country
+                secret_goal = conquer
+            }
+        }
+
+        every_country = {
+            limit = {
+                OR = {
+                    has_overlapping_interests = root
+                    has_overlapping_interests = scope:scapegoat_country
+                }
+            }
+            post_notification = battleship_explosion_notification
+        }
+    }
+
+}

@@ -1,0 +1,37 @@
+﻿# navyprof_gui = {
+# 	effect = {
+# 		if = {
+# 			limit = {
+# 				var:navy_professionalism >= HIGH_PROFESSIONALISM_THRESHOLD
+# 			}
+# 			add_modifier = {
+# 				name = high_navy_prof_modifier
+# 				days = 0
+# 			}
+# 		}
+# 		else_if = {
+# 			limit = {
+# 				var:navy_professionalism >= MEDIUM_PROFESSIONALISM_THRESHOLD
+# 			}
+# 			add_modifier = {
+# 				name = medium_navy_prof_modifier
+# 				days = 0
+# 			}
+# 		}
+# 		else_if = {
+# 			limit = {
+# 				var:navy_professionalism >= LOW_PROFESSIONALISM_THRESHOLD
+# 			}
+# 			add_modifier = {
+# 				name = low_navy_prof_modifier
+# 				days = 0
+# 			}
+# 		}
+# 		else = {
+# 			add_modifier = {
+# 				name = very_low_navy_prof_modifier
+# 				days = 0
+# 			}
+# 		}
+# 	}
+# }

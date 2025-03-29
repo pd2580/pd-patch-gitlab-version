@@ -2789,7 +2789,7 @@ principle_sovereign_wealth_fund_1 = {
 	}
 
 	member_modifier = {
-		country_gold_reserve_limit_mult = 1
+		country_loan_interest_rate_mult = -0.02
 	}
 	
 	ai_weight = {
@@ -2839,7 +2839,8 @@ principle_sovereign_wealth_fund_2 = {
 	}
 
 	member_modifier = {
-		country_gold_reserve_limit_mult = 2
+		country_loan_interest_rate_mult = -0.05
+		country_company_throughput_bonus_add = 0.05
 	}
 	
 	ai_weight = {
@@ -2862,8 +2863,9 @@ principle_sovereign_wealth_fund_3 = {
 	}
 
 	member_modifier = {
-		country_gold_reserve_limit_mult = 2
-		country_interest_from_gold_reserves_bool = yes
+		building_nationalization_investment_return_add = 
+		country_company_throughput_bonus_add = 0.05
+		state_bureaucrats_investment_pool_efficiency_mult = 0.2
 	}
 	
 	ai_weight = {

@@ -1,0 +1,398 @@
+﻿je_naval_conference={
+    icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+    group = je_group_foreign_affairs
+
+    is_shown_when_inactive = {
+        has_technology_researched = dreadnought
+        any_country = {
+            count >= 3
+            has_technology_researched = battleship_tech
+        }
+        NOT = {
+            has_global_variable = naval_conference_started
+        }
+    }
+
+    status_desc = {
+        first_valid = {
+            triggered_desc = {
+                trigger = {
+                    has_global_variable = naval_conference_started
+                }
+                desc = je_naval_conference_ongoing
+            }
+            desc = je_naval_conference_status
+        }
+    }
+
+    possible = {
+        custom_tooltip = {
+            text = is_main_naval_power_tooltip
+            is_target_in_global_variable_list = {
+                name = main_naval_powers
+                target = THIS
+            }
+        }
+        any_country = {
+            count >= 3
+            has_technology_researched = battleship_tech
+        }
+        has_technology_researched = battleship_tech
+        hidden_trigger = {
+            NOT = {
+                has_global_variable = naval_conference_started
+            }            
+        }
+    } 
+
+    immediate = {
+        
+    }
+
+
+    on_complete = {
+
+    }
+
+    scripted_button = naval_conference_button
+
+    invalid = {
+        hidden_trigger = {
+            has_global_variable = naval_conference_started
+        }
+    }
+
+    complete = {
+        hidden_trigger = {
+            has_global_variable = naval_conference_started
+        }
+    }
+
+    timeout=3650
+}
+
+je_naval_conference_host = {
+    icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+    group = je_group_foreign_affairs
+
+    complete = {
+        custom_tooltip = {
+            text = je_naval_conference_complete
+            has_global_variable = naval_conference_ended
+        }
+    }
+
+    on_timeout = {
+        trigger_event = {
+            id = navalconference.5
+        }
+    }
+
+    scripted_button = convince_treaty_country_1_button
+    scripted_button = convince_treaty_country_2_button
+    scripted_button = convince_treaty_country_3_button
+    scripted_button = convince_treaty_country_4_button
+    scripted_button = convince_treaty_country_5_button
+    scripted_button = convince_treaty_country_6_button
+    scripted_button = convince_treaty_country_7_button
+
+    timeout = 365
+
+    should_be_pinned_by_default = yes
+
+    on_weekly_pulse = {
+        effect = {
+            if = {
+                limit = {
+                    any_in_global_list = {
+                        variable = naval_treaty_countries
+                        count = all
+                        OR = {
+                            has_variable = is_voting_on_treaty
+                            has_variable = is_naval_conference_host
+                        }
+                    }
+                }
+                fulfil_naval_conference_bargains = yes
+                every_in_global_list = {
+                    variable = naval_treaty_countries
+                    trigger_event = {
+                        id = navalconference.4
+                        popup = yes
+                    }              
+                }
+                set_global_variable = naval_conference_ended
+            }
+        }
+    }
+}
+
+je_naval_conference_participant = {
+    icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+    group = je_group_foreign_affairs
+
+    complete = {
+        custom_tooltip = {
+            text = je_naval_conference_complete
+            has_global_variable = naval_conference_ended
+        }
+    }
+
+    status_desc = {
+        first_valid = {
+            triggered_desc = {
+                trigger = {
+                    has_variable = is_voting_on_treaty
+                }
+                desc = je_naval_conference_participant_status_voted
+            }
+            desc = je_naval_conference_participant_status_waiting
+        }
+    }
+
+    scripted_button = vote_yes_on_treaty_button
+
+    timeout = 365
+
+    should_be_pinned_by_default = yes
+}
+ 
+# je_south_american_dreadnoughts = {
+#     icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+#     is_shown_when_inactive = {
+#         is_player = yes 
+#         OR = {
+#             AND = {
+#                 exists = c:CHL
+#                 c:CHL = ROOT
+#             }
+#             AND = {
+#                 exists = c:BRZ
+#                 c:BRZ = ROOT
+#             }            
+#             AND = {
+#                 exists = c:ARG
+#                 c:ARG = ROOT
+#             }            
+#         }
+#         any_country = {
+#             has_technology_researched = dreadnought
+#         }
+
+#     }
+
+#     possible = {
+#         OR = {
+#             AND = {
+#                 exists = c:CHL
+#                 c:CHL = ROOT
+#             }
+#             AND = {
+#                 exists = c:BRZ
+#                 c:BRZ = ROOT
+#             }            
+#             AND = {
+#                 exists = c:ARG
+#                 c:ARG = ROOT
+#             }            
+#         }
+#         any_country = {
+#             count >= 2
+#             has_technology_researched = dreadnought
+#         }
+#     }
+
+#     immediate = {
+        
+#     }
+
+#     complete = {
+        
+#     }
+
+#     on_complete = {
+        
+#     }
+# }
+
+
+je_two_power_standard = {
+    icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+    group = je_group_foreign_affairs
+
+    immediate = {
+        if = {
+            limit = {
+                navy_size <= sum_two_powers
+            }
+            set_variable = {
+                name = two_power_standard_met
+                value = no
+            }
+        }
+        else = {
+            set_variable = {
+                name = two_power_standard_met
+                value = yes
+            }
+        }
+    }
+
+
+    status_desc = {
+        first_valid = {
+            triggered_desc = {
+                desc = je_two_power_standard_met 
+                trigger = {
+                    var:two_power_standard_met = yes                  
+                }
+            }
+            desc = je_two_power_standard_not_met
+        }
+
+    }
+
+    on_weekly_pulse = {
+        effect = {
+            ig:ig_armed_forces = {
+                remove_modifier = meeting_two_power_standard
+                remove_modifier = not_meeting_two_power_standard
+            }
+
+            IF = {
+                limit = { sum_two_powers <= navy_size }
+
+                set_variable = {
+                    name = two_power_standard_met
+                    value = yes
+                }
+                ig:ig_armed_forces = {
+                    add_modifier = {
+                        name = meeting_two_power_standard
+                    }
+                }
+            }
+
+            ELSE = {
+                set_variable = {
+                    name = two_power_standard_met
+                    value = no
+                }
+                ig:ig_armed_forces = {
+                    add_modifier = {
+                        name = not_meeting_two_power_standard
+                    }
+                }
+            }
+        }
+    }
+
+    fail = {
+        custom_tooltip = {
+            text = je_two_power_standard_fail
+            has_variable = abandoned_two_power_standard
+        }        
+    }
+
+    scripted_button = leave_two_power_standard_button
+
+    should_be_pinned_by_default = yes
+}
+
+je_american_modernization = {
+    icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+    group = je_group_internal_affairs
+
+    immediate = {
+        set_variable = {
+            name = navy_goal
+            value = {
+                add = navy_size
+                multiply = 3.2
+            }
+        }
+    }
+
+    complete = {
+        scope:journal_entry = {
+            is_goal_complete = yes
+        }
+        country_navy_unit_type_fraction = {
+            target = unit_type:combat_unit_type_predreadnought
+            value > 0.1
+        }
+    }
+
+    on_complete = {
+        trigger_event = {
+            id = usa_jealousy.3
+            popup = yes
+        }
+        remove_variable = navy_goal
+    }
+
+    on_timeout = {
+        trigger_event = {
+            id = usa_jealousy.4
+            popup = yes
+        }
+        remove_variable = navy_goal
+    }
+
+    current_value = {
+        value = navy_size
+    }
+
+    goal_add_value = {
+        value = navy_size
+        multiply = 2
+    }
+
+    progressbar = yes
+
+    on_weekly_pulse = {
+        effect = {
+            if = {
+                limit = {
+                    is_ai = yes
+                    has_technology_researched = predreadnought_tech
+                    number_of_naval_bases < var:navy_goal
+                }
+                random_scope_state = {
+                    limit = {
+                        is_coastal = yes
+                    }
+                    state_region = {
+                        save_scope_as = new_formation_state
+                    }
+                    region = {
+                        save_scope_as = new_formation_region
+                    }
+                }
+                create_military_formation = {
+                    hq_region = scope:new_formation_region
+                    type = fleet
+                    combat_unit = {
+                        type = unit_type:combat_unit_type_predreadnought
+                        state_region = scope:new_formation_state
+                        count = 5
+                    }
+                }
+            }
+        }
+    }
+
+    invalid = {
+        NOT = {
+            c:USA ?= this
+        }
+    }
+    
+    timeout = 1825 # 5 years
+}

@@ -1,0 +1,114 @@
+﻿increase_navy_professionalism = {
+	custom_description = {
+		text = increase_navyprof_tooltip
+		value = $AMOUNT$
+		add_modifier = {
+			name = navy_professionalization_effort
+			multiplier = $AMOUNT$
+			years = 3
+		}
+	}
+}
+
+decrease_navy_professionalism = {
+	custom_description = {
+		text = decrease_navyprof_tooltip
+		value = $AMOUNT$
+		add_modifier = {
+			name = eroding_navy_professionalism
+			multiplier = $AMOUNT$
+			years = 3
+		}
+	}
+}
+
+update_navprof_modifiers = {
+	hidden_effect = {
+		remove_modifier = high_navy_prof_modifier
+		remove_modifier = medium_navy_prof_modifier
+		remove_modifier = low_navy_prof_modifier
+		remove_modifier = very_low_navy_prof_modifier
+
+		if = {
+			limit = {
+				var:navy_professionalism >= HIGH_PROFESSIONALISM_THRESHOLD
+			}
+			add_modifier = {
+				name = high_navy_prof_modifier
+			}
+		}
+		else_if = {
+			limit = {
+				var:navy_professionalism >= MEDIUM_PROFESSIONALISM_THRESHOLD
+			}
+			add_modifier = {
+				name = medium_navy_prof_modifier
+			}
+		}
+		else_if = {
+			limit = {
+				var:navy_professionalism >= LOW_PROFESSIONALISM_THRESHOLD
+			}
+			add_modifier = {
+				name = low_navy_prof_modifier
+			}
+		}
+		else = {
+			add_modifier = {
+				name = very_low_navy_prof_modifier
+			}
+		}
+	}
+}
+
+add_naval_innovations = {
+	custom_description = {
+		text = add_naval_innovations_tooltip
+		value = $AMOUNT$
+		change_variable = {
+			name = naval_innovations
+			add = $AMOUNT$
+		}
+	}
+}
+
+fulfil_naval_conference_bargains = {
+	every_in_global_list = {
+		variable = countries_owed_obligations
+		root = {
+			set_owes_obligation_to = {
+				country = prev
+				setting = yes
+			}
+		}
+	}
+
+	every_in_global_list = {
+		variable = countries_to_forgive_obligations
+		set_owes_obligation_to = {
+			country = root
+			setting = no
+		}
+	}
+
+	every_in_global_list = {
+		variable = countries_to_bribe
+		add_modifier = {
+			name = receiving_naval_conference_bribes
+			years = 1
+		}
+	}
+
+	add_modifier = {
+		name = paying_naval_conference_bribes
+		multiplier = {
+			value = {
+				every_in_global_list = {
+					variable = countries_to_bribe
+					add = 1
+				}
+			}
+		}
+		years = 1
+	}
+}
