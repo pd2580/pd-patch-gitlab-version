@@ -13,7 +13,7 @@
 state_trait_difficult_terrain = {
 	icon = "gfx/interface/icons/state_trait_icons/difficult_terrain.dds"
 
-	disabling_technologies = { "dynamite" }
+	disabling_technologies = { "nitroglyecerin" }
 
 	modifier = {
 		state_construction_mult = -0.1

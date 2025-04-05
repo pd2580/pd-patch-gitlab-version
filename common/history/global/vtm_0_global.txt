@@ -109,7 +109,7 @@ GLOBAL = {
 	# Revolution Safety Check
 	every_country = {
 		limit = {
-			total_population <= 100000
+			total_population <= 500000
 		}
 		set_variable = revolution_safety_check_var
 		set_immune_to_revolutions = yes
