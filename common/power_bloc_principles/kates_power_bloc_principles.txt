@@ -1,4 +1,4 @@
-﻿######### TRADE LEAGUE UNIQUE
+######### TRADE LEAGUE UNIQUE
 
 ### DEREGULATION
 
@@ -1438,7 +1438,7 @@ principle_direct_oversight_3 = {
 	}
 
 	non_leader_modifier = {
-		country_law_enactment_imposition_success_add = 0.3
+		country_leader_has_law_enactment_success_mult = 0.1
 	}
 
 	member_modifier = {
@@ -2789,7 +2789,7 @@ principle_sovereign_wealth_fund_1 = {
 	}
 
 	member_modifier = {
-		country_loan_interest_rate_mult = -0.02
+		building_nationalization_investment_return_add = 0.25
 	}
 	
 	ai_weight = {
@@ -2839,8 +2839,8 @@ principle_sovereign_wealth_fund_2 = {
 	}
 
 	member_modifier = {
-		country_loan_interest_rate_mult = -0.05
 		country_company_throughput_bonus_add = 0.05
+		building_nationalization_investment_return_add = 0.25
 	}
 	
 	ai_weight = {
@@ -2863,9 +2863,9 @@ principle_sovereign_wealth_fund_3 = {
 	}
 
 	member_modifier = {
-		building_nationalization_investment_return_add = 
 		country_company_throughput_bonus_add = 0.05
-		state_bureaucrats_investment_pool_efficiency_mult = 0.2
+		building_nationalization_investment_return_add = 0.25
+		state_bureaucrats_investment_pool_contribution_add = 0.2
 	}
 	
 	ai_weight = {

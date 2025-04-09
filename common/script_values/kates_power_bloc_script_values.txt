@@ -206,8 +206,8 @@
 
 	if = {
 		limit = {
-			has_game_rule = setting_kates_power_bloc_rule_late_founding_mandates_enabled
-			modifier:power_bloc_free_mandates_from_reform = 0
+			has_game_rule = kates_power_bloc_rule_late_founding_mandates_enabled
+			modifier:power_bloc_free_mandates_from_reform < 1
 			power_bloc_mandates_plus_principle_levels <= kates_late_founding_mandates
 			kates_late_founding_mandates >= 1
 			NOT = {

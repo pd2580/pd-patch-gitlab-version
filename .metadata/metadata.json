@@ -1,12 +1,13 @@
 {
-  "name" : "PD Patch",
-	"id" : "",
-  "version" : "",
-  "supported_game_version" : "",
-  "short_description" : "",
-  "tags" : [],
-  "relationships" : [],
-  "game_custom_data" : {
-    "multiplayer_synchronized" : true
-  }
+    "game_custom_data": {
+        "multiplayer_synchronized": true
+    },
+    "id": "",
+    "name": "PD Patch",
+    "picture": "thumbnail.png",
+    "relationships": [],
+    "short_description": "Reworks Power Bloc identities and Principles and more",
+    "supported_game_version": "1.8.*",
+    "tags": [],
+    "version": "1.1.4"
 }
